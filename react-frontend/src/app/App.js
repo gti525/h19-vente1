@@ -17,7 +17,7 @@ class App extends Component {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Le code de la branche Vincent.
+            Le code de la branche Philippe.
           </a>
         </header>
       </div>
