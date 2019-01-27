@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 
-class HomePage extends Component {
+class Sports extends Component {
   render() {
     return (
       <div>
-          <p>Accueil</p>
+          <p>Sports</p>
       </div>
     );
   }
 }
 
-export default HomePage;
+export default Sports;
