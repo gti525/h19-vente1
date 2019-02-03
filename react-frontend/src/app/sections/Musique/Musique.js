@@ -4,19 +4,23 @@ import Evenement from "../Evenement/Evenement.js";
 class Musique extends Component {
   constructor(props) {
     super(props);
-    this.state = { products: [] };
-    this.state.products[0] = { name: "Musique 0", price: 0, quantity: 999};
-    this.state.products[1] = { name: "Musique 1", price: 0, quantity: 999};
-    this.state.products[2] = { name: "Musique 2", price: 0, quantity: 999};
-  }
-  
+    this.state = { evenements: [] };
+
+    this.state.evenements[0] = { idUnique: "mus000", jolieImage: "image.bmp", nom: "Événement musical",
+    date: Date("2015-03-25T12:00:00Z"), lieu: "QuelquePart, QC", type: "musique", enVedette: false };
+    this.state.evenements[1] = { idUnique: "mus001", jolieImage: "image.bmp", nom: "Événement musical",
+    date: Date("2015-03-25T12:00:00Z"), lieu: "QuelquePart, QC", type: "musique", enVedette: true };
+    this.state.evenements[2] = { idUnique: "mus002", jolieImage: "image.bmp", nom: "Événement musical",
+    date: Date("2015-03-25T12:00:00Z"), lieu: "QuelquePart, QC", type: "musique", enVedette: false };
+  } 
+
   render() {
-    var { products } = this.state;
-    var renderProducts = () => {
-      if (products.length === 0) {
+    var { evenements } = this.state
+    var renderEvenements = () => {
+      if (evenements.length === 0) {
         return null;
       }
-      return products.map(product => <Evenement {...product} key={product.name}/>);
+      return evenements.map(evenement => <Evenement {...evenement} key={evenement.idUnique}/>);
     };
     return (
       <div>
@@ -25,13 +29,13 @@ class Musique extends Component {
           <table className="table">
             <thead>
               <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Price</th>
-                <th scope="col">Quantity on Hand</th>
-                <th />
+                <th scope="col">Image</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Date</th>
+                <th scope="col">Lieu</th>
               </tr>
             </thead>
-            <tbody>{renderProducts()}</tbody>
+            <tbody>{renderEvenements()}</tbody>
           </table>
         </div>
       </div>
