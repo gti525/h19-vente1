@@ -3,28 +3,6 @@ import { Modal, Button } from "react-bootstrap";
 
 class Evenement extends Component {constructor(props) {
     super(props);
-    this.state = {
-      idUnique: "id_00",
-      jolieImage: "Une jolie image",
-      nom: "Un Evenement",
-      date: Date("2015-03-25T12:00:00Z"),
-      lieu: "QuelquePart, QC",
-      type: "Musique",
-      enVedette: false,
-      evenementModal: false,
-      siegesDispo: []
-    };
-  }
-  componentDidMount() {
-    this.setState({ idUnique: this.props.idUnique });
-    this.setState({ jolieImage: this.props.jolieImage });
-    this.setState({ nom: this.props.nom });
-    this.setState({ date: this.props.date });
-    this.setState({ lieu: this.props.lieu });
-    this.setState({ type: this.props.type });
-    this.setState({ enVedette: this.props.enVedette });
-    this.setState({ evenementModal: this.props.evenementModal });
-    this.setState({ siegesDispo: this.props.siegesDispo });
   }
 
   handleSieges = e => {
@@ -38,14 +16,15 @@ class Evenement extends Component {constructor(props) {
   };
 
   render() {
+    const { idUnique, jolieImage, nom, date, lieu, type, enVedette, evenementModal, siegesDispo } = this.props;
     return (
       <tr>
-        <td>{this.state.jolieImage}</td><td>{this.state.nom}</td>
-        <td>{this.state.date}</td><td>{this.state.lieu}</td>
+        <td>{jolieImage}</td><td>{nom}</td>
+        <td>{date}</td><td>{lieu}</td>
         <td>
         <Button variant="primary" onClick={() => this.setState({ evenementModal: true })}>Acheter</Button>
         </td>
-        <Modal show={this.state.evenementModal}>
+        <Modal show={evenementModal}>
           <Modal.Header>
             <Modal.Title>Acheter Billet</Modal.Title>
           </Modal.Header>

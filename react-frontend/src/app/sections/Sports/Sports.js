@@ -4,33 +4,26 @@ import Evenement from "../Evenement/Evenement.js";
 class Sports extends Component {
   constructor(props) {
     super(props);
-    this.state = { evenements: [] };
+    this.state = { eventList: [] };
 
-    this.state.evenements[0] = {idUnique: "spo000", jolieImage: "image.bmp", nom: "Événement sportif 00",
+    this.state.eventList[0] = {idUnique: "spo000", jolieImage: "image.bmp", nom: "Événement sportif 00",
     date: Date("2015-03-25T12:00:00Z"), lieu: "QuelquePart, QC", type: "sport", 
     enVedette: false, evenementModal: false, siegesDispo:  [true,true,true,true]};
 
-    this.state.evenements[1] = {idUnique: "spo001", jolieImage: "image.bmp", nom: "Événement sportif 01",
+    this.state.eventList[1] = {idUnique: "spo001", jolieImage: "image.bmp", nom: "Événement sportif 01",
     date: Date("2015-03-25T12:00:00Z"), lieu: "QuelquePart, QC", type: "sport", 
     enVedette: true, evenementModal: false, siegesDispo:  [true,true,true,true]};
 
-    this.state.evenements[2] = {idUnique: "spo002", jolieImage: "image.bmp", nom: "Événement sportif 02",
+    this.state.eventList[2] = {idUnique: "spo002", jolieImage: "image.bmp", nom: "Événement sportif 02",
     date: Date("2015-03-25T12:00:00Z"), lieu: "QuelquePart, QC", type: "sport", 
     enVedette: false, evenementModal: false, siegesDispo:  [true,true,true,true]};
   }
 
   render() {
-    var { evenements } = this.state;
-    var renderEvenements = () => {
-      if (evenements.length === 0) {
-        return null;
-      }
-      return evenements.map(evenement => <Evenement {...evenement} key={evenement.idUnique}/>);
-    };
+    var { eventList } = this.state;
     return (
       <div>
         <div className="container">
-          <br />
           <table className="table">
             <thead>
               <tr>
@@ -40,7 +33,11 @@ class Sports extends Component {
                 <th scope="col">Lieu</th>
               </tr>
             </thead>
-            <tbody>{renderEvenements()}</tbody>
+            <tbody>
+            {Object.keys(eventList).map((eventKey) => (
+                <Evenement {...eventList[eventKey]} key={eventKey}/>
+            ))}
+            </tbody>
           </table>
         </div>
       </div>
