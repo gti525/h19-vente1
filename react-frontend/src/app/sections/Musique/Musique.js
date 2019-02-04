@@ -6,12 +6,17 @@ class Musique extends Component {
     super(props);
     this.state = { evenements: [] };
 
-    this.state.evenements[0] = { idUnique: "mus000", jolieImage: "image.bmp", nom: "Événement musical",
-    date: Date("2015-03-25T12:00:00Z"), lieu: "QuelquePart, QC", type: "musique", enVedette: false };
-    this.state.evenements[1] = { idUnique: "mus001", jolieImage: "image.bmp", nom: "Événement musical",
-    date: Date("2015-03-25T12:00:00Z"), lieu: "QuelquePart, QC", type: "musique", enVedette: true };
-    this.state.evenements[2] = { idUnique: "mus002", jolieImage: "image.bmp", nom: "Événement musical",
-    date: Date("2015-03-25T12:00:00Z"), lieu: "QuelquePart, QC", type: "musique", enVedette: false };
+    this.state.evenements[0] = {idUnique: "mus000", jolieImage: "image.bmp", nom: "Événement musical 00",
+    date: Date("2015-03-25T12:00:00Z"), lieu: "QuelquePart, QC", type: "musique", 
+    enVedette: false, evenementModal: false, siegesDispo:  [true,true,true,true]};
+
+    this.state.evenements[1] = {idUnique: "mus001", jolieImage: "image.bmp", nom: "Événement musical 01",
+    date: Date("2015-03-25T12:00:00Z"), lieu: "QuelquePart, QC", type: "musique", 
+    enVedette: true, evenementModal: false, siegesDispo:  [true,true,true,true]};
+
+    this.state.evenements[2] = {idUnique: "mus002", jolieImage: "image.bmp", nom: "Événement musical 02",
+    date: Date("2015-03-25T12:00:00Z"), lieu: "QuelquePart, QC", type: "musique", 
+    enVedette: false, evenementModal: false, siegesDispo: [true,true,true,true]};
   } 
 
   render() {

@@ -6,10 +6,13 @@ class HomePage extends Component {
     super(props);
     this.state = { evenements: [] };
 
-    this.state.evenements[0] = { idUnique: "mus001", jolieImage: "image.bmp", nom: "Événement musical",
-    date: Date("2015-03-25T12:00:00Z"), lieu: "QuelquePart, QC", type: "musique", enVedette: true };
-    this.state.evenements[1] = { idUnique: "spo001", jolieImage: "image.bmp", nom: "Événement sportif",
-    date: Date("2015-03-25T12:00:00Z"), lieu: "QuelquePart, QC", type: "sport", enVedette: true };
+    this.state.evenements[0] = {idUnique: "mus001", jolieImage: "image.bmp", nom: "Événement musical 01",
+    date: Date("2015-03-25T12:00:00Z"), lieu: "QuelquePart, QC", type: "musique", 
+    enVedette: true, evenementModal: false, siegesDispo:  [true,true,true,true]};
+
+    this.state.evenements[1] = {idUnique: "spo001", jolieImage: "image.bmp", nom: "Événement sportif 01",
+    date: Date("2015-03-25T12:00:00Z"), lieu: "QuelquePart, QC", type: "sport", 
+    enVedette: true, evenementModal: false, siegesDispo: [true,true,true,true]};
   }
 
   render() {
