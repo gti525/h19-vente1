@@ -30,7 +30,7 @@ class TopNavbar extends Component {
                     Théâtre
                 </NavItem>
                 <NavDropdown eventKey={6} title="Panier" id="basic-nav-dropdown">
-                    <MenuItem eventKey={6.1}>Action</MenuItem>
+                    <MenuItem eventKey={6.1} href="/Visionner">Visionner</MenuItem>
                     <MenuItem eventKey={6.2}>Another action</MenuItem>
                     <MenuItem eventKey={6.3}>Something else here</MenuItem>
                     <MenuItem divider />
