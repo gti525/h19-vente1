@@ -12,10 +12,14 @@ class Sports extends Component {
 
   render() {
     const { evenements } = this.state;
-    const evenementsSports = evenements.filter(evenement => evenement.type === "musique");
+    const evenementsSports = this.filtrerEvenementMusique(evenements);
     return (
       <ListeEvenements evenements={evenementsSports}/>
     );
+  }
+
+  filtrerEvenementMusique = (evenements) => {
+    return evenements.filter(evenement => evenement.type === "sport");
   }
 }
 

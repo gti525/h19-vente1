@@ -12,10 +12,14 @@ class Musique extends Component {
 
   render() {
     const { evenements } = this.state;
-    const evenementsMusique = evenements.filter(evenement => evenement.type === "musique");
+    const evenementsMusique = this.filtrerEvenementMusique(evenements);
     return (
       <ListeEvenements evenements={evenementsMusique}/>
     );
+  }
+
+  filtrerEvenementMusique = (evenements) => {
+    return evenements.filter(evenement => evenement.type === "musique");
   }
 }
 

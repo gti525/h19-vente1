@@ -1,25 +1,24 @@
-import { Modal, Button } from "react-bootstrap";
-
 import React, { Component } from "react";
+import { Modal, Button } from "react-bootstrap";
 import Billet from "../Billet/Billet.js";
+import billets from "../../../faussesDonnees/billets.json";
 
 class Panier extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      billets: [] ,
-      commanderModal: false
-    
+      billets: billets ,
+      commanderModal: false,
+      panier: null
     };
+  }
 
-    this.state.billets[0] = { idBillet: "bs00", idEvenement: "spo000", jolieImage: "image.bmp", nom: "Événement sportif 00",
-    date: Date("2015-03-25T12:00:00Z"), lieu: "QuelquePart, QC", siege: "001", prixAffiche: 99.99, type: "sport", enVedette: false };
-
-    this.state.billets[1] = { idBillet: "bs01", idEvenement: "spo001", jolieImage: "image.bmp", nom: "Événement sportif 01",
-    date: Date("2015-03-25T12:00:00Z"), lieu: "QuelquePart, QC", siege: "002", prixAffiche: 99.99, type: "sport", enVedette: true };
-
-    this.state.billets[2] = { idBillet: "bs02", idEvenement: "spo002", jolieImage: "image.bmp", nom: "Événement sportif 02",
-    date: Date("2015-03-25T12:00:00Z"), lieu: "QuelquePart, QC", siege: "003", prixAffiche: 99.99, type: "sport", enVedette: false };
+  componentDidMount() {
+    const panier = [];
+    Object.keys(billets).map(billetKey => (
+      panier[billets[billetKey].idBillet] = 1
+    ))
+    this.setState({ panier: panier });
   }
 
   handleCommander = () => {
@@ -27,25 +26,18 @@ class Panier extends Component {
   };
   
   //TODO! Il faut retirer le siège réservé de son événement
-  handleSupprimer = (idBillet, siege) => {
-    
-    var billets = this.state.billets;
-
-    var newBillets = billets.filter(function(billet) {
-      return billet.idBillet !== idBillet;
-    });
-
-    this.setState({ billets: newBillets });
-  } ;
+  supprimerBillet = (billetKey) => {
+    const panier = {...this.state.panier};
+    delete panier[billetKey];
+    this.setState({ panier: panier });
+  };
 
   render() {
-    var { billets } = this.state;
-    var renderBillets = () => {
-      if (billets.length === 0) {
-        return null;
-      }
-      return billets.map(billet => <Billet {...billet} onSupprimer={this.handleSupprimer} key={billet.idBillet}/>);
-    };
+    var { panier } = this.state;
+
+    if(!panier){
+      return null;
+    }
     return (
       <div>
         <div className="container">
@@ -61,7 +53,7 @@ class Panier extends Component {
                 <th />
               </tr>
             </thead>
-            <tbody>{renderBillets()}</tbody>
+            <tbody>{this.renderBillets(panier)}</tbody>
           </table>
           <Button variant="primary" onClick={() => this.setState({ evenementModal: true })}>Commander</Button>
           <Modal show={this.state.evenementModal}>
@@ -82,6 +74,21 @@ class Panier extends Component {
         </div>
       </div>
     );
+  }
+
+  renderBillets = (panier) => {
+    if(panier) {
+      return (
+        Object.keys(panier).map(billetKey => (
+          <Billet
+          key={billetKey}
+          cle={billetKey}
+          {...panier[billetKey]}
+          supprimerBillet={this.supprimerBillet}
+          />
+        ))
+      );
+    }
   }
 }
 
