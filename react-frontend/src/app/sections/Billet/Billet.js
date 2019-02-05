@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import { Button } from "react-bootstrap";
 
-class Billet extends Component {constructor(props) {
-    super(props);
-  }
+class Billet extends Component {
 
   handleSupprimer = (idBillet, siege) => {
     this.props.onSupprimer(idBillet, siege);

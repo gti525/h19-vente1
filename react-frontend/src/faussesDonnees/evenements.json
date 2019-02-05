@@ -1,0 +1,46 @@
+[
+    {
+        "idUnique": "spo000",
+        "image": "image.bmp",
+        "nom": "Evenement musique 1",
+        "date": "Mon Feb 04 2019 19:21:10 GMT-0500 (Eastern Standard Time)",
+        "lieu": "QuelquePart, QC",
+        "type": "musique", 
+        "enVedette": false,
+        "evenementModal": false,
+        "siegesDispo": [true,true,true,true]
+    },
+    {
+        "idUnique": "spo001",
+        "image": "image.bmp",
+        "nom": "Evenement sportif 2",
+        "date": "Mon Feb 04 2019 19:21:10 GMT-0500 (Eastern Standard Time)",
+        "lieu": "QuelquePart, QC",
+        "type": "sport", 
+        "enVedette": false,
+        "evenementModal": false,
+        "siegesDispo": [true,true,true,true]
+    },
+    {
+        "idUnique": "spo002",
+        "image": "image.bmp",
+        "nom": "Evenement humour 3",
+        "date": "Mon Feb 04 2019 19:21:10 GMT-0500 (Eastern Standard Time)",
+        "lieu": "QuelquePart, QC",
+        "type": "humour", 
+        "enVedette": false,
+        "evenementModal": false,
+        "siegesDispo": [true,true,true,true]
+    },
+    {
+        "idUnique": "spo003",
+        "image": "image.bmp",
+        "nom": "Evenement musique 4",
+        "date": "Mon Feb 04 2019 19:21:10 GMT-0500 (Eastern Standard Time)",
+        "lieu": "QuelquePart, QC",
+        "type": "musique", 
+        "enVedette": false,
+        "evenementModal": false,
+        "siegesDispo": [true,true,true,true]
+    }
+]

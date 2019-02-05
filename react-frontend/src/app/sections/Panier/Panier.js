@@ -3,7 +3,7 @@ import { Modal, Button } from "react-bootstrap";
 import React, { Component } from "react";
 import Billet from "../Billet/Billet.js";
 
-class Visionner extends Component {
+class Panier extends Component {
   constructor(props) {
     super(props);
     this.state = { 
@@ -85,4 +85,4 @@ class Visionner extends Component {
   }
 }
 
-export default Visionner;
+export default Panier;
