@@ -16,13 +16,16 @@ class Evenement extends Component {constructor(props) {
   };
 
   render() {
-    const { idUnique, jolieImage, nom, date, lieu, type, enVedette, evenementModal, siegesDispo } = this.props;
+    const { idUnique, image, nom, date, lieu, type, enVedette, evenementModal, siegesDispo } = this.props;
     return (
       <tr>
-        <td>{jolieImage}</td><td>{nom}</td>
-        <td>{date}</td><td>{lieu}</td>
+        <td>{image}</td>
+        <td>{nom}</td>
+        <td>{date}</td>
+        <td>{lieu}</td>
+        <td>{type}</td>
         <td>
-        <Button variant="primary" onClick={() => this.setState({ evenementModal: true })}>Acheter</Button>
+          <Button variant="primary" onClick={() => this.setState({ evenementModal: true })}>Acheter</Button>
         </td>
         <Modal show={evenementModal}>
           <Modal.Header>

@@ -1,29 +1,27 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { HOMEPAGE, ACCUEIL, MUSIQUE, SPORTS, VISIONNER } from '../helpers/routes.js'; //Importer les constantes des path ici. Comme ça, il faut le modifier à un seul endroit.
-import TopNavbar from './reusable/TopNavbar.js';
-import HomePage from './sections/HomePage/HomePage.js'; //Importer le component HomePage pour l'utiliser.
+import { ACCUEIL, MUSIQUE, SPORTS, PANIER } from '../assistants/routes.js'; //Importer les constantes des path ici. Comme ça, il faut le modifier à un seul endroit.
+import BarreNavigation from './reutilisables/BarreNavigation.js';
+import Accueil from './sections/Accueil/Accueil.js'; //Importer le component HomePage pour l'utiliser.
 import Musique from './sections/Musique/Musique.js';
 import Sports from './sections/Sports/Sports.js';
-import Visionner from './sections/Visionner/Visionner.js';
+import Panier from './sections/Panier/Panier.js';
 
 class App extends Component {
   
   render() {
     return (
-      // Défini qu'il y a un routeur ici
       <Router>
         <div>
           {/*Le component Navbar est utilisé*/}
-          <TopNavbar/>
+          <BarreNavigation/>
           {/*Switch sert à utiliser la première route qui match le "path". Dès qu'une Route est utilisée, les autres sont ignorées.*/}
           <Switch>
             {/*Dès que le "path match avec le URL, le component de la route est appelé*/}
-            <Route exact path={HOMEPAGE} component={HomePage} />
-            <Route path={ACCUEIL} component={HomePage} />
+            <Route exact path={ACCUEIL} component={Accueil} />
             <Route path={MUSIQUE} component={Musique} />
             <Route path={SPORTS} component={Sports} />
-            <Route path={VISIONNER} component={Visionner} />
+            <Route path={PANIER} component={Panier} />
           </Switch>
         </div>
       </Router>
