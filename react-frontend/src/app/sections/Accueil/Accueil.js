@@ -1,19 +1,20 @@
-import React, { Component } from "react";
-import ListeEvenements from "../../reutilisables/ListeEvenements.js";
-import evenements from "../../../faussesDonnees/evenements.json";
+import React, { Component, Fragment } from "react";
+import "./Accueil.css";
 
 class Accueil extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      evenements: evenements
-    };
-  }
 
   render() {
-    const { evenements } = this.state;
     return (
-      <ListeEvenements evenements={evenements}/>
+      <Fragment>
+        <div className="accueil_en_tete">
+          <h4>Simple. Rapide</h4>
+          <h1>Vente de billets en ligne</h1>
+          <h3>Pour tous vos événements</h3>
+        </div>
+        <div className="message">
+          <h1>Mais quel site incroyable !</h1>
+        </div>
+      </Fragment>
     );
   }
 }

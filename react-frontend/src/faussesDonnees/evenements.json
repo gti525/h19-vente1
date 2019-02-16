@@ -1,46 +1,34 @@
 [
     {
-        "idUnique": "spo000",
-        "image": "image.bmp",
-        "nom": "Evenement musique 1",
-        "date": "Mon Feb 04 2019 19:21:10 GMT-0500 (Eastern Standard Time)",
+        "id": "spo000",
+        "image": "https://image-api.nrj.fr/medias/2018/02/arts-du-spectacle-quels-metiers-autour-de-la-scene-istock-629556336_5a7447487a14e.jpg?referer=NRJ&w=900",
+        "nom": "Evenement 1",
+        "date": "Aujourd'hui",
         "lieu": "QuelquePart, QC",
-        "type": "musique", 
-        "enVedette": false,
-        "evenementModal": false,
-        "siegesDispo": [true,true,true,true]
+        "billets": [
+            {
+                "id": "001",
+                "uuid": "111",
+                "sold": false
+            },
+            {
+                "id": "002",
+                "uuid": "222",
+                "sold": false
+            },
+            {
+                "id": "003",
+                "uuid": "333",
+                "sold": false
+            }
+        ]
     },
     {
-        "idUnique": "spo001",
-        "image": "image.bmp",
-        "nom": "Evenement sportif 2",
-        "date": "Mon Feb 04 2019 19:21:10 GMT-0500 (Eastern Standard Time)",
+        "id": "spo001",
+        "image": "https://image-api.nrj.fr/medias/2018/02/arts-du-spectacle-quels-metiers-autour-de-la-scene-istock-629556336_5a7447487a14e.jpg?referer=NRJ&w=900",
+        "nom": "Evenement 2",
+        "date": "Demain",
         "lieu": "QuelquePart, QC",
-        "type": "sport", 
-        "enVedette": false,
-        "evenementModal": false,
-        "siegesDispo": [true,true,true,true]
-    },
-    {
-        "idUnique": "spo002",
-        "image": "image.bmp",
-        "nom": "Evenement humour 3",
-        "date": "Mon Feb 04 2019 19:21:10 GMT-0500 (Eastern Standard Time)",
-        "lieu": "QuelquePart, QC",
-        "type": "humour", 
-        "enVedette": false,
-        "evenementModal": false,
-        "siegesDispo": [true,true,true,true]
-    },
-    {
-        "idUnique": "spo003",
-        "image": "image.bmp",
-        "nom": "Evenement musique 4",
-        "date": "Mon Feb 04 2019 19:21:10 GMT-0500 (Eastern Standard Time)",
-        "lieu": "QuelquePart, QC",
-        "type": "musique", 
-        "enVedette": false,
-        "evenementModal": false,
-        "siegesDispo": [true,true,true,true]
+        "billets": []
     }
 ]
