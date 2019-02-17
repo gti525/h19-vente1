@@ -1,4 +1,3 @@
 export const ACCUEIL = "/"
-export const MUSIQUE = "/Musique"
-export const SPORTS = "/Sports"
-export const PANIER = "/Panier"
+export const SPECTACLES = "/spectacles"
+export const PANIER = "/panier"

@@ -2,27 +2,27 @@ import React, { Component } from "react";
 import Evenement from "../sections/Evenement/Evenement.js";
 import AjoutBillet from "./AjoutBillet.js";
 
-class ListeEvenements extends Component {
+class ListeBillets extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        evenementOuvert: null
+      ajoutBilletOuvert: false
     }
     this.ouvrirAchatBillet = this.ouvrirAchatBillet.bind(this);
     this.fermerAchatBillet = this.fermerAchatBillet.bind(this);
   }
 
-  ouvrirAchatBillet(index) {
-    this.setState({ evenementOuvert: this.props.evenements[index] })
+  ouvrirAchatBillet() {
+    this.setState({ ajoutBilletOuvert: true })
   }
 
   fermerAchatBillet() {
-    this.setState({ evenementOuvert: null })
+    this.setState({ ajoutBilletOuvert: false })
   }
 
   render() {
     const { evenements } = this.props;
-    const { evenementOuvert } = this.state;
+    const { ajoutBilletOuvert } = this.state;
     return (
       <div className="container">
         <table className="table">
@@ -32,13 +32,14 @@ class ListeEvenements extends Component {
               <th scope="col">Nom</th>
               <th scope="col">Date</th>
               <th scope="col">Lieu</th>
+              <th scope="col">Type</th>
             </tr>
           </thead>
           <tbody>
             {this.renderEvenements(evenements)}
           </tbody>
         </table>
-        {evenementOuvert && <AjoutBillet evenementOuvert={this.state.evenementOuvert} fermerAchatBillet={() => this.fermerAchatBillet()}/>} {/*Si ajoutBilletOuvert === true, render le component AjoutBillet*/}
+        {ajoutBilletOuvert && <AjoutBillet fermerAchatBillet={this.fermerAchatBillet()}/>} {/*Si ajoutBilletOuvert === true, render le component AjoutBillet*/}
       </div>
     );
   }
@@ -46,10 +47,10 @@ class ListeEvenements extends Component {
   renderEvenements = (evenements) => {
     return (
       Object.keys(evenements).map((key) => (
-        <Evenement key={key} index={key} {...evenements[key]} ouvrirAchatBillet={this.ouvrirAchatBillet}/>
+        <Evenement key={key} {...evenements[key]} ouvrirAchatBillet={this.ouvrirAchatBillet}/>
       ))
     );
   }
 }
 
-export default ListeEvenements;
+export default ListeBillets;
