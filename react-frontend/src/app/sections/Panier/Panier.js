@@ -7,7 +7,7 @@ class Panier extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      billets: billets ,
+      billets: null,
       commanderModal: false,
       panier: null
     };

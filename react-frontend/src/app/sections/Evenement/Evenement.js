@@ -5,30 +5,34 @@ class Evenement extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      nombreBilletsDisponibles: null
+      BilletsDisponibles: null
     }
   }
 
   componentDidMount() {
-    let billetsCount = 0;
-    Object.keys(this.props.billets).forEach((key) => {
-      if(!this.props.billets[key].sold) {
-        billetsCount++;
+    const { billets } = this.props;
+    let BilletsDisponibles = [];
+    Object.keys(billets).forEach((key) => {
+      if(!billets[key].sold) {
+        BilletsDisponibles[key] = billets[key];
       }
-    })
-    this.setState({ nombreBilletsDisponibles: billetsCount })
+    });
+    this.setState({ BilletsDisponibles: BilletsDisponibles })
   }
 
   acheterBillets = (index) => {
-    if(this.state.nombreBilletsDisponibles) {
+    if(this.state.BilletsDisponibles) {
       this.props.ouvrirAchatBillet(index);
     }
   };
 
   render() {
-    const { nombreBilletsDisponibles } = this.state
-    console.log(nombreBilletsDisponibles)
+    const { BilletsDisponibles } = this.state
+    console.log(BilletsDisponibles)
     const { index, image, nom, date, lieu, type,  } = this.props;
+    if(!BilletsDisponibles) {
+      return null;
+    }
     return (
       <tr>
         <td><img src={image} alt="" height="60"/></td>
@@ -37,7 +41,13 @@ class Evenement extends Component {
         <td>{lieu}</td>
         <td>{type}</td>
         <td>
-          <Button variant="primary" disabled={!nombreBilletsDisponibles} title={nombreBilletsDisponibles ? "" : "Sold Out"} onClick={() => this.acheterBillets(index)}>Ajouter au panier</Button>
+          <Button
+          variant="primary"
+          disabled={!BilletsDisponibles.length}
+          title={BilletsDisponibles ? "" : "Sold Out"}
+          onClick={() => this.acheterBillets(index)}>
+            {BilletsDisponibles.length ? "Ajouter au panier" : "Non disponible"}
+          </Button>
         </td>
       </tr>
     );
