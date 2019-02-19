@@ -9,26 +9,46 @@
             {
                 "id": "001",
                 "uuid": "111",
-                "sold": false
+                "sold": true
             },
             {
                 "id": "002",
-                "uuid": "222",
+                "uuid": "112",
                 "sold": false
             },
             {
                 "id": "003",
-                "uuid": "333",
+                "uuid": "113",
                 "sold": false
             }
         ]
     },
     {
-        "id": "spo001",
+        "id": "spo002",
         "image": "https://image-api.nrj.fr/medias/2018/02/arts-du-spectacle-quels-metiers-autour-de-la-scene-istock-629556336_5a7447487a14e.jpg?referer=NRJ&w=900",
         "nom": "Evenement 2",
         "date": "Demain",
         "lieu": "QuelquePart, QC",
-        "billets": []
+        "billets": [
+            {
+                "id": "101",
+                "uuid": "211",
+                "sold": true
+            }
+        ]
+    },
+    {
+        "id": "spo003",
+        "image": "https://image-api.nrj.fr/medias/2018/02/arts-du-spectacle-quels-metiers-autour-de-la-scene-istock-629556336_5a7447487a14e.jpg?referer=NRJ&w=900",
+        "nom": "Evenement 2",
+        "date": "Demain",
+        "lieu": "QuelquePart, QC",
+        "billets": [
+            {
+                "id": "101",
+                "uuid": "211",
+                "sold": false
+            }
+        ]
     }
 ]
