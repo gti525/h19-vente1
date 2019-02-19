@@ -66,7 +66,7 @@ class AjoutBillet extends Component {
     //Il faut que le nombre de billets à ajouter soit de 1 à 6.
     if(0 < nbBilletsAjoutees && nbBilletsAjoutees < 7) {
       //On obtient le nombre de billets déjà dans le panier pour cette evenement.
-      var billetsPanier = JSON.parse(localStorage.getItem(`panier`));
+      var billetsPanier = JSON.parse(localStorage.getItem(`panier${id}`));
       if(!billetsPanier) {
         billetsPanier = [];
       }
@@ -86,7 +86,7 @@ class AjoutBillet extends Component {
 
         //On ajoute le nouveau nombre de billets dans le panier (localStorage)
         billetsPanier = JSON.stringify(billetsPanier);
-        localStorage.setItem("panier", billetsPanier);
+        localStorage.setItem(`panier${id}`, billetsPanier);
         this.props.fermerAchatBillet();
       }
     } else {
