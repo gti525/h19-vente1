@@ -561,9 +561,6 @@ pre code.sample-request-response-json {
   color: #fff;
 }
 
-
-
-
 .sidenav > .active > a {
   position: relative;
   z-index: 2;
@@ -711,9 +708,30 @@ margin-bottom: 20px;
     }
   }
 };
+        defs["ApiTicketResponse"] = {
+  "type" : "object",
+  "properties" : {
+    "code" : {
+      "type" : "integer",
+      "format" : "int32"
+    },
+    "type" : {
+      "type" : "string"
+    },
+    "message" : {
+      "type" : "string"
+    },
+    "tickets" : {
+      "type" : "array",
+      "items" : {
+        "$ref" : "#/definitions/Ticket"
+      }
+    }
+  }
+};
         defs["Event"] = {
   "type" : "object",
-  "required" : [ "name", "venue" ],
+  "required" : [ "description", "name", "venue" ],
   "properties" : {
     "id" : {
       "type" : "string"
@@ -721,6 +739,10 @@ margin-bottom: 20px;
     "name" : {
       "type" : "string",
       "example" : "Rolling Stones"
+    },
+    "description" : {
+      "type" : "string",
+      "example" : "Rock concert"
     },
     "venue" : {
       "$ref" : "#/definitions/Venue"
@@ -739,6 +761,25 @@ margin-bottom: 20px;
       "type" : "string",
       "description" : "event status on the site",
       "enum" : [ "available", "unavailable" ]
+    }
+  }
+};
+        defs["EventOnly"] = {
+  "type" : "object",
+  "properties" : {
+    "id" : {
+      "type" : "string"
+    },
+    "name" : {
+      "type" : "string",
+      "example" : "Rolling Stones"
+    },
+    "description" : {
+      "type" : "string",
+      "example" : "Rock concert"
+    },
+    "venue" : {
+      "$ref" : "#/definitions/Venue"
     }
   }
 };
@@ -1213,6 +1254,14 @@ $(document).ready(function() {
 
 
                           <h2>Responses</h2>
+                            <h3> Status: 200 - Successfully added the event </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
                             <h3> Status: 405 - Invalid input </h3>
 
                             <ul class="nav nav-tabs nav-tabs-examples" >
@@ -1562,7 +1611,7 @@ public class EventApiExample {
         EventApi apiInstance = new EventApi();
         String eventId = eventId_example; // String | ID of event to update
         try {
-            ApiResponse result = apiInstance.endSale(eventId);
+            ApiTicketResponse result = apiInstance.endSale(eventId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling EventApi#endSale");
@@ -1581,7 +1630,7 @@ public class EventApiExample {
         EventApi apiInstance = new EventApi();
         String eventId = eventId_example; // String | ID of event to update
         try {
-            ApiResponse result = apiInstance.endSale(eventId);
+            ApiTicketResponse result = apiInstance.endSale(eventId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling EventApi#endSale");
@@ -1606,7 +1655,7 @@ EventApi *apiInstance = [[EventApi alloc] init];
 
 // End the sale of an event
 [apiInstance endSaleWith:eventId
-              completionHandler: ^(ApiResponse output, NSError* error) {
+              completionHandler: ^(ApiTicketResponse output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
                             }
@@ -1667,7 +1716,7 @@ namespace Example
             try
             {
                 // End the sale of an event
-                ApiResponse result = apiInstance.endSale(eventId);
+                ApiTicketResponse result = apiInstance.endSale(eventId);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -1797,7 +1846,7 @@ except ApiException as e:
                                         var schemaWrapper = {
   "description" : "Successfully ended the sale of the event",
   "schema" : {
-    "$ref" : "#/definitions/ApiResponse"
+    "$ref" : "#/definitions/ApiTicketResponse"
   }
 };
                                         var schema = schemaWrapper.schema;
@@ -1881,7 +1930,7 @@ public class EventApiExample {
         EventApi apiInstance = new EventApi();
         String eventId = eventId_example; // String | ID of event
         try {
-            map['String', 'Integer'] result = apiInstance.getNumberOfTickets(eventId);
+            ApiResponse result = apiInstance.getNumberOfTickets(eventId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling EventApi#getNumberOfTickets");
@@ -1900,7 +1949,7 @@ public class EventApiExample {
         EventApi apiInstance = new EventApi();
         String eventId = eventId_example; // String | ID of event
         try {
-            map['String', 'Integer'] result = apiInstance.getNumberOfTickets(eventId);
+            ApiResponse result = apiInstance.getNumberOfTickets(eventId);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling EventApi#getNumberOfTickets");
@@ -1925,7 +1974,7 @@ EventApi *apiInstance = [[EventApi alloc] init];
 
 // Returns number of tickets sold for a certain event
 [apiInstance getNumberOfTicketsWith:eventId
-              completionHandler: ^(map['String', 'Integer'] output, NSError* error) {
+              completionHandler: ^(ApiResponse output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
                             }
@@ -1986,7 +2035,7 @@ namespace Example
             try
             {
                 // Returns number of tickets sold for a certain event
-                map['String', 'Integer'] result = apiInstance.getNumberOfTickets(eventId);
+                ApiResponse result = apiInstance.getNumberOfTickets(eventId);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -2116,11 +2165,7 @@ except ApiException as e:
                                         var schemaWrapper = {
   "description" : "successful operation",
   "schema" : {
-    "type" : "object",
-    "additionalProperties" : {
-      "type" : "integer",
-      "format" : "int32"
-    }
+    "$ref" : "#/definitions/ApiResponse"
   }
 };
                                         var schema = schemaWrapper.schema;
@@ -2203,7 +2248,7 @@ public class EventApiExample {
 
         EventApi apiInstance = new EventApi();
         String eventId = eventId_example; // String | ID of event to modify
-        Event body = ; // Event | Event object that needs to be modified
+        EventOnly body = ; // EventOnly | Event object that needs to be modified
         try {
             apiInstance.modifyEvent(eventId, body);
         } catch (ApiException e) {
@@ -2222,7 +2267,7 @@ public class EventApiExample {
     public static void main(String[] args) {
         EventApi apiInstance = new EventApi();
         String eventId = eventId_example; // String | ID of event to modify
-        Event body = ; // Event | Event object that needs to be modified
+        EventOnly body = ; // EventOnly | Event object that needs to be modified
         try {
             apiInstance.modifyEvent(eventId, body);
         } catch (ApiException e) {
@@ -2243,7 +2288,7 @@ public class EventApiExample {
 [apiConfig setAccessToken:@"YOUR_ACCESS_TOKEN"];
 
 String *eventId = eventId_example; // ID of event to modify
-Event *body = ; // Event object that needs to be modified
+EventOnly *body = ; // Event object that needs to be modified
 
 EventApi *apiInstance = [[EventApi alloc] init];
 
@@ -2270,7 +2315,7 @@ var api = new SwaggerEventstore.EventApi()
 
 var eventId = eventId_example; // {String} ID of event to modify
 
-var body = ; // {Event} Event object that needs to be modified
+var body = ; // {EventOnly} Event object that needs to be modified
 
 
 var callback = function(error, data, response) {
@@ -2306,7 +2351,7 @@ namespace Example
 
             var apiInstance = new EventApi();
             var eventId = eventId_example;  // String | ID of event to modify
-            var body = new Event(); // Event | Event object that needs to be modified
+            var body = new EventOnly(); // EventOnly | Event object that needs to be modified
 
             try
             {
@@ -2332,7 +2377,7 @@ Swagger\Client\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_AC
 
 $api_instance = new Swagger\Client\Api\EventApi();
 $eventId = eventId_example; // String | ID of event to modify
-$body = ; // Event | Event object that needs to be modified
+$body = ; // EventOnly | Event object that needs to be modified
 
 try {
     $api_instance->modifyEvent($eventId, $body);
@@ -2352,7 +2397,7 @@ $WWW::SwaggerClient::Configuration::access_token = 'YOUR_ACCESS_TOKEN';
 
 my $api_instance = WWW::SwaggerClient::EventApi->new();
 my $eventId = eventId_example; # String | ID of event to modify
-my $body = WWW::SwaggerClient::Object::Event->new(); # Event | Event object that needs to be modified
+my $body = WWW::SwaggerClient::Object::EventOnly->new(); # EventOnly | Event object that needs to be modified
 
 eval { 
     $api_instance->modifyEvent(eventId => $eventId, body => $body);
@@ -2375,7 +2420,7 @@ swagger_client.configuration.access_token = 'YOUR_ACCESS_TOKEN'
 # create an instance of the API class
 api_instance = swagger_client.EventApi()
 eventId = eventId_example # String | ID of event to modify
-body =  # Event | Event object that needs to be modified
+body =  # EventOnly | Event object that needs to be modified
 
 try: 
     # Modify an existing event
@@ -2437,7 +2482,7 @@ $(document).ready(function() {
   "description" : "Event object that needs to be modified",
   "required" : true,
   "schema" : {
-    "$ref" : "#/definitions/Event"
+    "$ref" : "#/definitions/EventOnly"
   }
 };
   var schema = schemaWrapper.schema;
