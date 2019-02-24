@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Modal, Button } from "react-bootstrap";
+import billets from "../../faussesDonnees/billets.json";
 
 class AjoutBillet extends Component {
   constructor(props) {
@@ -65,17 +66,28 @@ class AjoutBillet extends Component {
   ajouterAuPanier(id, nbBilletsAjoutees) {
     //Il faut que le nombre de billets à ajouter soit de 1 à 6.
     if(0 < nbBilletsAjoutees && nbBilletsAjoutees < 7) {
-      //On obtient le nombre de billets déjà dans le panier pour cette evenement.
-      var billetsPanier = JSON.parse(localStorage.getItem(`panier${id}`));
+      //On obtient le nombre de billets déjà dans le panier
+      var billetsPanier = JSON.parse(localStorage.getItem(`panier`));
       if(!billetsPanier) {
         billetsPanier = [];
       }
       //On regarde si le nombre de billets total dépasse 6.
       if(billetsPanier.length + nbBilletsAjoutees > 6) {
-        alert(`Vous avez déjà ${billetsPanier.length} billets pour ce spectacle dans le panier, vous pouvez en avoir un maximum de 6.`)
+        alert(`Vous avez déjà ${billetsPanier.length} billets dans le panier, vous pouvez en avoir un maximum de 6.`)
       } else {
-        let fauxBillets = ["billet01", "billet02", "billet03"] //Fonction qui get les billets dans le backend selon le nombre de nbBilletsAjoutees
-        
+
+        let fauxBillets = [];
+
+        if (id == "spo001")
+        {
+          fauxBillets = [billets[0], billets[1]]; //Fonction qui get les billets dans le backend selon le nombre de nbBilletsAjoutees
+        }
+
+        if (id == "spo003")
+        {
+          fauxBillets = [billets[2], billets[3]]; //Fonction qui get les billets dans le backend selon le nombre de nbBilletsAjoutees
+        }
+
         for(let i=0; i<fauxBillets.length; i++) {
           billetsPanier[billetsPanier.length] = fauxBillets[i];
         }
@@ -86,7 +98,7 @@ class AjoutBillet extends Component {
 
         //On ajoute le nouveau nombre de billets dans le panier (localStorage)
         billetsPanier = JSON.stringify(billetsPanier);
-        localStorage.setItem(`panier${id}`, billetsPanier);
+        localStorage.setItem(`panier`, billetsPanier);
         this.props.fermerAchatBillet();
       }
     } else {

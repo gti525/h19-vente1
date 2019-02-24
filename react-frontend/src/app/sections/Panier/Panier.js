@@ -3,22 +3,54 @@ import { Modal, Button } from "react-bootstrap";
 import Billet from "../Billet/Billet.js";
 import billets from "../../../faussesDonnees/billets.json";
 
+// function allStorage() {
+  
+//   var values = [],
+//       keys = Object.keys(localStorage),
+//       i = keys.length;
+
+//   while ( i-- ) {
+//       values.push(JSON.parse(localStorage.getItem(keys[i])));
+//   }
+
+//   return values;
+// }
+
 class Panier extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      billets: null,
+      //billets: null,
       commanderModal: false,
-      panier: null
+     // panier: null,
+      monPanier: null
     };
   }
 
   componentDidMount() {
-    const panier = [];
-    Object.keys(billets).map(billetKey => (
-      panier[billets[billetKey].idBillet] = 1
-    ))
-    this.setState({ panier: panier });
+
+    // const panier = [];
+    // Object.keys(billets).map(billetKey => (
+    //   panier[billets[billetKey].idBillet] = 1
+    // ))
+    // this.setState({ panier: panier });
+    // console.log(panier);
+
+    const monPanier = JSON.parse(localStorage.getItem('panier'));
+    this.setState({ monPanier: monPanier });
+    console.log(monPanier);
+    //console.log(this.state.monPanier);
+    //var mesBillets = [];
+    //this.setState({ monPanier: allStorage() });
+    //console.log(allStorage());
+    //var billetsPanier = JSON.parse(localStorage.getItem(`panier${id}`));
+    // Object.keys(monPanier).map(panKey => (
+    //   Object.keys(monPanier[panKey]).map(panEvKey => (
+    //     mesBillets[mesBillets.length] = monPanier[panKey][panEvKey]
+    //     ))
+    // ))
+    // console.log(mesBillets);
+    // this.setState({ mesBillets: mesBillets });
   }
 
   handleCommander = () => {
@@ -27,15 +59,19 @@ class Panier extends Component {
   
   //TODO! Il faut retirer le siège réservé de son événement
   supprimerBillet = (billetKey) => {
-    const panier = {...this.state.panier};
-    delete panier[billetKey];
-    this.setState({ panier: panier });
+    const panier = this.state.monPanier;
+    panier.splice(billetKey, 1);
+    //delete panier[billetKey];
+    this.setState({ monPanier: panier });
+    localStorage.setItem(`panier`, JSON.stringify(this.state.monPanier));
+    //console.log(panier);
   };
 
   render() {
-    var { panier } = this.state;
-
-    if(!panier){
+    var { monPanier } = this.state;
+    //var { panier } = this.state;
+    console.log(monPanier);
+    if(!monPanier){
       return null;
     }
     return (
@@ -53,7 +89,10 @@ class Panier extends Component {
                 <th />
               </tr>
             </thead>
-            <tbody>{this.renderBillets(panier)}</tbody>
+            <tbody>{             
+                this.renderBillets(monPanier)
+             
+              }</tbody>
           </table>
           <Button variant="primary" onClick={() => this.setState({ evenementModal: true })}>Commander</Button>
           <Modal show={this.state.evenementModal}>
@@ -79,11 +118,11 @@ class Panier extends Component {
   renderBillets = (panier) => {
     if(panier) {
       return (
-        Object.keys(panier).map(billetKey => (
+        Object.keys(panier).map(panierKey => (
           <Billet
-          key={billetKey}
-          cle={billetKey}
-          {...panier[billetKey]}
+          key={panierKey}
+          cle={panierKey}
+          {...panier[panierKey]}
           supprimerBillet={this.supprimerBillet}
           />
         ))

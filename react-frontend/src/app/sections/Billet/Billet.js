@@ -5,6 +5,7 @@ class Billet extends Component {
 
   render() {
 
+    console.log(this);
     const { cle, idBillet, idEvenement, nom, date, lieu, siege, prixAffiche, type } = this.props;
 
     return (
