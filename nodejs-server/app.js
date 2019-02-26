@@ -1,9 +1,10 @@
 var express = require('express')
 var mongoose = require('mongoose');
+var bodyParser = require('body-parser');
 const path = require('path');
-const routes = require('./routes');
+const router = require('./controllers');
 
-const Show = require('./models/Show.js');
+const Event = require('./models/Event.js');
 const Ticket = require('./models/Ticket.js');
 const Venue = require('./models/Venue.js');
 
@@ -12,8 +13,12 @@ const PASSWORD = "YEgLGbRpgXefHjvW";
 var ObjectId = mongoose.Types.ObjectId;
 
 var app = express();
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(bodyParser.json());
 
-app.use('/', routes)
+app.use('/', router)
 
 var mongoDB = `mongodb+srv://admin:${PASSWORD}@cluster-gti525-qlmha.mongodb.net/vente1?retryWrites=true`
 const options = {
@@ -27,18 +32,18 @@ db.once('open',function() {
   console.log("Connected to Database !")
 })
 
-Ticket.find({ "show" : ObjectId('5c6fa4d03d1ab527ec928af8')}).
+/*Ticket.find({ "event" : ObjectId('5c6fa4d03d1ab527ec928af8')}).
 populate({
-  path: 'show',
+  path: 'event',
   populate:({
     path: 'venue'
   })
 }).
 exec(function (err, tickets) {
   if(err) console.log(err)
-  console.log(tickets[0].show)
+  console.log(tickets[0].event)
 })
-/*var venue = new Venue({
+var venue = new Venue({
   name: "Centre Bell",
   address: "100 Rue Peel",
   capacity: 5,
@@ -47,18 +52,18 @@ exec(function (err, tickets) {
 venue.save(function(err) {
   if(err) console.log(err)
   console.log("Venue saved")
-  const show = new Show({
+  const event = new Event({
     name: "Game Hockey",
     date: "2011-10-05T14:48:00.000Z",
     description: "descr",
     venue: venue._id
   })
-  show.save(function(err) {
+  event.save(function(err) {
     if(err) console.log(err)
-    console.log("Show saved")
+    console.log("Event saved")
     const ticket = new Ticket({
       uuid: 1234,
-      show: show._id
+      event: event._id
     })
     ticket.save(function(err){
       if(err) console.log(err)
@@ -66,10 +71,5 @@ venue.save(function(err) {
     })
   })
 })*/
-
-
-app.get('/swagger', function(req, res) {
-  res.sendFile(path.join(__dirname+'/views/swagger.html'));
-});
 
 app.listen(process.env.PORT || port, () => console.log(`Example app listening on port ${port}!`))

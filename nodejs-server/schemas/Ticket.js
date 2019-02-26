@@ -6,9 +6,9 @@ module.exports = new mongoose.Schema({
         type: String,
         required: true
     },
-    show: {
+    event: {
         type: ObjectId,
-        ref: 'Show',
+        ref: 'Event',
         required: true
     }
 })
