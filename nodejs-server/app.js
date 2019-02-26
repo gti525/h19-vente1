@@ -1,15 +1,19 @@
 var express = require('express')
 var mongoose = require('mongoose');
 const path = require('path');
+const routes = require('./routes');
+
 const Show = require('./models/Show.js');
 const Ticket = require('./models/Ticket.js');
 const Venue = require('./models/Venue.js');
 
-var app = express();
-
 const port = 4000;
 const PASSWORD = "YEgLGbRpgXefHjvW";
 var ObjectId = mongoose.Types.ObjectId;
+
+var app = express();
+
+app.use('/', routes)
 
 var mongoDB = `mongodb+srv://admin:${PASSWORD}@cluster-gti525-qlmha.mongodb.net/vente1?retryWrites=true`
 const options = {
