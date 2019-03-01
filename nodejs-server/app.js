@@ -4,13 +4,13 @@ var bodyParser = require('body-parser');
 const path = require('path');
 const router = require('./controllers');
 
+const initDb = require('./db.js').initDb;
+const getDb = require('./db.js').getDb;
 const Event = require('./models/Event.js');
 const Ticket = require('./models/Ticket.js');
 const Venue = require('./models/Venue.js');
 
 const port = 4000;
-const PASSWORD = "YEgLGbRpgXefHjvW";
-var ObjectId = mongoose.Types.ObjectId;
 
 var app = express();
 app.use(bodyParser.urlencoded({
@@ -18,19 +18,10 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
+initDb();
+db = getDb();
+
 app.use('/', router)
-
-var mongoDB = `mongodb+srv://admin:${PASSWORD}@cluster-gti525-qlmha.mongodb.net/vente1?retryWrites=true`
-const options = {
-  useNewUrlParser: true,
-}
-mongoose.connect(mongoDB, options);
-var db = mongoose.connection;
-
-db.on('error', console.error.bind(console, 'connection error'));
-db.once('open',function() {
-  console.log("Connected to Database !")
-})
 
 /*Ticket.find({ "event" : ObjectId('5c6fa4d03d1ab527ec928af8')}).
 populate({

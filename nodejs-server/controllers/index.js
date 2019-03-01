@@ -10,6 +10,5 @@ router.use('/swagger', (req, res) => {
 });
 
 router.use('/events', require('./events'))
-router.use('/tickets', require('./tickets'))
 
 module.exports = router;

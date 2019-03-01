@@ -10,5 +10,9 @@ module.exports = new mongoose.Schema({
         type: ObjectId,
         ref: 'Event',
         required: true
+    },
+    status: {
+        type: String,
+        required: true
     }
 })

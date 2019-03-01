@@ -2,7 +2,15 @@ var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.Types.ObjectId;
 
 module.exports = new mongoose.Schema({
-    name: {
+    uuid: {
+        type: String,
+        required: true
+    },
+    title: {
+        type: String,
+        required: true
+    },
+    artist: {
         type: String,
         required: true
     },
@@ -17,10 +25,10 @@ module.exports = new mongoose.Schema({
     venue: {
         type: ObjectId,
         ref: 'Venue',
-        //required: true
+        required: true
     },
-    tickets: [{
-        type: ObjectId,
-        ref: 'Ticket'
-    }]
+    status: {
+        type: String,
+        required: true
+    }
 });
