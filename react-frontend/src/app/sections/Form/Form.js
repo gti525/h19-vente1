@@ -17,7 +17,13 @@ class Formulaire extends Component {
           <Col md={5}>
             <FormGroup>
               <Label for="nom">Nom</Label>
-              <Input type="text" name="Nom sur la carte" id="nom" />
+              <Input type="text" name="Nom sur la carte" id="lastname" />
+            </FormGroup>
+          </Col>
+          <Col md={5}>
+            <FormGroup>
+              <Label for="nom">Prénom</Label>
+              <Input type="text" name="Prénom sur la carte" id="firstname" />
             </FormGroup>
           </Col>
         </Row>
