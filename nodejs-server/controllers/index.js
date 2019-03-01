@@ -9,6 +9,8 @@ router.use('/swagger', (req, res) => {
     res.sendFile(path.join(__dirname, '../views/swagger.html'));
 });
 
-router.use('/events', require('./events'))
+router.use('/events', require('./events'));
+
+router.use('/payment', require('./payment'));
 
 module.exports = router;
