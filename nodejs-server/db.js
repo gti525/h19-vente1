@@ -27,7 +27,6 @@ function initDb() {
 
 function getDb() {
     if(!_db) {
-        console.log("No DB initialized");
         return null;
     }
     else {
