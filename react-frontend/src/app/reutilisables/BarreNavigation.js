@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Nav, NavItem, Navbar} from 'react-bootstrap';
+import { Nav, NavItem, Navbar } from 'react-bootstrap';
+import { ACCUEIL, SPECTACLES, PANIER } from '../../assistants/routes';
 
 class BarreNavigation extends Component {
   render() {
@@ -8,31 +9,17 @@ class BarreNavigation extends Component {
           <Navbar inverse collapseOnSelect>
             <Navbar.Header>
                 <Navbar.Brand>
-                    <a href="/">EventCo</a>
+                    <a href={ACCUEIL}>Site de vente 1</a>
                 </Navbar.Brand>
                 <Navbar.Toggle />
             </Navbar.Header>
             <Navbar.Collapse>
-                <Nav>
-                <NavItem eventKey={1} href="/Musique">
-                    Musique
-                </NavItem>
-                <NavItem eventKey={2} href="/Sports">
-                    Sports
-                </NavItem>
-                <NavItem eventKey={3} href="#">
-                    Humour
-                </NavItem>
-                <NavItem eventKey={4} href="#">
-                    Théâtre
-                </NavItem>
-                </Nav>
                 <Nav pullRight>
-                <NavItem eventKey={7} href="/Panier">
-                    Panier
+                <NavItem eventKey={1} href={SPECTACLES}>
+                    Spectacles
                 </NavItem>
-                <NavItem eventKey={8} href="#">
-                    Nous contacter
+                <NavItem eventKey={7} href={PANIER}>
+                    Panier
                 </NavItem>
                 <NavItem eventKey={9} href="/Form">
                     Formulaire paiement

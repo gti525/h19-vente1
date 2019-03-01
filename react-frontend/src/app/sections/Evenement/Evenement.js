@@ -1,72 +1,54 @@
 import React, { Component } from "react";
-import { Modal, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
-class Evenement extends Component {constructor(props) {
+class Evenement extends Component {
+  constructor(props) {
     super(props);
+    this.state = {
+      BilletsDisponibles: null
+    }
   }
 
-  handleSieges = e => {
+  componentDidMount() {
+    const { billets } = this.props;
+    let BilletsDisponibles = [];
+    Object.keys(billets).forEach((key) => {
+      if(!billets[key].sold) {
+        BilletsDisponibles[key] = billets[key];
+      }
+    });
+    this.setState({ BilletsDisponibles: BilletsDisponibles })
+  }
 
-    //Vérifier disponibilité avec siegesDispo
-  };
-
-  handleAcheter = () => {
-    
-    //Ajouter le billet au panier
+  acheterBillets = (index) => {
+    if(this.state.BilletsDisponibles) {
+      this.props.ouvrirAchatBillet(index);
+    }
   };
 
   render() {
-    const { idUnique, image, nom, date, lieu, type, enVedette, evenementModal, siegesDispo } = this.props;
+    const { BilletsDisponibles } = this.state
+    console.log(BilletsDisponibles)
+    const { index, image, nom, date, lieu, type,  } = this.props;
+    if(!BilletsDisponibles) {
+      return null;
+    }
     return (
       <tr>
-        <td>{image}</td>
+        <td><img src={image} alt="" height="60"/></td>
         <td>{nom}</td>
         <td>{date}</td>
         <td>{lieu}</td>
         <td>{type}</td>
         <td>
-          <Button variant="primary" onClick={() => this.setState({ evenementModal: true })}>Acheter</Button>
+          <Button
+          variant="primary"
+          disabled={!BilletsDisponibles.length}
+          title={BilletsDisponibles ? "" : "Sold Out"}
+          onClick={() => this.acheterBillets(index)}>
+            {BilletsDisponibles.length ? "Ajouter au panier" : "Non disponible"}
+          </Button>
         </td>
-        <Modal show={evenementModal}>
-          <Modal.Header>
-            <Modal.Title>Acheter Billet</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-          <form className="form-horizontal" name="billetForm">
-            <div className="form-group">
-                <label className="col-md-4 control-label">
-                  Siège
-                </label>
-                <div className="col-md-4">
-                  <input
-                    name="siege"
-                    placeholder="00000"
-                    onChange={this.handleSiege}
-                    className="form-control"
-                    />
-                </div>
-            </div>
-            <div className="form-group">
-                <label className="col-md-4 control-label">
-                  Prix
-                </label>
-                <div className="col-md-4">
-                  <input
-                    name="prix"
-                    placeholder="00.00$"
-                    className="form-control"
-                  />
-                </div>
-              </div>
-          </form>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button onClick={() => this.setState({ evenementModal: false })}>
-              Fermer
-            </Button>
-            <Button onClick={this.handleAcheter}>Acheter</Button>
-          </Modal.Footer>
-        </Modal>
       </tr>
     );
   }

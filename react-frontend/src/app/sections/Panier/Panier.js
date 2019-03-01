@@ -7,18 +7,15 @@ class Panier extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      billets: billets ,
       commanderModal: false,
-      panier: null
+      monPanier: null
     };
   }
 
   componentDidMount() {
-    const panier = [];
-    Object.keys(billets).map(billetKey => (
-      panier[billets[billetKey].idBillet] = 1
-    ))
-    this.setState({ panier: panier });
+
+    const monPanier = JSON.parse(localStorage.getItem('panier'));
+    this.setState({ monPanier: monPanier });
   }
 
   handleCommander = () => {
@@ -27,15 +24,15 @@ class Panier extends Component {
   
   //TODO! Il faut retirer le siège réservé de son événement
   supprimerBillet = (billetKey) => {
-    const panier = {...this.state.panier};
-    delete panier[billetKey];
-    this.setState({ panier: panier });
+    const panier = this.state.monPanier;
+    panier.splice(billetKey, 1);
+    this.setState({ monPanier: panier });
+    localStorage.setItem(`panier`, JSON.stringify(this.state.monPanier));
   };
 
   render() {
-    var { panier } = this.state;
-
-    if(!panier){
+    var { monPanier } = this.state;
+    if(!monPanier){
       return null;
     }
     return (
@@ -53,7 +50,10 @@ class Panier extends Component {
                 <th />
               </tr>
             </thead>
-            <tbody>{this.renderBillets(panier)}</tbody>
+            <tbody>{             
+                this.renderBillets(monPanier)
+             
+              }</tbody>
           </table>
           <Button variant="primary" onClick={() => this.setState({ evenementModal: true })}>Commander</Button>
           <Modal show={this.state.evenementModal}>
@@ -79,11 +79,11 @@ class Panier extends Component {
   renderBillets = (panier) => {
     if(panier) {
       return (
-        Object.keys(panier).map(billetKey => (
+        Object.keys(panier).map(panierKey => (
           <Billet
-          key={billetKey}
-          cle={billetKey}
-          {...panier[billetKey]}
+          key={panierKey}
+          cle={panierKey}
+          {...panier[panierKey]}
           supprimerBillet={this.supprimerBillet}
           />
         ))
