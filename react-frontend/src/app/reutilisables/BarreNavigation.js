@@ -34,6 +34,9 @@ class BarreNavigation extends Component {
                 <NavItem eventKey={8} href="#">
                     Nous contacter
                 </NavItem>
+                <NavItem eventKey={9} href="/Form">
+                    Formulaire paiement
+                </NavItem>
                 </Nav>
             </Navbar.Collapse>
             </Navbar>
