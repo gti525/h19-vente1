@@ -1,10 +1,16 @@
-var express = require('express')
-  , router = express.Router()
+const router = require('express').Router();
+const path = require('path');
 
-//router.use('/comments', require('./comments'))
+router.get('/', (req, res) => {
+    res.status(200).json({ message: 'Connected!' });
+});
 
-router.get('/', function(req, res) {
-  
-})
+router.use('/swagger', (req, res) => {
+    res.sendFile(path.join(__dirname, '../views/swagger.html'));
+});
 
-module.exports = router
+router.use('/events', require('./events'));
+
+router.use('/payment', require('./payment'));
+
+module.exports = router;

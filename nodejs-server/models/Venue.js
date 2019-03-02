@@ -1,4 +1,21 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 const VenueSchema = require('../schemas/Venue.js');
 
-module.exports = new mongoose.model('Venue', VenueSchema);
+const Venue = new mongoose.model('Venue', VenueSchema);
+
+exports.checkIfExists = async function(venueName) {
+    var venue = await Venue.findOne({ "name" : venueName })
+    if(venue) return venue._id;
+    else return false;
+}
+
+exports.createVenue = function(venueInfos) {
+    const venue = new Venue(venueInfos)
+    venue.save(function(err) {
+        if(err) {
+            console.log(err);
+            return err;
+        }
+    })
+    return venue._id;
+}
