@@ -9,7 +9,6 @@ router.post('/', auth.isAdmin, function(req, res) {
 })
 
 router.put('/:eventId', auth.isAdmin, function(req, res) {
-    console.log(req.body)
     Event.updateEvent(req.params.eventId, req.body);
     res.status(200).json({ message: 'In Event controller!' });
 })

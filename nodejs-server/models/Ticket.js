@@ -23,3 +23,8 @@ exports.getNumberTicketsSold = async function(eventId) {
   var numberOfSoldTickets = await Ticket.countDocuments({ "event" : eventId, "status" : "sold" });
   return numberOfSoldTickets;
 }
+
+exports.getNumberTicketsAvailable = async function(eventId) {
+  var numberOfTicketsAvailable = await Ticket.countDocuments({ "event" : eventId, $or:[ {"status" : "on sale"}, {"status" : "reserved"} ]});
+  return numberOfTicketsAvailable;
+}
