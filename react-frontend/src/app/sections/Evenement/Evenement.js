@@ -26,16 +26,23 @@ class Evenement extends Component {
     }
   };
 
+  afficherDetails = (index) => {
+      this.props.ouvrirDetailEvenement(index);
+  };
+
   render() {
     const { BilletsDisponibles } = this.state
-    console.log(BilletsDisponibles)
+    //console.log(BilletsDisponibles)
     const { index, image, nom, date, lieu, type,  } = this.props;
     if(!BilletsDisponibles) {
       return null;
     }
     return (
       <tr>
-        <td><img src={image} alt="" height="60"/></td>
+        <td>
+        <Button onClick={() => this.afficherDetails(index)}><img src={image} height="45"/></Button>
+        </td>
+        {/* <td><img src={image} alt="" height="60"/></td> */}
         <td>{nom}</td>
         <td>{date}</td>
         <td>{lieu}</td>

@@ -1,28 +1,38 @@
 import React, { Component } from "react";
 import Evenement from "../sections/Evenement/Evenement.js";
 import AjoutBillet from "./AjoutBillet.js";
+import DetailsEvenement from "./DetailsEvenement.js";
 
 class ListeEvenements extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        evenementOuvert: null
+      evenementDetailOuvert: null,
+      evenementAchatOuvert: null
     }
+    this.ouvrirDetailEvenement = this.ouvrirDetailEvenement.bind(this);
+    this.fermerDetailEvenement = this.fermerDetailEvenement.bind(this);
     this.ouvrirAchatBillet = this.ouvrirAchatBillet.bind(this);
     this.fermerAchatBillet = this.fermerAchatBillet.bind(this);
   }
 
-  ouvrirAchatBillet(index) {
-    this.setState({ evenementOuvert: this.props.evenements[index] })
+  ouvrirDetailEvenement(index) {
+    this.setState({ evenementDetailOuvert: this.props.evenements[index] })
   }
-
+  fermerDetailEvenement() {
+    this.setState({ evenementDetailOuvert: null })
+  }
+  ouvrirAchatBillet(index) {
+    this.setState({ evenementAchatOuvert: this.props.evenements[index] })
+  }
   fermerAchatBillet() {
-    this.setState({ evenementOuvert: null })
+    this.setState({ evenementAchatOuvert: null })
   }
 
   render() {
     const { evenements } = this.props;
-    const { evenementOuvert } = this.state;
+    const { evenementDetailOuvert } = this.state;
+    const { evenementAchatOuvert } = this.state;
     return (
       <div className="container">
         <table className="table">
@@ -38,7 +48,10 @@ class ListeEvenements extends Component {
             {this.renderEvenements(evenements)}
           </tbody>
         </table>
-        {evenementOuvert && <AjoutBillet evenementOuvert={this.state.evenementOuvert} fermerAchatBillet={() => this.fermerAchatBillet()}/>} {/*Si ajoutBilletOuvert === true, render le component AjoutBillet*/}
+        {evenementDetailOuvert && <DetailsEvenement evenementDetailOuvert={this.state.evenementDetailOuvert} fermerDetailEvenement={() => this.fermerDetailEvenement()}/>} 
+        {/*Si evenementDetailOuvert === true, render le component DetailsEvenement*/}
+        {evenementAchatOuvert && <AjoutBillet evenementAchatOuvert={this.state.evenementAchatOuvert} fermerAchatBillet={() => this.fermerAchatBillet()}/>} 
+        {/*Si evenementAchatOuvert === true, render le component AjoutBillet*/}
       </div>
     );
   }
@@ -46,7 +59,7 @@ class ListeEvenements extends Component {
   renderEvenements = (evenements) => {
     return (
       Object.keys(evenements).map((key) => (
-        <Evenement key={key} index={key} {...evenements[key]} ouvrirAchatBillet={this.ouvrirAchatBillet}/>
+        <Evenement key={key} index={key} {...evenements[key]} ouvrirDetailEvenement={this.ouvrirDetailEvenement} ouvrirAchatBillet={this.ouvrirAchatBillet}/>
       ))
     );
   }

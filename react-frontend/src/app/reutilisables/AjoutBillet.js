@@ -11,7 +11,7 @@ class AjoutBillet extends Component {
   }
 
   render() {
-    const { evenementOuvert, fermerAchatBillet } = this.props;
+    const { evenementAchatOuvert, fermerAchatBillet } = this.props;
     const { nbBillets } = this.state;
 
     return (
@@ -26,7 +26,7 @@ class AjoutBillet extends Component {
                   Titre du spectacle
                 </label>
                 <div className="col-md-4">
-                  {evenementOuvert.nom}
+                  {evenementAchatOuvert.nom}
                 </div>
             </div>
             <div className="form-group">
@@ -51,7 +51,7 @@ class AjoutBillet extends Component {
             <Button onClick={() => fermerAchatBillet()}>
               Fermer
             </Button>
-            <Button onClick={() => this.ajouterAuPanier(evenementOuvert.id, parseFloat(nbBillets))}>
+            <Button onClick={() => this.ajouterAuPanier(evenementAchatOuvert.id, parseFloat(nbBillets))}>
               Ajouter
             </Button>
           </Modal.Footer>
