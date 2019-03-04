@@ -2,17 +2,21 @@ var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.Types.ObjectId;
 
 module.exports = new mongoose.Schema({
-    uuid: {
-        type: String,
-        required: true
+        uuid: {
+            type: String,
+            required: true
+        },
+        event: {
+            type: ObjectId,
+            ref: 'Event',
+            required: true
+        },
+        status: {
+            type: String,
+            required: true
+        }
     },
-    event: {
-        type: ObjectId,
-        ref: 'Event',
-        required: true
-    },
-    status: {
-        type: String,
-        required: true
+    {
+        versionKey: false
     }
-})
+)
