@@ -28,7 +28,6 @@ class Evenement extends Component {
 
   render() {
     const { BilletsDisponibles } = this.state
-    console.log(BilletsDisponibles)
     const { index, image, nom, date, lieu, type,  } = this.props;
     if(!BilletsDisponibles) {
       return null;
