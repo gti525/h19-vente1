@@ -26,7 +26,7 @@ class AjoutBillet extends Component {
                   Titre du spectacle
                 </label>
                 <div className="col-md-4">
-                  {evenementAchatOuvert.nom}
+                  {evenementAchatOuvert.title}
                 </div>
             </div>
             <div className="form-group">
@@ -78,12 +78,12 @@ class AjoutBillet extends Component {
 
         let fauxBillets = [];
 
-        if (id == "spo001")
+        if (id === "spo001")
         {
           fauxBillets = [billets[0], billets[1]]; //Fonction qui get les billets dans le backend selon le nombre de nbBilletsAjoutees
         }
 
-        if (id == "spo003")
+        if (id === "spo003")
         {
           fauxBillets = [billets[2], billets[3]]; //Fonction qui get les billets dans le backend selon le nombre de nbBilletsAjoutees
         }
@@ -107,12 +107,4 @@ class AjoutBillet extends Component {
   }
 }
 
-/*
-Fonctionnalité qui sera utile pour obtenir les billets dans le panier.
-À utiliser dans la classe Panier.js
-let search = 'panier';
-let values = Object.keys(localStorage)
-               .filter( (key)=> key.startsWith(search) )
-               .forEach( (key)=> console.log(key) );
-*/
 export default AjoutBillet;
