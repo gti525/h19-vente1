@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import ListeEvenements from "../../reutilisables/ListeEvenements.js";
-import evenements from "../../../faussesDonnees/evenements.json";
+//import evenements from "../../../faussesDonnees/evenements.json";
 
 class Spectacles extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      evenements: evenements
+      isLoading: true,
+      evenements: null
     };
   } 
 
@@ -15,14 +16,20 @@ class Spectacles extends Component {
       method: 'GET'
     })
     .then(response => response.json())
-    .then(response => console.log(response))
+    .then(response => {
+      console.log(response)
+      this.setState({ evenements: response.events, isLoading: false })
+    })
     //.catch(error => {
     //  console.log(error)
     //})
   }
 
   render() {
-    const { evenements } = this.state;
+    const { evenements, isLoading } = this.state;
+    if(isLoading) {
+      return null;
+    }
     return (
       <ListeEvenements evenements={evenements}/>
     );

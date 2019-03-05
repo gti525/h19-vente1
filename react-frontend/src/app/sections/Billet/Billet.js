@@ -4,7 +4,7 @@ import { Button } from "react-bootstrap";
 class Billet extends Component {
 
   render() {
-    const { cle, idBillet, idEvenement, nom, date, lieu, siege, prixAffiche, type } = this.props;
+    const { cle, nom, date, lieu, siege, prixAffiche } = this.props;
 
     return (
       <tr>

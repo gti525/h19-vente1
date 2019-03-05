@@ -1,29 +1,20 @@
 import React, { Component } from "react";
 import { Button } from "react-bootstrap";
+import { defaultImage } from '../../../assistants/images.js';
+import { dateFormat } from '../../../assistants/dateFormatter.js';
 
 class Evenement extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      BilletsDisponibles: null
-    }
+    this.state = {}
   }
 
   componentDidMount() {
-    const { billets } = this.props;
-    let BilletsDisponibles = [];
-    Object.keys(billets).forEach((key) => {
-      if(!billets[key].sold) {
-        BilletsDisponibles[key] = billets[key];
-      }
-    });
-    this.setState({ BilletsDisponibles: BilletsDisponibles })
+
   }
 
   acheterBillets = (index) => {
-    if(this.state.BilletsDisponibles) {
-      this.props.ouvrirAchatBillet(index);
-    }
+    this.props.ouvrirAchatBillet(index);
   };
 
   afficherDetails = (index) => {
@@ -31,28 +22,21 @@ class Evenement extends Component {
   };
 
   render() {
-    const { BilletsDisponibles } = this.state
-    const { index, image, nom, date, lieu, type,  } = this.props;
-    if(!BilletsDisponibles) {
-      return null;
-    }
+    const { index, title, date, venue  } = this.props;
     return (
       <tr>
         <td>
-        <Button onClick={() => this.afficherDetails(index)}><img src={image} height="45"/></Button>
+        <Button onClick={() => this.afficherDetails(index)}><img alt="" src={defaultImage} height="45"/></Button>
         </td>
-        {/* <td><img src={image} alt="" height="60"/></td> */}
-        <td>{nom}</td>
-        <td>{date}</td>
-        <td>{lieu}</td>
-        <td>{type}</td>
+        <td>{title}</td>
+        <td>{dateFormat(date)}</td>
+        <td>{venue.address}</td>
         <td>
           <Button
           variant="primary"
-          disabled={!BilletsDisponibles.length}
-          title={BilletsDisponibles ? "" : "Sold Out"}
+          title=""
           onClick={() => this.acheterBillets(index)}>
-            {BilletsDisponibles.length ? "Ajouter au panier" : "Non disponible"}
+            Ajouter au panier
           </Button>
         </td>
       </tr>

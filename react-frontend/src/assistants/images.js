@@ -1,0 +1,1 @@
+export const defaultImage = "https://image-api.nrj.fr/medias/2018/02/arts-du-spectacle-quels-metiers-autour-de-la-scene-istock-629556336_5a7447487a14e.jpg?referer=NRJ&w=900"
