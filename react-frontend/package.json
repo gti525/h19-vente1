@@ -2,6 +2,7 @@
   "name": "react-frontend",
   "version": "0.1.0",
   "private": true,
+  "proxy": "https://sitevente1-serveur.herokuapp.com/",
   "dependencies": {
     "react": "^16.7.0",
     "react-bootstrap": "^0.32.4",

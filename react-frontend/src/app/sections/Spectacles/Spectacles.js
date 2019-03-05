@@ -10,6 +10,17 @@ class Spectacles extends Component {
     };
   } 
 
+  componentDidMount() {
+    fetch(`/events`, {
+      method: 'GET'
+    })
+    .then(response => response.json())
+    .then(response => console.log(response))
+    //.catch(error => {
+    //  console.log(error)
+    //})
+  }
+
   render() {
     const { evenements } = this.state;
     return (
