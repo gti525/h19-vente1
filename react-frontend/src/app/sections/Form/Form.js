@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-
 import { Form, FormGroup, Label, Input,Row, Col, Button } from 'reactstrap';
+import InputMask from 'react-input-mask';
+import "./Form.css";
 
 class Formulaire extends Component {
   constructor(props) {
@@ -12,33 +13,35 @@ class Formulaire extends Component {
 
   render() {
     return (
-        <Form>
+        <Form className="designForm">
         <Row form1>
           <Col md={5}>
             <FormGroup>
               <Label for="nom">Nom</Label>
-              <Input type="text" name="Nom sur la carte" id="lastname" />
+              <Input type="text" name="Nom_carte" id="lastname" />
             </FormGroup>
           </Col>
           <Col md={5}>
             <FormGroup>
               <Label for="nom">Prénom</Label>
-              <Input type="text" name="Prénom sur la carte" id="firstname" />
+              <Input type="text" name="Prénom_carte" id="firstname" />
             </FormGroup>
           </Col>
         </Row>
         <Row form2>
-          <Col md={4}>
+
+          <Col md={6}>
             <FormGroup>
-              <Label for="cardNumber">Numéro de la carte</Label>
-              <Input type="text" name="cardNumber" id="cardNumber"/>
+              <Label for="cardNumber">Numéro de la carte </Label>
+              <InputMask mask="9999 9999 9999 9999" maskChar=" " />
             </FormGroup>
           </Col>
+
         </Row>
         <Row form3>
           <Col md={2}>
             <FormGroup>
-                <Label for="month">Mois d'expiraiton</Label>
+                <Label for="month">Mois d'expiration</Label>
                     <Input type="select" name="selectMonth" id="month">
                         <option>Janvier</option>
                         <option>Février</option>
@@ -58,15 +61,15 @@ class Formulaire extends Component {
 
           <Col md={2}>
             <FormGroup>
-              <Label for="Année d'expiration">Année d'Expiration</Label>
-              <Input type="text" name="years" id="years"/>
+              <Label for="years">Année d'expiration</Label>
+              <InputMask  mask="9999" maskChar=" " />
             </FormGroup>
           </Col>
 
           <Col md={2}>
             <FormGroup>
-              <Label for="cvv">CVV</Label>
-              <Input type="text" name="cvv" id="cvv"/>
+            <Label for="cvv">cvv</Label>
+              <InputMask  mask="999" maskChar=" " />
             </FormGroup>  
           </Col>
         </Row>
