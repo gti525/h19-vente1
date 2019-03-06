@@ -27,6 +27,12 @@ exports.reserveTickets = async function(event_id, numberOfTickets) {
   return tickets;
 }
 
+// Replacer les billets en vente
+exports.unReserveTickets = async function(tickets) {
+  Object.keys(tickets).forEach(async function(key) {
+    await Ticket.findOneAndUpdate({ _id: tickets[key]._id, status: "reserved" }, { status: "on sale" }, {new: true});
+  })
+}
 
 // API
 

@@ -23,6 +23,7 @@ router.post('/:eventId/reserveTickets', async function(req, res, next) {
         var isTicketsAvailable = await Ticket.checkIfTicketsAvailable(event_id, req.body.numberOfTickets);
         if(isTicketsAvailable) {
             var tickets = await Ticket.reserveTickets(event_id, req.body.numberOfTickets);
+            setTimeout(Ticket.unReserveTickets, 30000, tickets)
             res.status(200).json({
                 message: `Successfully reserved ${req.body.numberOfTickets} ticket(s).`,
                 tickets
