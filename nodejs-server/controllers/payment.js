@@ -29,6 +29,6 @@ router.post('/', function(req, res) {
             description: error.description
         });
     })
-})
+});
 
 module.exports = router;

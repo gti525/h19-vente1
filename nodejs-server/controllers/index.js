@@ -10,4 +10,6 @@ router.use('/events', require('./events'));
 
 router.use('/payment', require('./payment'));
 
+router.use('/social', require('./social'));
+
 module.exports = router;
