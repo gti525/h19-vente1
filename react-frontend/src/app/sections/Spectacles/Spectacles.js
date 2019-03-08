@@ -12,7 +12,7 @@ class Spectacles extends Component {
   } 
 
   componentDidMount() {
-    fetch(`http://localhost:4000/events`, {
+    fetch(`/events`, {
       method: 'GET'
     })
     .then(response => response.json())
