@@ -6,7 +6,6 @@ class Accueil extends Component {
   render() {
     return (
       <Fragment>
-        <div id="horizontal-analytic-banner"></div>
         <div className="accueil_en_tete">
           <h4>Simple. Rapide</h4>
           <h1>Vente de billets en ligne</h1>
@@ -16,7 +15,7 @@ class Accueil extends Component {
           <h1>Mais quel site incroyable !</h1>
         </div>
 
-       
+        <div id="horizontal-analytic-banner"></div>
         <div id="vertical-analytic-banner"></div>
         <div id="mobile-analytic-banner"></div>
         
