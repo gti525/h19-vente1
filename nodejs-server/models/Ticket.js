@@ -17,7 +17,8 @@ exports.checkIfTicketsAvailable = async function(event_id, numberOfTickets) {
 
 // Réserver les billets d'un événement
 exports.reserveTickets = async function(event_id, numberOfTickets) {
-  var tickets = await Ticket.find({ event: event_id, status: "on sale" }).limit(numberOfTickets);
+  var tickets = await Ticket.find({ event: event_id, status: "on sale" }).limit(numberOfTickets)
+  .populate('event');
   await Object.keys(tickets).forEach(function(key) {
     tickets[key].status = "reserved";
     tickets[key].save(function(err){

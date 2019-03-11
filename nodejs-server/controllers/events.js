@@ -18,7 +18,7 @@ router.post('/:eventId/reserveTickets', async function(req, res, next) {
     if(!req.body.numberOfTickets || req.body.numberOfTickets > 6) {
         res.status(400).json({ message: `Invalid number of tickets.` });
     }
-    var event_id = await Event.checkIfExists(req.body.uuid);
+    var event_id = await Event.checkIfExists(req.params.eventId);
     if(event_id) {
         var isTicketsAvailable = await Ticket.checkIfTicketsAvailable(event_id, req.body.numberOfTickets);
         if(isTicketsAvailable) {
@@ -29,10 +29,14 @@ router.post('/:eventId/reserveTickets', async function(req, res, next) {
                 tickets
             });
         } else {
-            res.status(200).json({ message: `There are not enough tickets available for your order.` });
+            res.status(200).json({
+                error: `Il n'y a pas assez de billets disponibles pour votre commande.`
+            });
         }
     } else {
-        res.status(400).json({ message: 'No event with this uuid exists.' });
+        res.status(200).json({
+            error: 'Cet événement nexiste plus.'
+        });
     }
 });
 

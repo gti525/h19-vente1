@@ -7,6 +7,13 @@ const Event = new mongoose.model('Event', EventSchema);
 
 // Application Frontend
 
+// Détermine si un événement de la BD possède ce id
+exports.checkIfExists = async function(eventId) {
+    var event = await Event.findById(eventId)
+    if(event) return event._id;
+    else return false;
+}
+
 // Obtenir tous les événements affichés
 exports.getAllOpenedEvents = async function() {
     var events = await Event.find({ status: "opened" })
@@ -18,7 +25,7 @@ exports.getAllOpenedEvents = async function() {
 // API
 
 // Détermine si un événement de la BD possède ce uuid
-exports.checkIfExists = async function(eventId) {
+exports.checkIfExistsForApi = async function(eventId) {
     var event = await Event.findOne({ "uuid" : eventId })
     if(event) return event._id;
     else return false;

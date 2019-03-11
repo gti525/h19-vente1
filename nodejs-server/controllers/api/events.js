@@ -6,7 +6,7 @@ const Ticket = require('../../models/Ticket.js');
 
 // Ajouter un événement
 router.post('/', auth.isAdmin, async function(req, res) {
-    var eventExists = await Event.checkIfExists(req.body.uuid);
+    var eventExists = await Event.checkIfExistsForApi(req.body.uuid);
     if(!eventExists) {
         Event.createEvent(req.body);
         res.status(200).json({ message: 'Successfully added an event.' });
@@ -17,7 +17,7 @@ router.post('/', auth.isAdmin, async function(req, res) {
 
 // Modifier un événement
 router.put('/:eventId', auth.isAdmin, async function(req, res) {
-    var eventExists = await Event.checkIfExists(req.params.eventId);
+    var eventExists = await Event.checkIfExistsForApi(req.params.eventId);
     if(eventExists) {
         Event.updateEvent(req.params.eventId, req.body);
         res.status(200).json({ message: 'Successfully updated the event.' });
