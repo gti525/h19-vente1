@@ -15,20 +15,11 @@ class Spectacles extends Component {
     axios.get("https://sitevente1-serveur.herokuapp.com/events")
     .then(response => {
       console.log(response)
-      this.setState({ evenements: response.events, isLoading: false })
-    })
-    /*fetch(`/events`, {
-      method: 'GET'
-    })
-    .then(response => response.json())
-    .then(response => {
-      console.log(response)
-      this.setState({ evenements: response.events, isLoading: false })
+      this.setState({ evenements: response.data.events, isLoading: false })
     })
     //.catch(error => {
     //  console.log(error)
     //})
-    */
   }
 
   render() {
