@@ -14,7 +14,6 @@ class Spectacles extends Component {
   componentDidMount() {
     axios.get("https://sitevente1-serveur.herokuapp.com/events")
     .then(response => {
-      console.log(response)
       this.setState({ evenements: response.data.events, isLoading: false })
     })
     //.catch(error => {
