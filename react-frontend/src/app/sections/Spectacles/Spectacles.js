@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import ListeEvenements from "../../reutilisables/ListeEvenements.js";
-//import evenements from "../../../faussesDonnees/evenements.json";
+import axios from "axios";
 
 class Spectacles extends Component {
   constructor(props) {
@@ -12,7 +12,12 @@ class Spectacles extends Component {
   } 
 
   componentDidMount() {
-    fetch(`/events`, {
+    axios.get("https://sitevente1-serveur.herokuapp.com/events")
+    .then(response => {
+      console.log(response)
+      this.setState({ evenements: response.events, isLoading: false })
+    })
+    /*fetch(`/events`, {
       method: 'GET'
     })
     .then(response => response.json())
@@ -23,6 +28,7 @@ class Spectacles extends Component {
     //.catch(error => {
     //  console.log(error)
     //})
+    */
   }
 
   render() {
