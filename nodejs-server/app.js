@@ -19,10 +19,11 @@ app.use(bodyParser.json());
 initDb();
 db = getDb();
 
+// Allow Cross-domain
+app.use(cors());
+
 // Initialise le routeur
 app.use('/', router)
 
-// Allow Cross-domain
-app.use(cors);
 
 app.listen(process.env.PORT || port, () => console.log(`Example app listening on port ${port}!`))
