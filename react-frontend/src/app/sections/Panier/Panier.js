@@ -43,9 +43,9 @@ class Panier extends Component {
             <thead>
               <tr>
                 <th scope="col">Nom</th>
+                <th scope="col">Artiste</th>
                 <th scope="col">Date</th>
                 <th scope="col">Lieu</th>
-                <th scope="col">Siège</th>
                 <th scope="col">Prix</th>
                 <th />
               </tr>
