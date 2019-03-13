@@ -10,7 +10,16 @@ import Form from './sections/Form/Form.js';
 
 
 class App extends Component {
-  
+  constructor(props) {
+    super(props);
+    this.loadBanner();
+  }
+  loadBanner() {
+    // eslint-disable-next-line
+    document.addEventListener("DOMContentLoaded",function(){const e="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQyLCJpYXQiOjE1NTE2NjQyMDh9.vYKwtAGtaxGMSN0qp3kOTo6k3Ccc2B9NzFBMpZ8CUPU";const t=function(){if("undefined"!=typeof Storage&&localStorage.getItem("gti525analytic")){const e=JSON.parse(localStorage.getItem("gti525analytic"));if(new Date(e.expiration).getTime()>(new Date).getTime())return e.clientId}return}();t?function(t){let n=new XMLHttpRequest;n.open("GET","https://gti525-analitycs.herokuapp.com/api/v1/banners/code",!0),n.onload=function(o){4===n.readyState&&200===n.status&&Function(`return (${n.responseText})`)()(t,e)},n.setRequestHeader("x-access-token",e),n.send()}(t):function(){let t=new XMLHttpRequest;t.open("GET","https://gti525-analitycs.herokuapp.com/api/v1/analytics/code",!0),t.onload=function(n){4===t.readyState&&200===t.status&&Function(`return (${t.responseText})`)()(e)},t.setRequestHeader("x-access-token",e),t.send()}()},!1);
+  }
+
+
   render() {
     return (
       <Router>
@@ -24,6 +33,7 @@ class App extends Component {
           </Switch>
         </div>
       </Router>
+      
     );
   }
 }
