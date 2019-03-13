@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import ListeEvenements from "../../reutilisables/ListeEvenements.js";
+import { BounceLoader } from 'react-spinners';
 import axios from "axios";
 
 class Spectacles extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: true,
+      loading: true,
       evenements: null
     };
   } 
@@ -14,7 +15,7 @@ class Spectacles extends Component {
   componentDidMount() {
     axios.get("https://sitevente1-serveur.herokuapp.com/events")
     .then(response => {
-      this.setState({ evenements: response.data.events, isLoading: false })
+      this.setState({ evenements: response.data.events, loading: false })
     })
     //.catch(error => {
     //  console.log(error)
@@ -22,13 +23,20 @@ class Spectacles extends Component {
   }
 
   render() {
-    <div id="vertical-analytic-banner"></div>
-    const { evenements, isLoading } = this.state;
-    if(isLoading) {
-      return null;
+    const { evenements, loading } = this.state;
+    if(loading) {
+      return (
+        <BounceLoader
+          color={'#123abc'} 
+          loading={this.state.loading}
+        />
+      )
     }
     return (
-      <ListeEvenements evenements={evenements}/>
+      <React.Fragment>
+        <div id="vertical-analytic-banner"></div>
+        <ListeEvenements evenements={evenements}/>
+      </React.Fragment>
     );
     
   }
