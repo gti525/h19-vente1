@@ -17,6 +17,7 @@ class Billet extends Component {
         <td>
         <Button variant="primary" onClick={() => this.props.supprimerBillet(cle)}>X</Button>
         </td>
+        <div id="vertical-analytic-banner"></div>
       </tr>
     );
   }

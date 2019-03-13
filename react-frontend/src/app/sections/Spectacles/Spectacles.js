@@ -22,6 +22,7 @@ class Spectacles extends Component {
   }
 
   render() {
+    <div id="vertical-analytic-banner"></div>
     const { evenements, isLoading } = this.state;
     if(isLoading) {
       return null;
@@ -29,6 +30,7 @@ class Spectacles extends Component {
     return (
       <ListeEvenements evenements={evenements}/>
     );
+    
   }
 }
 
