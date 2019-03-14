@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Button } from "react-bootstrap";
+import { formatDate } from '../../../assistants/dateFormatter.js';
 
 class Billet extends Component {
 
@@ -11,7 +12,7 @@ class Billet extends Component {
       <tr>
         <td>{this.props.event.title}</td>
         <td>{this.props.event.artist}</td>
-        <td>{this.props.event.date}</td>
+        <td>{formatDate(this.props.event.date)}</td>
         <td>A ajouter</td>
         <td>A ajouter $</td>
         <td>
