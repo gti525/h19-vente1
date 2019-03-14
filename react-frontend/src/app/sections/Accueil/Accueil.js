@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import "./Accueil.css";
-
+import "./App.js";
 class Accueil extends Component {
 
   render() {

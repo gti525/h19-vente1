@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ListeEvenements from "../../reutilisables/ListeEvenements.js";
 import { BounceLoader } from 'react-spinners';
 import axios from "axios";
+import "./Spectacles.css";
 
 class Spectacles extends Component {
   constructor(props) {
@@ -34,8 +35,9 @@ class Spectacles extends Component {
     }
     return (
       <React.Fragment>
-        <div id="vertical-analytic-banner"></div>
         <ListeEvenements evenements={evenements}/>
+
+        <div id="horizontal-analytic-banner"></div>
       </React.Fragment>
     );
     
