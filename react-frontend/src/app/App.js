@@ -10,6 +10,7 @@ import Form from './sections/Form/Form.js';
 
 
 class App extends Component {
+  
   constructor(props) {
     super(props);
     this.loadBanner();

@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import "./Accueil.css";
-import "./App.js";
+
 class Accueil extends Component {
 
   render() {
@@ -16,7 +16,6 @@ class Accueil extends Component {
         </div>
 
         <div id="horizontal-analytic-banner"></div>
-        <div id="vertical-analytic-banner"></div>
         <div id="mobile-analytic-banner"></div>
         
       </Fragment>

@@ -14,5 +14,9 @@
 }
 
 .horizontal-analytic-banner{
-    padding-left: 50%;
+    text-align: center;
+}
+
+.mobile-analytic-banner{
+    text-align: center;
 }
