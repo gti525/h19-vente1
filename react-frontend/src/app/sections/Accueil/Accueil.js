@@ -15,7 +15,7 @@ class Accueil extends Component {
           <h1>Mais quel site incroyable !</h1>
         </div>
 
-        <div id="horizontal-analytic-banner"></div>
+        <div id="horizontal-analytic-banner" align="center"></div>
         <div id="mobile-analytic-banner"></div>
         
       </Fragment>

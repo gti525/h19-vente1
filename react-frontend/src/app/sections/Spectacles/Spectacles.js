@@ -37,7 +37,7 @@ class Spectacles extends Component {
       <React.Fragment>
         <ListeEvenements evenements={evenements}/>
 
-        <div id="horizontal-analytic-banner"></div>
+        <div id="horizontal-analytic-banner" align="center"></div>
       </React.Fragment>
     );
     
