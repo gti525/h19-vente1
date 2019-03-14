@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Button } from "react-bootstrap";
 import { defaultImage } from '../../../assistants/images.js';
-import { dateFormat } from '../../../assistants/dateFormatter.js';
+import { formatDate } from '../../../assistants/dateFormatter.js';
 
 class Evenement extends Component {
   constructor(props) {
@@ -29,7 +29,7 @@ class Evenement extends Component {
         <Button onClick={() => this.afficherDetails(index)}><img alt="" src={defaultImage} height="45"/></Button>
         </td>
         <td>{title}</td>
-        <td>{dateFormat(date)}</td>
+        <td>{formatDate(date)}</td>
         <td>{venue.address}</td>
         <td>
           <Button

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Modal, Button } from "react-bootstrap";
 import './DetailsEvenement.css';
 import { defaultImage } from '../../assistants/images.js';
-import { dateFormat } from '../../assistants/dateFormatter.js';
+import { formatDate } from '../../assistants/dateFormatter.js';
 
 class DetailsEvenement extends Component {
 
@@ -46,7 +46,7 @@ class DetailsEvenement extends Component {
                   Date:
                 </div>
                 <div className="col2">
-                  {dateFormat(evenementDetailOuvert.date)}
+                  {formatDate(evenementDetailOuvert.date)}
                 </div>
               </div>
               <div className="ligne">
