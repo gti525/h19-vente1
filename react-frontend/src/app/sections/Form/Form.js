@@ -14,6 +14,7 @@ class Formulaire extends Component {
     this.onChange = this.onChange.bind(this);
     this.submitForm = this.submitForm.bind(this);
     this.submitSocialForm = this.submitSocialForm.bind(this);
+    this.deconnexion = this.deconnexion.bind(this);
     this.state = {
       nom: "",
       prenom: "",
@@ -37,24 +38,68 @@ class Formulaire extends Component {
     const estConnecte = sessionStorage.getItem(`social`);
     return (
       <React.Fragment>
-        <h2 className="titreDeSection">Informations personnelles</h2>
-        {estConnecte ?
-        <Button onClick={this.deconnexion}>Se déconnecter</Button> :
-        <Button onClick={this.ouvrirConnexion}>Se connecter avec le réseau social</Button>
-        }
-        <h2 className="titreDeSection">Carte de crédit</h2>
         <Form className="designForm" onSubmit={this.submitForm}>
+          <h2 className="titreDeSection">Informations Personnelles</h2>
+          {estConnecte ?
+            <Button onClick={this.deconnexion}>Se déconnecter</Button> :
+            <React.Fragment>
+              <Button onClick={this.ouvrirConnexion}>Se connecter avec le réseau social</Button>
+              <Row form1>
+                <Col md={5}>
+                  <FormGroup>
+                    <Label for="nom">Nom</Label>
+                    <Input type="text" name="nom" id="lastname" onChange={this.onChange}/>
+                  </FormGroup>
+                </Col>
+                <Col md={5}>
+                  <FormGroup>
+                    <Label for="nom">Prénom</Label>
+                    <Input type="text" name="prenom" id="firstname" onChange={this.onChange}/>
+                  </FormGroup>
+                </Col>
+              </Row>
+              <Row form1>
+                <Col md={5}>
+                  <FormGroup>
+                    <Label for="nom">Adresse</Label>
+                    <Input type="text" name="adresse" id="address" onChange={this.onChange}/>
+                  </FormGroup>
+                </Col>
+                <Col md={5}>
+                  <FormGroup>
+                    <Label for="nom">Ville</Label>
+                    <Input type="text" name="ville" id="city" onChange={this.onChange}/>
+                  </FormGroup>
+                </Col>
+              </Row>
+              <Row form1>
+                <Col md={5}>
+                  <FormGroup>
+                    <Label for="nom">Province</Label>
+                    <Input type="text" name="province" id="province" onChange={this.onChange}/>
+                  </FormGroup>
+                </Col>
+                <Col md={5}>
+                  <FormGroup>
+                    <Label for="nom">Code Postal</Label>
+                    <Input type="text" name="codePostal" id="postalCode" onChange={this.onChange}/>
+                  </FormGroup>
+                </Col>
+              </Row>
+            </React.Fragment>
+          }
+          <h2 className="titreDeSection">Carte de crédit</h2>
           <Row form1>
             <Col md={5}>
               <FormGroup>
                 <Label for="nom">Nom</Label>
-                <Input type="text" name="ccNom" id="lastname" onChange={this.onChange}/>
+                <Input type="text" name="ccNom" id="cclastname" onChange={this.onChange}/>
               </FormGroup>
             </Col>
             <Col md={5}>
               <FormGroup>
                 <Label for="nom">Prénom</Label>
-                <Input type="text" name="ccPrenom" id="firstname" onChange={this.onChange}/>
+                <Input type="text" name="ccPrenom" id="ccfirstname" onChange={this.onChange}/>
               </FormGroup>
             </Col>
           </Row>
@@ -70,7 +115,7 @@ class Formulaire extends Component {
             <Col md={2}>
               <FormGroup>
                   <Label for="month">Mois d'expiration</Label>
-                      <Input type="select" name="ccMoExp" id="month" onChange={this.onChange}>
+                      <Input type="select" name="ccMoExp" id="ccmonth" onChange={this.onChange}>
                           <option>Janvier</option>
                           <option>Février</option>
                           <option>Mars</option>
@@ -138,7 +183,9 @@ class Formulaire extends Component {
 
   onChange(event) {
     const { target: { name, value } } = event;
-    this.setState({ [name]: value })
+    this.setState({
+      [name]: value
+    })
   }
 
   submitForm(e) {
@@ -161,7 +208,8 @@ class Formulaire extends Component {
         adresse: data.Address,
         ville: data.City,
         province: data.Province,
-        codePostal: data.PostalCode
+        codePostal: data.PostalCode,
+        connexionModal: false
       })
       console.log(response)
     })
@@ -179,7 +227,15 @@ class Formulaire extends Component {
   }
 
   deconnexion() {
-    localStorage.removeItem(`social`);
+    sessionStorage.removeItem(`social`);
+    this.setState({
+      nom: "",
+      prenom: "",
+      adresse: "",
+      ville: "",
+      province: "",
+      codePostal: ""
+    })
   }
 }
 export default Formulaire;
