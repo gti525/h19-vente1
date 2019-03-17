@@ -1,6 +1,10 @@
 var mongoose = require('mongoose');
 
 module.exports = new mongoose.Schema({
+        adminId: {
+            type: String,
+            required: true
+        },
         uuid: {
             type: String,
             required: true
