@@ -4,6 +4,8 @@ const router = express.Router();
 const Event = require('../models/Event.js');
 const Ticket = require('../models/Ticket.js');
 
+const tempsDeReservationMaximum = 20*60*1000; //20 minutes
+
 // Obtenir tous les événements affichés
 router.get('/', async function(req, res) {
     var events = await Event.getAllOpenedEvents();
@@ -28,7 +30,7 @@ router.post('/:eventId/reserveTickets', async function(req, res, next) {
                 var isTicketsAvailable = await Ticket.checkIfTicketsAvailable(event_id, req.body.numberOfTickets);
                 if(isTicketsAvailable) {
                     var tickets = await Ticket.reserveTickets(event_id, req.body.numberOfTickets);
-                    setTimeout(Ticket.unReserveTickets, 30000, tickets)
+                    setTimeout(Ticket.unReserveTickets, tempsDeReservationMaximum, tickets)
                     res.status(200).json({
                         message: `Successfully reserved ${req.body.numberOfTickets} ticket(s).`,
                         tickets
