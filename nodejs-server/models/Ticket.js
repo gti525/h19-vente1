@@ -63,8 +63,8 @@ exports.deleteTickets = function(next, eventId) {
 }
 
 // Obtenir tous les billets liés à un événement
-exports.getAllTickets = async function(eventId) {
-  return await Ticket.find({ event: eventId });
+exports.getAllTicketsToReturn = async function(eventId) {
+  return await Ticket.find({ event: eventId }, { _id: 0, uuid: 1, status: 1 });
 }
 
 // Obtenir le nombre de billets vendus pour un événement

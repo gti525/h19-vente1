@@ -23,7 +23,7 @@ router.get('/', auth.isAdmin, async function(req, res) {
             numberOfTicketsAvailable
         });
     } else {
-        res.status(400).json({ message: 'No event with this id exists' });
+        res.status(400).json({ message: 'No event with this uuid exists' });
     }
 });
 

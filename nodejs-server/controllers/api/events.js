@@ -8,7 +8,7 @@ const Ticket = require('../../models/Ticket.js');
 router.post('/', auth.isAdmin, async function(req, res) {
     var eventExists = await Event.checkIfExistsForApi(req.body.uuid);
     if(!eventExists) {
-        Event.createEvent(req.body);
+        Event.createEvent(req);
         res.status(200).json({ message: 'Successfully added an event.' });
     } else {
         res.status(400).json({ message: 'An event with this uuid already exists.' });
@@ -31,7 +31,7 @@ router.post('/:eventId/endEvent', auth.isAdmin, async function(req, res) {
     var eventOpened = await Event.checkIfOpened(req.params.eventId);
     if(eventOpened) {
         var event_id = await Event.endEvent(req.params.eventId);
-        var tickets = await Ticket.getAllTickets(event_id);
+        var tickets = await Ticket.getAllTicketsToReturn(event_id);
         res.status(200).json({
             message: 'Successfully ended the sale of the event.',
             tickets
@@ -45,9 +45,15 @@ router.post('/:eventId/endEvent', auth.isAdmin, async function(req, res) {
 });
 
 // Supprimer un événement
-router.delete('/:eventId', auth.isAdmin, function(req, res) {
-    Event.deleteEvent(req.params.eventId);
-    res.status(200).json({ message: 'Successfully deleted the event.' });
+router.delete('/:eventId', auth.isAdmin, async function(req, res) {
+    var eventExists = await Event.checkIfExistsForApi(req.params.eventId);
+    if(eventExists) {
+        Event.deleteEvent(req.params.eventId);
+        res.status(200).json({ message: 'Successfully deleted the event.' });
+    } else {
+        res.status(400).json({ message: 'No event with this uuid exists.' });
+    }
+    
 });
 
 router.use('/:eventId/tickets', require('./tickets'));

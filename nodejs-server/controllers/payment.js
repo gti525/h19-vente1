@@ -6,17 +6,17 @@ const { PAYMENT_API } = require("../apis/routes.js");
 router.post('/create', function(req, res) {
     var { body } = req;
     axios.post(`${PAYMENT_API}/transaction/create`, {
-        MERCHANT_API_KEY: "1234567890",
+        MERCHANT_API_KEY: "S8KsB0wF1PNXtpsBJctd2hiyVyTWE/aQXNqSOyqLG1E=",
         amount: 100,
-        purchase_desc: "PURCHASE/ Simons ",
+        purchase_desc: "PURCHASE/ Tickets ",
         credit_card: {
-            first_name: "John",
-            last_name: "Doe",
-            number: 1111222233334444,
-            cvv: 765,
+            first_name: body.ccPrenom,
+            last_name: body.ccNom,
+            number: body.ccNumero,
+            cvv: body.ccCvv,
             exp: {
-            month: 10,
-            year: 2030
+                month: body.ccMoExp,
+                year: body.ccAnExp
             }
         },
     })

@@ -2,6 +2,11 @@ var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.Types.ObjectId;
 
 var EventSchema = new mongoose.Schema({
+        adminId: {
+            type: String,
+            ref: 'Admin',
+            required: true
+        },
         uuid: {
             type: String,
             required: true

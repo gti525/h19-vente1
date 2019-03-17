@@ -23,4 +23,26 @@ router.post('/login', function(req, res) {
     })
 });
 
+router.post('/sendTickets', function(req, res) {
+    var { body } = req;
+    axios.post(`${SOCIAL_API}/login`, {
+        headers: {Authorization: body.Authorization}
+    },
+    {
+        tickets: body.tickets
+    })
+    .then(function(response) {
+        console.log(response);
+        res.status(200).json({
+            data: response.data
+        });
+    })
+    .catch(function(error) {
+        console.log(error);
+        res.status(error.response.status).json({
+            message: error.response.statusText,
+        });
+    })
+});
+
 module.exports = router;

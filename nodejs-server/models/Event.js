@@ -14,6 +14,12 @@ exports.checkIfExists = async function(eventId) {
     else return false;
 }
 
+exports.checkIfEventOpened = async function(event_id) {
+    var event = await Event.findOne({ "_id": event_id, "status": "opened" });
+    if(event) return event._id;
+    else return false;
+}
+
 // Obtenir tous les événements affichés
 exports.getAllOpenedEvents = async function() {
     var events = await Event.find({ status: "opened" })
@@ -32,13 +38,14 @@ exports.checkIfExistsForApi = async function(eventId) {
 }
 
 // Crée un nouvel événement avec ses billets
-exports.createEvent = async function(body) {
+exports.createEvent = async function(req) {
+    const { body } = req;
     var venueId = await Venue.checkIfExists(body.venue.name);
     if(!venueId) {
         var venueId = await Venue.createVenue(body.venue);
     }
 
-    var eventId = await this.saveEvent(body, venueId);
+    var eventId = await this.saveEvent(req, venueId);
 
     Ticket.createTickets(body.tickets, eventId);
     
@@ -74,8 +81,10 @@ exports.endEvent = async function(eventId) {
 }
 
 // Sauvegarde l'événement dans la BD
-exports.saveEvent = function(body, venueId) {
+exports.saveEvent = function(req, venueId) {
+    const { body } = req;
     const event = new Event({
+        adminId: req.header('adminKey'),
         uuid: body.uuid,
         title: body.title,
         artist: body.artist,

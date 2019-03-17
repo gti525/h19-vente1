@@ -16,27 +16,34 @@ router.get('/', async function(req, res) {
 // Réserver des billets pour un événement
 router.post('/:eventId/reserveTickets', async function(req, res, next) {
     if(!req.body.numberOfTickets || req.body.numberOfTickets > 6) {
-        res.status(400).json({ message: `Invalid number of tickets.` });
-    }
-    var event_id = await Event.checkIfExists(req.params.eventId);
-    if(event_id) {
-        var isTicketsAvailable = await Ticket.checkIfTicketsAvailable(event_id, req.body.numberOfTickets);
-        if(isTicketsAvailable) {
-            var tickets = await Ticket.reserveTickets(event_id, req.body.numberOfTickets);
-            setTimeout(Ticket.unReserveTickets, 30000, tickets)
-            res.status(200).json({
-                message: `Successfully reserved ${req.body.numberOfTickets} ticket(s).`,
-                tickets
-            });
+        res.status(400).json({ message: `Nombre de billets invalide.` });
+    } else {
+        var event_id = await Event.checkIfExists(req.params.eventId);
+        if(event_id) {
+            var eventOpened = await Event.checkIfEventOpened(event_id);
+            if(!eventOpened) {
+                console.log("in " + eventOpened )
+                res.status(400).json({ message: "Cet événement ne vend plus de billets." })
+            } else {
+                var isTicketsAvailable = await Ticket.checkIfTicketsAvailable(event_id, req.body.numberOfTickets);
+                if(isTicketsAvailable) {
+                    var tickets = await Ticket.reserveTickets(event_id, req.body.numberOfTickets);
+                    setTimeout(Ticket.unReserveTickets, 30000, tickets)
+                    res.status(200).json({
+                        message: `Successfully reserved ${req.body.numberOfTickets} ticket(s).`,
+                        tickets
+                    });
+                } else {
+                    res.status(200).json({
+                        error: `Il n'y a pas assez de billets disponibles pour votre commande.`
+                    });
+                }
+            }
         } else {
             res.status(200).json({
-                error: `Il n'y a pas assez de billets disponibles pour votre commande.`
+                error: 'Cet événement nexiste plus.'
             });
         }
-    } else {
-        res.status(200).json({
-            error: 'Cet événement nexiste plus.'
-        });
     }
 });
 
