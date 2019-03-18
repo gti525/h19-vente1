@@ -21,9 +21,6 @@ class BarreNavigation extends Component {
                 <NavItem eventKey={7} href={PANIER}>
                     Panier
                 </NavItem>
-                <NavItem eventKey={9} href="/Form">
-                    Formulaire paiement
-                </NavItem>
                 </Nav>
             </Navbar.Collapse>
             </Navbar>
