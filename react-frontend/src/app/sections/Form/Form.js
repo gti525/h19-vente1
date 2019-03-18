@@ -106,7 +106,7 @@ class Formulaire extends Component {
           <Row form2>
             <Col md={6}>
               <FormGroup>
-                <Label for="cardNumber">Numéro de la carte </Label>
+                <Label for="cardNumber">Numéro de la carte &nbsp;&nbsp;</Label>
                 <InputMask name="ccNoCarte" mask="9999 9999 9999 9999" maskChar=" " onChange={this.onChange}/>
               </FormGroup>
             </Col>
