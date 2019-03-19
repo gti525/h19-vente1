@@ -693,21 +693,6 @@ margin-bottom: 20px;
   <script>
     // Script section to load models into a JS Var
     var defs = {}
-        defs["ApiResponse"] = {
-  "type" : "object",
-  "properties" : {
-    "code" : {
-      "type" : "integer",
-      "format" : "int32"
-    },
-    "type" : {
-      "type" : "string"
-    },
-    "message" : {
-      "type" : "string"
-    }
-  }
-};
         defs["ApiTicketResponse"] = {
   "type" : "object",
   "properties" : {
@@ -718,7 +703,7 @@ margin-bottom: 20px;
     "tickets" : {
       "type" : "array",
       "items" : {
-        "$ref" : "#/definitions/Ticket"
+        "$ref" : "#/definitions/ReturnedTicket"
       }
     }
   }
@@ -796,6 +781,38 @@ margin-bottom: 20px;
     "price" : {
       "type" : "number",
       "example" : 200.0
+    }
+  }
+};
+        defs["GetTicketsResponse"] = {
+  "type" : "object",
+  "properties" : {
+    "message" : {
+      "type" : "string",
+      "example" : "Successfully fetched the number of sold and available tickets for this event."
+    },
+    "numberOfTicketsSold" : {
+      "type" : "number",
+      "example" : 77.0
+    },
+    "numberOfTicketsAvailable" : {
+      "type" : "number",
+      "example" : 23.0
+    }
+  }
+};
+        defs["ReturnedTicket"] = {
+  "type" : "object",
+  "required" : [ "uuid" ],
+  "properties" : {
+    "uuid" : {
+      "type" : "integer",
+      "format" : "int64",
+      "example" : "UUID514"
+    },
+    "status" : {
+      "type" : "string",
+      "example" : "sold"
     }
   }
 };
@@ -1527,6 +1544,14 @@ except ApiException as e:
 
 
                           <h2>Responses</h2>
+                            <h3> Status: 200 - Successfully deleted the event </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
                             <h3> Status: 400 - Invalid ID supplied </h3>
 
                             <ul class="nav nav-tabs nav-tabs-examples" >
@@ -1550,7 +1575,7 @@ except ApiException as e:
                       <article id="api-Events-endSale-0" data-group="User" data-name="endSale" data-version="0">
                         <div class="pull-left">
                           <h1>endSale</h1>
-                          <p>End the sale of an event</p>
+                          <p>End the sale of an event. Returns all the tickets with their status -&gt; &quot;on sale&quot;, &quot;reserved&quot; or &quot;sold&quot;</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
@@ -1558,7 +1583,7 @@ except ApiException as e:
                         <p class="marked"></p>
                         <p></p>
                         <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/api/events/{eventUuid}/endSale</span></code></pre>
+                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/api/events/{eventUuid}/endEvent</span></code></pre>
                         <p>
                           <h3>Usage and SDK Samples</h3>
                         </p>
@@ -1578,7 +1603,7 @@ except ApiException as e:
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Events-endSale-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X POST "https://virtserver.swaggerhub.com/vpageau/SiteVente1/1/api/events/{eventUuid}/endSale"</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X POST "https://virtserver.swaggerhub.com/vpageau/SiteVente1/1/api/events/{eventUuid}/endEvent"</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Events-endSale-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
@@ -1646,7 +1671,7 @@ String *eventUuid = eventUuid_example; // ID of event that stops selling
 
 EventsApi *apiInstance = [[EventsApi alloc] init];
 
-// End the sale of an event
+// End the sale of an event. Returns all the tickets with their status -> "on sale", "reserved" or "sold"
 [apiInstance endSaleWith:adminKey
     eventUuid:eventUuid
               completionHandler: ^(ApiTicketResponse output, NSError* error) {
@@ -1712,7 +1737,7 @@ namespace Example
 
             try
             {
-                // End the sale of an event
+                // End the sale of an event. Returns all the tickets with their status -> "on sale", "reserved" or "sold"
                 ApiTicketResponse result = apiInstance.endSale(adminKey, eventUuid);
                 Debug.WriteLine(result);
             }
@@ -1783,7 +1808,7 @@ adminKey = adminKey_example # String | API key corresponding to your admin accou
 eventUuid = eventUuid_example # String | ID of event that stops selling
 
 try: 
-    # End the sale of an event
+    # End the sale of an event. Returns all the tickets with their status -> "on sale", "reserved" or "sold"
     api_response = api_instance.end_sale(adminKey, eventUuid)
     pprint(api_response)
 except ApiException as e:
@@ -1902,6 +1927,14 @@ except ApiException as e:
                                 </div>
                             </div>
 
+                            <h3> Status: 400 - There is no active events with that uuid. </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
                         </article>
                       </div>
                       <hr>
@@ -1961,7 +1994,7 @@ public class EventsApiExample {
         String adminKey = adminKey_example; // String | API key corresponding to your admin account.
         String eventUuid = eventUuid_example; // String | ID of event
         try {
-            ApiResponse result = apiInstance.getNumberOfTickets(adminKey, eventUuid);
+            GetTicketsResponse result = apiInstance.getNumberOfTickets(adminKey, eventUuid);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling EventsApi#getNumberOfTickets");
@@ -1981,7 +2014,7 @@ public class EventsApiExample {
         String adminKey = adminKey_example; // String | API key corresponding to your admin account.
         String eventUuid = eventUuid_example; // String | ID of event
         try {
-            ApiResponse result = apiInstance.getNumberOfTickets(adminKey, eventUuid);
+            GetTicketsResponse result = apiInstance.getNumberOfTickets(adminKey, eventUuid);
             System.out.println(result);
         } catch (ApiException e) {
             System.err.println("Exception when calling EventsApi#getNumberOfTickets");
@@ -2008,7 +2041,7 @@ EventsApi *apiInstance = [[EventsApi alloc] init];
 // Returns number of tickets sold and not sold for a certain event
 [apiInstance getNumberOfTicketsWith:adminKey
     eventUuid:eventUuid
-              completionHandler: ^(ApiResponse output, NSError* error) {
+              completionHandler: ^(GetTicketsResponse output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
                             }
@@ -2072,7 +2105,7 @@ namespace Example
             try
             {
                 // Returns number of tickets sold and not sold for a certain event
-                ApiResponse result = apiInstance.getNumberOfTickets(adminKey, eventUuid);
+                GetTicketsResponse result = apiInstance.getNumberOfTickets(adminKey, eventUuid);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
@@ -2235,7 +2268,7 @@ except ApiException as e:
                                         var schemaWrapper = {
   "description" : "successful operation",
   "schema" : {
-    "$ref" : "#/definitions/ApiResponse"
+    "$ref" : "#/definitions/GetTicketsResponse"
   }
 };
                                         var schema = schemaWrapper.schema;
@@ -2704,8 +2737,7 @@ public class EventsApiExample {
         String eventUuid = eventUuid_example; // String | ID of event to update
         Object body = ; // Object | External url pointing to image
         try {
-            ApiResponse result = apiInstance.uploadImage(adminKey, eventUuid, body);
-            System.out.println(result);
+            apiInstance.uploadImage(adminKey, eventUuid, body);
         } catch (ApiException e) {
             System.err.println("Exception when calling EventsApi#uploadImage");
             e.printStackTrace();
@@ -2725,8 +2757,7 @@ public class EventsApiExample {
         String eventUuid = eventUuid_example; // String | ID of event to update
         Object body = ; // Object | External url pointing to image
         try {
-            ApiResponse result = apiInstance.uploadImage(adminKey, eventUuid, body);
-            System.out.println(result);
+            apiInstance.uploadImage(adminKey, eventUuid, body);
         } catch (ApiException e) {
             System.err.println("Exception when calling EventsApi#uploadImage");
             e.printStackTrace();
@@ -2754,10 +2785,7 @@ EventsApi *apiInstance = [[EventsApi alloc] init];
 [apiInstance uploadImageWith:adminKey
     eventUuid:eventUuid
     body:body
-              completionHandler: ^(ApiResponse output, NSError* error) {
-                            if (output) {
-                                NSLog(@"%@", output);
-                            }
+              completionHandler: ^(NSError* error) {
                             if (error) {
                                 NSLog(@"Error: %@", error);
                             }
@@ -2786,7 +2814,7 @@ var callback = function(error, data, response) {
   if (error) {
     console.error(error);
   } else {
-    console.log('API called successfully. Returned data: ' + data);
+    console.log('API called successfully.');
   }
 };
 api.uploadImage(adminKey, eventUuid, body, callback);
@@ -2821,8 +2849,7 @@ namespace Example
             try
             {
                 // Uploads an image to an event
-                ApiResponse result = apiInstance.uploadImage(adminKey, eventUuid, body);
-                Debug.WriteLine(result);
+                apiInstance.uploadImage(adminKey, eventUuid, body);
             }
             catch (Exception e)
             {
@@ -2847,8 +2874,7 @@ $eventUuid = eventUuid_example; // String | ID of event to update
 $body = ; // Object | External url pointing to image
 
 try {
-    $result = $api_instance->uploadImage($adminKey, $eventUuid, $body);
-    print_r($result);
+    $api_instance->uploadImage($adminKey, $eventUuid, $body);
 } catch (Exception $e) {
     echo 'Exception when calling EventsApi->uploadImage: ', $e->getMessage(), PHP_EOL;
 }
@@ -2869,8 +2895,7 @@ my $eventUuid = eventUuid_example; # String | ID of event to update
 my $body = WWW::SwaggerClient::Object::Object->new(); # Object | External url pointing to image
 
 eval { 
-    my $result = $api_instance->uploadImage(adminKey => $adminKey, eventUuid => $eventUuid, body => $body);
-    print Dumper($result);
+    $api_instance->uploadImage(adminKey => $adminKey, eventUuid => $eventUuid, body => $body);
 };
 if ($@) {
     warn "Exception when calling EventsApi->uploadImage: $@\n";
@@ -2895,8 +2920,7 @@ body =  # Object | External url pointing to image
 
 try: 
     # Uploads an image to an event
-    api_response = api_instance.upload_image(adminKey, eventUuid, body)
-    pprint(api_response)
+    api_instance.upload_image(adminKey, eventUuid, body)
 except ApiException as e:
     print("Exception when calling EventsApi->uploadImage: %s\n" % e)</code></pre>
                             </div>
@@ -3018,44 +3042,9 @@ $(document).ready(function() {
                             <h3> Status: 200 - successful operation </h3>
 
                             <ul class="nav nav-tabs nav-tabs-examples" >
-                                <li class="active">
-                                  <a data-toggle="tab" href="#responses-uploadImage-200-schema">Schema</a>
-                                </li>
-
                             </ul>
 
                             <div class="tab-content" style='margin-bottom: 10px;'>
-                                <div class="tab-pane active" id="responses-uploadImage-200-schema">
-                                  <div id='responses-uploadImage-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
-                                    <script>
-                                      $(document).ready(function() {
-                                        var schemaWrapper = {
-  "description" : "successful operation",
-  "schema" : {
-    "$ref" : "#/definitions/ApiResponse"
-  }
-};
-                                        var schema = schemaWrapper.schema;
-                                        if (schema.$ref != null) {
-                                          schema = defsParser.$refs.get(schema.$ref);
-                                        } else {
-                                          schemaWrapper.definitions = defs;
-                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
-                                            console.log(err);
-                                          });
-                                        }
-
-                                        //console.log(JSON.stringify(schema));
-                                        var view = new JSONSchemaView(schema, 3);
-                                        $('#responses-uploadImage-200-schema-data').val(stringify(schema));
-                                        var result = $('#responses-uploadImage-200-schema-200');
-                                        result.empty();
-                                        result.append(view.render());
-                                      });
-                                    </script>
-                                  </div>
-                                  <input id='responses-uploadImage-200-schema-data' type='hidden' value=''></input>
-                                </div>
                             </div>
 
                         </article>

@@ -92,7 +92,7 @@ exports.saveEvent = function(req, venueId, next) {
         description: body.description,
         price: body.price,
         venue: venueId,
-        status: "opened"
+        status: body.status
     });
     event.save(function(err) {
         if(err) next(err);
