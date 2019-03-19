@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Modal, Button } from "react-bootstrap";
 import Billet from "../Billet/Billet.js";
-import billets from "../../../faussesDonnees/billets.json";
+//import billets from "../../../faussesDonnees/billets.json";
 import Form from "../Form/Form.js";
 import "./Panier.css";
 
@@ -10,7 +10,8 @@ class Panier extends Component {
     super(props);
     this.state = { 
       commanderModal: false,
-      monPanier: null
+      monPanier: null,
+      monTotal: 0.00
     };
   }
 
@@ -54,8 +55,11 @@ class Panier extends Component {
             </thead>
             <tbody>{             
                 this.renderBillets(monPanier)
-             
-              }</tbody>
+
+            }</tbody>
+            <tfoot>{
+                "Coût total (après taxes) :" + this.state.monTotal.toString() + "$"
+            }</tfoot>
           </table>
           <Button variant="primary" onClick={() => this.setState({ evenementModal: true })}>Commander</Button>
           <Modal  dialogClassName="Panier-modal" show={this.state.evenementModal}>

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Form, FormGroup, Label, Input,Row, Col, Button } from 'reactstrap';
+import { Form, FormGroup, Label, Input, Row, Col, Button } from 'reactstrap';
 import InputMask from 'react-input-mask';
 import { Modal } from 'react-bootstrap';
 import axios from "axios";
