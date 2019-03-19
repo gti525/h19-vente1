@@ -11,8 +11,14 @@ exports.checkIfExists = async function(adminId, venueName) {
 }
 
 // Crée un nouveau venue
-exports.createVenue = async function(venueInfos, next) {
-    const venue = new Venue(venueInfos)
+exports.createVenue = async function(adminId, venueInfos, next) {
+    const venue = new Venue({
+        adminId,
+        uuid: venueInfos.uuid,
+        name: venueInfos.name,
+        address: venueInfos.address,
+        capacity: venueInfos.capacity
+    })
     await venue.save(function(err) {
         if(err) next(err);
     })

@@ -42,7 +42,7 @@ exports.createEvent = async function(req, next) {
     const { body } = req;
     var venueId = await Venue.checkIfExists(req.header('adminKey'), body.venue.name);
     if(!venueId) {
-        var venueId = await Venue.createVenue(body.venue, next);
+        var venueId = await Venue.createVenue(req.header('adminKey'), body.venue, next);
     }
 
     var eventId = await this.saveEvent(req, venueId, next);
