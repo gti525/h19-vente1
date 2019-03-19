@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Modal, Button } from "react-bootstrap";
 import axios from "axios";
-import billets from "../../faussesDonnees/billets.json";
+//import billets from "../../faussesDonnees/billets.json";
 
 class AjoutBillet extends Component {
   constructor(props) {
@@ -69,7 +69,7 @@ class AjoutBillet extends Component {
       //On obtient le nombre de billets déjà dans le panier
       var billetsPanier = JSON.parse(localStorage.getItem(`panier`));
       if(!billetsPanier) {
-        billetsPanier = new Array();
+        billetsPanier = [];
       }
       //On regarde si le nombre de billets total dépasse 6.
       if(billetsPanier.length + nbBilletsAjoutees > 6) {
