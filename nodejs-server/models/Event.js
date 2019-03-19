@@ -14,7 +14,7 @@ exports.checkIfExists = async function(eventId) {
     else return false;
 }
 
-exports.checkIfEventOpened = async function(event_id) {
+exports.checkIfOpened = async function(event_id) {
     var event = await Event.findOne({ "_id": event_id, "status": "opened" });
     if(event) return event._id;
     else return false;
@@ -69,7 +69,7 @@ exports.deleteEvent = async function(eventId) {
 }
 
 // Détermine si l'événement est en vente
-exports.checkIfOpened = async function(eventId) {
+exports.checkIfOpenedForApi = async function(eventId) {
     var eventOpened = await Event.findOne({ uuid: eventId, status: "opened" });
     return eventOpened;
 }
