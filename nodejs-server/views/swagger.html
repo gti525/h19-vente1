@@ -747,6 +747,10 @@ margin-bottom: 20px;
       "type" : "string",
       "example" : "Rock concert"
     },
+    "price" : {
+      "type" : "number",
+      "example" : 100.0
+    },
     "venue" : {
       "$ref" : "#/definitions/Venue"
     },
@@ -788,6 +792,10 @@ margin-bottom: 20px;
     "description" : {
       "type" : "string",
       "example" : "Rock concert"
+    },
+    "price" : {
+      "type" : "number",
+      "example" : 200.0
     }
   }
 };
@@ -872,7 +880,7 @@ margin-bottom: 20px;
         <div id="header">
           <div id="api-_">
             <h2 id="welcome-to-apidoc">API and SDK Documentation</h2>
-              <div class="app-desc">Version: gti525</div>
+              <div class="app-desc">Version: 1</div>
             <hr>
             <div>Chemin pour le site de vente 1 GTI525</div>
           </div>
@@ -912,7 +920,7 @@ margin-bottom: 20px;
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Events-addEvent-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X POST "https://localhost/GTI525/vente1/gti525/api/events"</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X POST "https://virtserver.swaggerhub.com/vpageau/SiteVente1/1/api/events"</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Events-addEvent-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
@@ -1247,7 +1255,7 @@ $(document).ready(function() {
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Events-deleteEvent-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X DELETE "https://localhost/GTI525/vente1/gti525/api/events/{eventUuid}"</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X DELETE "https://virtserver.swaggerhub.com/vpageau/SiteVente1/1/api/events/{eventUuid}"</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Events-deleteEvent-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
@@ -1570,7 +1578,7 @@ except ApiException as e:
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Events-endSale-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X POST "https://localhost/GTI525/vente1/gti525/api/events/{eventUuid}/endSale"</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X POST "https://virtserver.swaggerhub.com/vpageau/SiteVente1/1/api/events/{eventUuid}/endSale"</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Events-endSale-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
@@ -1929,7 +1937,7 @@ except ApiException as e:
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Events-getNumberOfTickets-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "https://localhost/GTI525/vente1/gti525/api/events/{eventUuid}/tickets"</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X GET "https://virtserver.swaggerhub.com/vpageau/SiteVente1/1/api/events/{eventUuid}/tickets"</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Events-getNumberOfTickets-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
@@ -2288,7 +2296,7 @@ except ApiException as e:
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Events-modifyEvent-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X PUT "https://localhost/GTI525/vente1/gti525/api/events/{eventUuid}"</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X PUT "https://virtserver.swaggerhub.com/vpageau/SiteVente1/1/api/events/{eventUuid}"</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Events-modifyEvent-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
@@ -2671,7 +2679,7 @@ $(document).ready(function() {
 
                         <div class="tab-content">
                           <div class="tab-pane active" id="examples-Events-uploadImage-0-curl">
-                            <pre class="prettyprint"><code class="language-bsh">curl -X POST "https://localhost/GTI525/vente1/gti525/api/events/{eventUuid}/uploadImage"</code></pre>
+                            <pre class="prettyprint"><code class="language-bsh">curl -X POST "https://virtserver.swaggerhub.com/vpageau/SiteVente1/1/api/events/{eventUuid}/uploadImage"</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Events-uploadImage-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;

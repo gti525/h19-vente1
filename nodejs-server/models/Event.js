@@ -90,6 +90,7 @@ exports.saveEvent = function(req, venueId) {
         artist: body.artist,
         date: body.date,
         description: body.description,
+        price: body.price,
         venue: venueId,
         status: "opened"
     });
