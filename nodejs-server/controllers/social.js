@@ -23,10 +23,11 @@ router.post('/login', function(req, res) {
     })
 });
 
-router.post('/sendTickets', function(req, res) {
+exports.sendTickets = function(tickets) {
+    console.log("in SendTickets")
     var { body } = req;
     axios.post(`${SOCIAL_API}/login`, {
-        headers: {Authorization: body.Authorization}
+        headers: {Authorization: `Bearer ${body.Authorization}`}
     },
     {
         tickets: body.tickets
@@ -43,6 +44,6 @@ router.post('/sendTickets', function(req, res) {
             message: error.response.statusText,
         });
     })
-});
+};
 
 module.exports = router;

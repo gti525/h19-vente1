@@ -28,7 +28,7 @@ router.put('/:eventId', auth.isAdmin, async function(req, res) {
 
 // Finir la vente d'un événement
 router.post('/:eventId/endEvent', auth.isAdmin, async function(req, res) {
-    var eventOpened = await Event.checkIfOpened(req.params.eventId);
+    var eventOpened = await Event.checkIfOpenedForApi(req.params.eventId);
     if(eventOpened) {
         var event_id = await Event.endEvent(req.params.eventId);
         var tickets = await Ticket.getAllTicketsToReturn(event_id);

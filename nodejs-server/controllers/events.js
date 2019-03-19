@@ -22,7 +22,7 @@ router.post('/:eventId/reserveTickets', async function(req, res, next) {
     } else {
         var event_id = await Event.checkIfExists(req.params.eventId);
         if(event_id) {
-            var eventOpened = await Event.checkIfEventOpened(event_id);
+            var eventOpened = await Event.checkIfOpened(event_id);
             if(!eventOpened) {
                 console.log("in " + eventOpened )
                 res.status(400).json({ message: "Cet événement ne vend plus de billets." })
