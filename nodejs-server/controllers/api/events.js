@@ -5,10 +5,10 @@ const Event = require('../../models/Event.js');
 const Ticket = require('../../models/Ticket.js');
 
 // Ajouter un événement
-router.post('/', auth.isAdmin, async function(req, res) {
+router.post('/', auth.isAdmin, async function(req, res, next) {
     var eventExists = await Event.checkIfExistsForApi(req.body.uuid);
     if(!eventExists) {
-        Event.createEvent(req);
+        Event.createEvent(req, next);
         res.status(200).json({ message: 'Successfully added an event.' });
     } else {
         res.status(400).json({ message: 'An event with this uuid already exists.' });

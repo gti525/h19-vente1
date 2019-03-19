@@ -38,7 +38,7 @@ exports.unReserveTickets = async function(tickets) {
 // API
 
 // Ajouter des tickets qui sont liés à un événement
-exports.createTickets = async function(tickets, eventId) {
+exports.createTickets = async function(tickets, eventId, next) {
   var ticket;
   await Object.keys(tickets).forEach(function(key) {
     ticket = new Ticket({

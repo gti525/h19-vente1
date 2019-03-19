@@ -38,16 +38,16 @@ exports.checkIfExistsForApi = async function(eventId) {
 }
 
 // Crée un nouvel événement avec ses billets
-exports.createEvent = async function(req) {
+exports.createEvent = async function(req, next) {
     const { body } = req;
     var venueId = await Venue.checkIfExists(req.header('adminKey'), body.venue.name);
     if(!venueId) {
-        var venueId = await Venue.createVenue(body.venue);
+        var venueId = await Venue.createVenue(body.venue, next);
     }
 
-    var eventId = await this.saveEvent(req, venueId);
+    var eventId = await this.saveEvent(req, venueId, next);
 
-    Ticket.createTickets(body.tickets, eventId);
+    Ticket.createTickets(body.tickets, eventId, next);
     
     return null;
 }
@@ -81,7 +81,7 @@ exports.endEvent = async function(eventId) {
 }
 
 // Sauvegarde l'événement dans la BD
-exports.saveEvent = function(req, venueId) {
+exports.saveEvent = function(req, venueId, next) {
     const { body } = req;
     const event = new Event({
         adminId: req.header('adminKey'),
