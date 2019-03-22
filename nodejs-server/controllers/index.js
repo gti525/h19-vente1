@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const socialRouter = require('./social').router;
 
 router.get('/', (req, res) => {
     res.status(200).json({ message: 'Connected!' });
@@ -12,6 +13,6 @@ router.use('/tickets', require('./tickets'));
 
 router.use('/payment', require('./payment'));
 
-router.use('/social', require('./social'));
+router.use('/social', socialRouter);
 
 module.exports = router;

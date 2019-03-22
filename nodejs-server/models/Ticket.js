@@ -35,6 +35,18 @@ exports.unReserveTickets = async function(tickets) {
   })
 }
 
+// Vérifier que le billet est encore en réservation
+exports.checkIfReserved = async function(ticket) {
+  return await Ticket.findOne({ _id: ticket._id, status: "reserved" });
+}
+
+// Marquer les billets comme vendus
+exports.markAsSold = async function(tickets) {
+  Object.keys(tickets).forEach(async function(key) {
+    await Ticket.findOneAndUpdate({ _id: tickets[key]._id }, { status: "on sale" }, {new: true});
+  })
+}
+
 // API
 
 // Ajouter des tickets qui sont liés à un événement

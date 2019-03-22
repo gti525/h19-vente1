@@ -40,7 +40,7 @@ exports.checkIfExistsForApi = async function(eventId) {
 // Crée un nouvel événement avec ses billets
 exports.createEvent = async function(req, next) {
     const { body } = req;
-    var venueId = await Venue.checkIfExists(req.header('adminKey'), body.venue.name);
+    var venueId = await Venue.checkIfExists(req.header('adminKey'), body.venue.uuid);
     if(!venueId) {
         var venueId = await Venue.createVenue(req.header('adminKey'), body.venue, next);
     }

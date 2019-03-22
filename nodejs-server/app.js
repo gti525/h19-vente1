@@ -15,7 +15,6 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
-// Initialise et obtient la connection avec la BD
 initDb();
 db = getDb();
 
