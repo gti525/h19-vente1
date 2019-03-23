@@ -17,10 +17,15 @@ router.post('/', auth.isAdmin, async function(req, res, next) {
 
 // Modifier un événement
 router.put('/:eventId', auth.isAdmin, async function(req, res) {
-    var eventExists = await Event.checkIfExistsForApi(req.params.eventId);
-    if(eventExists) {
-        Event.updateEvent(req.params.eventId, req.body);
-        res.status(200).json({ message: 'Successfully updated the event.' });
+    var event_id = await Event.checkIfExistsForApi(req.params.eventId);
+    if(event_id) {
+        var noTicketSold = await Ticket.checkIfTicketSoldForEvent(event_id);
+        if(noTicketSold) {
+            Event.updateEvent(req.params.eventId, req.body);
+            res.status(200).json({ message: 'Successfully updated the event.' });
+        } else {
+            res.status(400).json({ message: 'Cannot update an event with tickets already sold.' })
+        }
     } else {
         res.status(400).json({ message: 'No event with this uuid exists.' });
     }

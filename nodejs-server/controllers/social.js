@@ -3,9 +3,9 @@ const router = express.Router();
 const axios = require('axios');
 const { SOCIAL_API } = require("../apis/routes.js");
 
-router.post('/client/login', function(req, res) {
+router.post('/login', function(req, res) {
     var { body } = req;
-    axios.post(`${SOCIAL_API}/login`, {
+    axios.post(`${SOCIAL_API}/client/login`, {
         email : body.email,
         password : body.password
     })
@@ -24,8 +24,6 @@ router.post('/client/login', function(req, res) {
 });
 
 var sendTickets = async function(authToken, tickets) {
-    console.log("in SendTickets")
-    console.log(tickets)
     var response;
 
     socialTickets = tickets = await adaptTickets(tickets);
@@ -50,7 +48,6 @@ var adaptTickets = function(tickets) {
     var newTickets = [];
     var i = 0;
     for (ticket of tickets) {
-        console.log(ticket)
         newTickets[i] = {
             UUID: ticket.uuid,
             EventName: ticket.event.title,

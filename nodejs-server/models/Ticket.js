@@ -43,7 +43,7 @@ exports.checkIfReserved = async function(ticket) {
 // Marquer les billets comme vendus
 exports.markAsSold = async function(tickets) {
   Object.keys(tickets).forEach(async function(key) {
-    await Ticket.findOneAndUpdate({ _id: tickets[key]._id }, { status: "on sale" }, {new: true});
+    await Ticket.findOneAndUpdate({ _id: tickets[key]._id }, { status: "sold" }, {new: true});
   })
 }
 
@@ -72,6 +72,13 @@ exports.deleteTickets = function(next, eventId) {
     if(err) next(err)
     else next()
   });
+}
+
+// Vérifier qu'aucun billet n'a été vendu pour ce spectacle
+exports.checkIfTicketSoldForEvent = async function(eventId) {
+  var ticketSold = await Ticket.findOne({ event: eventId, status: "sold" || "reserved" });
+  if(!ticketSold) return true;
+  else return false;
 }
 
 // Obtenir tous les billets liés à un événement

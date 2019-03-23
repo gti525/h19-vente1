@@ -6,7 +6,7 @@ const { PAYMENT_API } = require("../apis/routes.js");
 router.post('/create', function(req, res) {
     var { body } = req;
     axios.post(`${PAYMENT_API}/transaction/create`, {
-        MERCHANT_API_KEY: "S8KsB0wF1PNXtpsBJctd2hiyVyTWE/aQXNqSOyqLG1E=",
+        MERCHANT_API_KEY: "6DzO/GgmEp2iyEkxNCDBmkc1syTRYhO01Oq8nckDyLE=",
         amount: 100,
         purchase_desc: "PURCHASE/ Tickets ",
         credit_card: {
