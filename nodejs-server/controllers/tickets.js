@@ -4,6 +4,7 @@ const router = express.Router();
 const Event = require('../models/Event.js');
 const Ticket = require('../models/Ticket.js');
 
+const { preValidate } = require('./payment.js');
 const { sendTickets } = require('./social.js');
 
 router.post('/buyTickets', async function(req, res) {
@@ -36,12 +37,11 @@ router.post('/buyTickets', async function(req, res) {
                 message: "Un des billets n'existe pas ou n'est plus réservé."
             });
         }
-
-        
     }
 
     //Paiement create
-
+    var transactionNumber = await preValidate(req.body);
+    console.log(transactionNumber)
     //Paiement process
 
     //Marquer les billets comme vendus
@@ -49,11 +49,14 @@ router.post('/buyTickets', async function(req, res) {
 
 
     //Envoyer au réseau social
-    var socialResponse = await sendTickets(req.body.Authorization, tickets);
-    res.status(socialResponse.status).json({
-        message: socialResponse.statusText,
-    });
+    //var socialResponse = await sendTickets(req.body.Authorization, tickets);
+    //res.status(socialResponse.status).json({
+    //    message: socialResponse.statusText,
+    //});
 
+    res.status(200).json({
+        message: "Tout est beau !"
+    });
     console.log("end")
 
 });

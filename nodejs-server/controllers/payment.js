@@ -3,7 +3,34 @@ var router = express.Router();
 const axios = require('axios');
 const { PAYMENT_API } = require("../apis/routes.js");
 
-router.post('/create', function(req, res) {
+var preValidate = async function(body) {
+    var response;
+    console.log(body)
+    await axios.post(`${PAYMENT_API}/transaction/create`, {
+        MERCHANT_API_KEY: "6DzO/GgmEp2iyEkxNCDBmkc1syTRYhO01Oq8nckDyLE=",
+        amount: body.amount,
+        purchase_desc: "PURCHASE/ Tickets ",
+        credit_card: {
+            first_name: body.ccPrenom,
+            last_name: body.ccNom,
+            number: body.ccNumero,
+            cvv: body.ccCvv,
+            exp: {
+                month: body.ccMoExp,
+                year: body.ccAnExp
+            }
+        },
+    })
+    .then(function(res) {
+        response = res.data.transaction_number;
+    })
+    .catch(function(err) {
+        response = false;
+    })
+    return response;
+};
+
+router.post('/process', function(req, res) {
     var { body } = req;
     axios.post(`${PAYMENT_API}/transaction/create`, {
         MERCHANT_API_KEY: "6DzO/GgmEp2iyEkxNCDBmkc1syTRYhO01Oq8nckDyLE=",
@@ -35,4 +62,4 @@ router.post('/create', function(req, res) {
     })
 });
 
-module.exports = router;
+module.exports = { preValidate };

@@ -11,8 +11,6 @@ router.use('/events', require('./events'));
 
 router.use('/tickets', require('./tickets'));
 
-router.use('/payment', require('./payment'));
-
 router.use('/social', socialRouter);
 
 module.exports = router;
