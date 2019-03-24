@@ -11,7 +11,9 @@ class Panier extends Component {
     this.state = { 
       commanderModal: false,
       monPanier: null,
-      monTotal: 0.00
+      monTotal: 0.00,
+      estConnecteAuRS: false,
+      confirmationAchat:  ""
     };
   }
 
@@ -23,6 +25,18 @@ class Panier extends Component {
 
   handleCommander = () => {
     //Commander les billets présents dans le panier
+
+    const estConnecteAuRS = sessionStorage.getItem(`social`);
+
+    if (estConnecteAuRS) {
+      this.setState({ confirmationAchat: "Les billets seront disponibles sur le site et sur l'application mobile." });  
+    }
+    else {
+      this.setState({ confirmationAchat: "Les billets seront récupérables le soir de l'événement." });  
+    }
+
+    this.setState({ evenementModal: false })
+
   };
   
   //TODO! Il faut retirer le siège réservé de son événement
@@ -61,7 +75,10 @@ class Panier extends Component {
                 "Coût total (après taxes) :" + this.state.monTotal.toString() + "$"
             }</tfoot>
           </table>
-          <Button variant="primary" onClick={() => this.setState({ evenementModal: true })}>Commander</Button>
+          <Button variant="primary" onClick={() => this.setState({ evenementModal: true })}>Passer la commande</Button>
+          <div> 
+            <br /> {this.state.confirmationAchat}
+          </div>
           <Modal  dialogClassName="Panier-modal" show={this.state.evenementModal}>
           <Modal.Header>
             <Modal.Title>Passer la commande</Modal.Title>
