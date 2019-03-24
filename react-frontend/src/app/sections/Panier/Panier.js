@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import ReactTimeout from "react-timeout";
 import { Modal, Button } from "react-bootstrap";
 import Billet from "../Billet/Billet.js";
 //import billets from "../../../faussesDonnees/billets.json";
@@ -22,6 +23,17 @@ class Panier extends Component {
     const monPanier = JSON.parse(localStorage.getItem('panier'));
     this.setState({ monPanier: monPanier });
   }
+
+  delaiFormulaire = () => {
+    this.setState({ evenementModal: false })
+    this.setState({ confirmationAchat: "Délai de 10 minutes dépassé." })
+  }
+
+  handlePasserCommande = () => {
+    
+    this.setState({ evenementModal: true })
+    this.props.setTimeout(this.delaiFormulaire, 10*60*1000)
+  };
 
   handleCommander = () => {
     //Commander les billets présents dans le panier
@@ -75,7 +87,7 @@ class Panier extends Component {
                 "Coût total (après taxes) :" + this.state.monTotal.toString() + "$"
             }</tfoot>
           </table>
-          <Button variant="primary" onClick={() => this.setState({ evenementModal: true })}>Passer la commande</Button>
+          <Button variant="primary" onClick={this.handlePasserCommande}>Passer la commande</Button>
           <div> 
             <br /> {this.state.confirmationAchat}
           </div>
@@ -115,4 +127,4 @@ class Panier extends Component {
   }
 }
 
-export default Panier;
+export default ReactTimeout(Panier);
