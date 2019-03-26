@@ -5,7 +5,6 @@ const { PAYMENT_API } = require("../apis/routes.js");
 
 var preValidate = async function(body) {
     var response;
-    console.log(body)
     await axios.post(`${PAYMENT_API}/transaction/create`, {
         MERCHANT_API_KEY: "6DzO/GgmEp2iyEkxNCDBmkc1syTRYhO01Oq8nckDyLE=",
         amount: body.amount,
@@ -22,10 +21,10 @@ var preValidate = async function(body) {
         },
     })
     .then(function(res) {
-        response = res.data.transaction_number;
+        response = res;
     })
     .catch(function(err) {
-        response = false;
+        response = err.response;
     })
     return response;
 };
@@ -48,14 +47,14 @@ router.post('/process', function(req, res) {
         },
     })
     .then(function(response) {
-        console.log(response);
+        console.log("in then")
         var data = response.data;
         res.status(200).json({
             data
         });
     })
     .catch(function(error) {
-        console.log(error);
+        console.log("in err")
         res.status(error.response.status).json({
             message: error.message
         });

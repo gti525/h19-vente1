@@ -25,22 +25,32 @@ router.post('/login', function(req, res) {
 
 var sendTickets = async function(authToken, tickets) {
     var response;
-
-    socialTickets = tickets = await adaptTickets(tickets);
-
-    await axios.post(`${SOCIAL_API}/Ticket`,
-    {
-        tickets
-    },
-    {
-        headers: {'Authorization': "bearer " + authToken}
-    })
-    .then(function(res) {
-        response = res;
-    })
-    .catch(function(err) {
-        response = err.response;
-    })
+console.log(tickets)
+    var socialTickets = await adaptTickets(tickets);
+console.log("AAAAAAAAHHHHHHHHH")
+console.log(tickets)
+    for (ticket of tickets) {
+        console.log(ticket)
+        await axios.post(`${SOCIAL_API}/Ticket`,
+        {
+            UUID: ticket.uuid,
+            EventName: ticket.event.title,
+            Artist: ticket.event.artist,
+            Date: ticket.event.date,
+            Location: ticket.event.venue.address
+        },
+        {
+            headers: {'Authorization': "bearer " + authToken}
+        })
+        .then(function(res) {
+            console.log("in then")
+            response = res;
+        })
+        .catch(function(err) {
+            response = err.response;
+            return response;
+        })
+    }
     return response;
 };
 
@@ -52,12 +62,12 @@ var adaptTickets = function(tickets) {
             UUID: ticket.uuid,
             EventName: ticket.event.title,
             Artist: ticket.event.artist,
-            Date: ticket.event.date
+            Date: ticket.event.date,
+            Location: ticket.event.venue.address
         }
         i++;
     }
-    console.log("hihi")
-    console.log(newTickets);
+    return newTickets;
 }
 
 module.exports = {router, sendTickets};

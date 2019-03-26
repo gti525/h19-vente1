@@ -40,25 +40,28 @@ router.post('/buyTickets', async function(req, res) {
     }
 
     //Paiement create
-    var transactionNumber = await preValidate(req.body);
-    console.log(transactionNumber)
-    //Paiement process
-
-    //Marquer les billets comme vendus
-    //await Ticket.markAsSold(tickets);
-
-
-    //Envoyer au réseau social
-    //var socialResponse = await sendTickets(req.body.Authorization, tickets);
-    //res.status(socialResponse.status).json({
-    //    message: socialResponse.statusText,
-    //});
-
-    res.status(200).json({
-        message: "Tout est beau !"
-    });
+    var transaction = await preValidate(req.body);
+    if(transaction.status !== 200) {
+        res.status(transaction.status).json({
+            message: transaction.data.message
+        })
+    } else {
+    
+        //Marquer les billets comme vendus
+        //await Ticket.markAsSold(tickets);
+    
+    
+        //Envoyer au réseau social
+        var socialResponse = await sendTickets(req.body.Authorization, tickets);
+        //res.status(socialResponse.status).json({
+        //    message: socialResponse.statusText,
+        //});
+    
+        res.status(200).json({
+            message: "Tout est beau !"
+        });
+    }
     console.log("end")
-
 });
 
 module.exports = router;
