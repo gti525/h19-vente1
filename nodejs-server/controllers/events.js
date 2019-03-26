@@ -15,6 +15,7 @@ router.get('/', async function(req, res) {
     });
 });
 
+
 // Réserver des billets pour un événement
 router.post('/:eventId/reserveTickets', async function(req, res, next) {
     if(!req.body.numberOfTickets || req.body.numberOfTickets > 6) {

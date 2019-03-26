@@ -25,10 +25,8 @@ router.post('/login', function(req, res) {
 
 var sendTickets = async function(authToken, tickets) {
     var response;
-console.log("AAAAAAAAHHHHHHHHH")
-console.log(tickets)
+    console.log("In Social")
     for (ticket of tickets) {
-        console.log(ticket)
         await axios.post(`${SOCIAL_API}/Ticket`,
         {
             UUID: ticket.uuid,
@@ -41,7 +39,6 @@ console.log(tickets)
             headers: {'Authorization': "bearer " + authToken}
         })
         .then(function(res) {
-            console.log("in then")
             response = res;
         })
         .catch(function(err) {
