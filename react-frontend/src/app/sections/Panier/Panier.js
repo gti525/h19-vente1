@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import ReactTimeout from "react-timeout";
 import { Modal, Button } from "react-bootstrap";
 import Billet from "../Billet/Billet.js";
 //import billets from "../../../faussesDonnees/billets.json";
@@ -11,7 +12,9 @@ class Panier extends Component {
     this.state = { 
       commanderModal: false,
       monPanier: null,
-      monTotal: 0.00
+      monTotal: 0.00,
+      estConnecteAuRS: false,
+      confirmationAchat:  ""
     };
   }
 
@@ -21,8 +24,31 @@ class Panier extends Component {
     this.setState({ monPanier: monPanier });
   }
 
+  delaiFormulaire = () => {
+    this.setState({ evenementModal: false })
+    this.setState({ confirmationAchat: "Délai de 10 minutes dépassé." })
+  }
+
+  handlePasserCommande = () => {
+    
+    this.setState({ evenementModal: true })
+    this.props.setTimeout(this.delaiFormulaire, 10*60*1000)
+  };
+
   handleCommander = () => {
     //Commander les billets présents dans le panier
+
+    const estConnecteAuRS = sessionStorage.getItem(`social`);
+
+    if (estConnecteAuRS) {
+      this.setState({ confirmationAchat: "Les billets seront disponibles sur le site et sur l'application mobile." });  
+    }
+    else {
+      this.setState({ confirmationAchat: "Les billets seront récupérables le soir de l'événement." });  
+    }
+
+    this.setState({ evenementModal: false })
+
   };
   
   //TODO! Il faut retirer le siège réservé de son événement
@@ -61,7 +87,10 @@ class Panier extends Component {
                 "Coût total (après taxes) :" + this.state.monTotal.toString() + "$"
             }</tfoot>
           </table>
-          <Button variant="primary" onClick={() => this.setState({ evenementModal: true })}>Commander</Button>
+          <Button variant="primary" onClick={this.handlePasserCommande}>Passer la commande</Button>
+          <div> 
+            <br /> {this.state.confirmationAchat}
+          </div>
           <Modal  dialogClassName="Panier-modal" show={this.state.evenementModal}>
           <Modal.Header>
             <Modal.Title>Passer la commande</Modal.Title>
@@ -98,4 +127,4 @@ class Panier extends Component {
   }
 }
 
-export default Panier;
+export default ReactTimeout(Panier);
