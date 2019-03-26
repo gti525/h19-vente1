@@ -100,3 +100,10 @@ exports.saveEvent = function(req, venueId, next) {
     });
     return event._id;
 }
+
+// Uploader une image à un événement
+exports.uploadImage = async function(eventId, imageUrl) {
+    var event = await Event.findOneAndUpdate({ uuid: eventId }, { imageUrl: imageUrl }, {new: true});
+    console.log(event)
+    return event._id;
+}

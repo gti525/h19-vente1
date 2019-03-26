@@ -58,7 +58,20 @@ router.delete('/:eventId', auth.isAdmin, async function(req, res) {
     } else {
         res.status(400).json({ message: 'No event with this uuid exists.' });
     }
-    
+});
+
+router.post('/:eventId/uploadImage', auth.isAdmin, async function(req, res) {
+    var eventExists = await Event.checkIfExistsForApi(req.params.eventId);
+    if(eventExists) {
+        Event.uploadImage(req.params.eventId, req.body.imageUrl)
+        res.status(200).json({
+            message: 'Successfully uploaded the image url for the event.'
+        })
+    } else {
+        res.status(400).json({
+            message: 'No event with this uuid exists.'
+        })
+    }
 });
 
 router.use('/:eventId/tickets', require('./tickets'));

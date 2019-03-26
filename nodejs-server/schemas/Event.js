@@ -36,6 +36,10 @@ var EventSchema = new mongoose.Schema({
             ref: 'Venue',
             required: true
         },
+        imageUrl: {
+            type: String,
+            required: false
+        },
         status: {
             type: String,
             required: true
