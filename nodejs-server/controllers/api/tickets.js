@@ -5,10 +5,18 @@ var Ticket = require('../../models/Ticket.js');
 var Event = require('../../models/Event.js');
 
 // Ajouter des billets à un événement déjà existant
-router.post('/', auth.isAdmin, async function(req, res) {
+router.post('/', auth.isAdmin, async function(req, res, next) {
     var event_id = await Event.checkIfExistsForApi(req.params.eventId);
-    Ticket.createTickets(req.body, event_id);
-    res.status(200).json({ message: 'Successfully added tickets to the event.' });
+    if(event_id) {
+        Ticket.createTickets(req.body, event_id, next);
+        res.status(200).json({
+            message: 'Successfully added tickets to the event.'
+        });
+    } else {
+        res.status(400).json({
+            message: "No event with this uuid exists."
+        })
+    }
 });
 
 // Obtenir le nombre de billets vendus et non vendus/réservés d'un événement
@@ -23,7 +31,9 @@ router.get('/', auth.isAdmin, async function(req, res) {
             numberOfTicketsAvailable
         });
     } else {
-        res.status(400).json({ message: 'No event with this uuid exists' });
+        res.status(400).json({
+            message: 'No event with this uuid exists.'
+        });
     }
 });
 

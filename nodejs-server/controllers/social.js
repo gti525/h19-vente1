@@ -25,8 +25,6 @@ router.post('/login', function(req, res) {
 
 var sendTickets = async function(authToken, tickets) {
     var response;
-console.log(tickets)
-    var socialTickets = await adaptTickets(tickets);
 console.log("AAAAAAAAHHHHHHHHH")
 console.log(tickets)
     for (ticket of tickets) {
@@ -53,21 +51,5 @@ console.log(tickets)
     }
     return response;
 };
-
-var adaptTickets = function(tickets) {
-    var newTickets = [];
-    var i = 0;
-    for (ticket of tickets) {
-        newTickets[i] = {
-            UUID: ticket.uuid,
-            EventName: ticket.event.title,
-            Artist: ticket.event.artist,
-            Date: ticket.event.date,
-            Location: ticket.event.venue.address
-        }
-        i++;
-    }
-    return newTickets;
-}
 
 module.exports = {router, sendTickets};

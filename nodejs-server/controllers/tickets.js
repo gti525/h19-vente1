@@ -46,10 +46,13 @@ router.post('/buyTickets', async function(req, res) {
             message: transaction.data.message
         })
     } else {
-    
+        //Paiement process
+
+        //Sauvegarder la trace de la vente confirmée
+
         //Marquer les billets comme vendus
         //await Ticket.markAsSold(tickets);
-    
+        
     
         //Envoyer au réseau social
         var socialResponse = await sendTickets(req.body.Authorization, tickets);
@@ -57,6 +60,7 @@ router.post('/buyTickets', async function(req, res) {
         //    message: socialResponse.statusText,
         //});
     
+        //A19 - Fournir le code de confirmation au client
         res.status(200).json({
             message: "Tout est beau !"
         });

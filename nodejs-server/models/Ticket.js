@@ -58,6 +58,7 @@ exports.markAsSold = async function(tickets) {
 exports.createTickets = async function(tickets, eventId, next) {
   var ticket;
   await Object.keys(tickets).forEach(function(key) {
+    console.log(tickets)
     ticket = new Ticket({
       uuid: tickets[key].uuid,
       event: eventId,
