@@ -6,18 +6,19 @@ const Payment = new mongoose.model('Payment', PaymentSchema);
 // Crée une nouvelle trace de paiement
 exports.createPaymentTrace = async function(body, next) {
     console.log("In PaymentTrace")
-    console.log(body)
-    const { tickets, amount } = body;
-    var alphaNumCode = makeRandomAlphaNumericCode(16);
+    const { tickets, amount, ccNom, ccPrenom, nom, prenom } = body;
+    var confirmationCode = makeRandomAlphaNumericCode(16);
     const payment = new Payment({
-        alphaNumCode,
+        confirmationCode,
         amount,
-        tickets
+        tickets,
+        ccName: ccPrenom + " " + ccNom,
+        name: prenom + " " + nom
     })
     await payment.save(function(err) {
         if(err) next(err);
     })
-    return alphaNumCode;
+    return confirmationCode;
 };
 
 // https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript/38622545

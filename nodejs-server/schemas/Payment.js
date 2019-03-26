@@ -12,7 +12,19 @@ module.exports = new mongoose.Schema({
                 ref: 'Ticket',
                 required: true
             }
-        ]
+        ],
+        amount: {
+            type: Number,
+            required: true
+        },
+        ccName: {
+            type: String,
+            required: true
+        },
+        name: {
+            type: String,
+            required: false
+        }
     },
     {
         versionKey: false

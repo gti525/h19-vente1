@@ -49,8 +49,8 @@ router.post('/buyTickets', async function(req, res, next) {
         //Paiement process
 
         //Sauvegarder la trace de la vente confirmée
-        var alphaNumCode = await Payment.createPaymentTrace(req.body, next)
-        console.log("AlphaCode: " + alphaNumCode)
+        var confirmationCode = await Payment.createPaymentTrace(req.body, next)
+        console.log("AlphaCode: " + confirmationCode)
 
         //Marquer les billets comme vendus
         //await Ticket.markAsSold(tickets);
@@ -64,7 +64,7 @@ router.post('/buyTickets', async function(req, res, next) {
             res.status(socialResponse.status).json({
                 data: socialResponse.data,
                 message: "Les billets ont été achetés, mais n'ont pas pu être ajoutés à votre profil social dû à une erreur interne.",
-                alphaNumCode
+                confirmationCode
             });
         } else {
             //A19 - Fournir le code de confirmation au client
@@ -75,7 +75,7 @@ router.post('/buyTickets', async function(req, res, next) {
             res.status(200).json({
                 data: socialResponse.data,
                 message,
-                alphaNumCode
+                confirmationCode
             });
         }
     }
