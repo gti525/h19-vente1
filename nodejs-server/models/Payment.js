@@ -6,6 +6,7 @@ const Payment = new mongoose.model('Payment', PaymentSchema);
 // Crée une nouvelle trace de paiement
 exports.createPaymentTrace = async function(body, next) {
     console.log("In PaymentTrace")
+    console.log(body)
     const { tickets, amount } = body;
     var alphaNumCode = makeRandomAlphaNumericCode(16);
     const payment = new Payment({

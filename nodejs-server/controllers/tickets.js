@@ -10,7 +10,6 @@ const { sendTickets } = require('./social.js');
 
 router.post('/buyTickets', async function(req, res, next) {
     var { tickets, Authorization } = req.body;
-    console.log(tickets)
     var eventExists;
     var eventOpened;
     var ticketReserved;
@@ -54,22 +53,31 @@ router.post('/buyTickets', async function(req, res, next) {
         console.log("AlphaCode: " + alphaNumCode)
 
         //Marquer les billets comme vendus
-        await Ticket.markAsSold(tickets);
+        //await Ticket.markAsSold(tickets);
         
     
         //Envoyer au réseau social si connecté
         if(Authorization) {
             var socialResponse = await sendTickets(req.body.Authorization, tickets);
         }
-        //res.status(socialResponse.status).json({
-        //    message: socialResponse.statusText,
-        //});
-    
-        //A19 - Fournir le code de confirmation au client
-        res.status(200).json({
-            message: "The tickets have been bought.",
-            alphaNumCode
-        });
+        if(socialResponse.status !== 200) {
+            res.status(socialResponse.status).json({
+                data: socialResponse.data,
+                message: "Les billets ont été achetés, mais n'ont pas pu être ajoutés à votre profil social dû à une erreur interne.",
+                alphaNumCode
+            });
+        } else {
+            //A19 - Fournir le code de confirmation au client
+            var message = "Les billets ont été achetés.";
+            if(Authorization) {
+                message = "Les billets ont été achetés et ont été ajoutés à votre profil de réseau social.";
+            }
+            res.status(200).json({
+                data: socialResponse.data,
+                message,
+                alphaNumCode
+            });
+        }
     }
     console.log("end")
 });
