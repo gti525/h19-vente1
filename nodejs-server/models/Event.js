@@ -14,6 +14,7 @@ exports.checkIfExists = async function(eventId) {
     else return false;
 }
 
+// Vérifier que l'événement est encore en vente
 exports.checkIfOpened = async function(event_id) {
     var event = await Event.findOne({ "_id": event_id, "status": "opened" });
     if(event) return event._id;
@@ -25,6 +26,21 @@ exports.getAllOpenedEvents = async function() {
     var events = await Event.find({ status: "opened" })
     .populate('venue');
     return events;
+}
+
+// Obtenir tous les événements affichés selon la recherche
+exports.getSearchedEvents = async function(searchType, searchText) {
+    console.log(searchText, searchType)
+    var events = await Event.find({ [searchType]: {$regex: new RegExp(".*"+searchText+".*", "i")} })
+    .populate('venue');
+    return events;
+}
+
+// Vérifier si l'événement a au moins un billet disponible
+exports.checkIfSoldOut = async function(event_id) {
+    var hasTicketForSale = await Ticket.isOnSaleForEvent(event_id);
+    console.log(hasTicketForSale);
+    return hasTicketForSale;
 }
 
 

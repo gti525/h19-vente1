@@ -5,6 +5,12 @@ const Ticket = new mongoose.model('Ticket', TicketSchema);
 
 // Application Frontend
 
+// Vérifier qu'au moins un billet est en vente pour l'événement
+exports.isOnSaleForEvent = async function(event_id) {
+  var ticketOnSale = await Ticket.findOne({ event: event_id, status: "on sale" });
+  return ticketOnSale;
+}
+
 // Vérifier si il y a assez de billets d'un événement disponibles pour la commande du client
 exports.checkIfTicketsAvailable = async function(event_id, numberOfTickets) {
   var numberOfTicketsAvailable = await Ticket.countDocuments({ event: event_id, status: "on sale" });
