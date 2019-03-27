@@ -11,13 +11,13 @@ class Formulaire extends Component {
     super(props);
     this.ouvrirConnexion = this.ouvrirConnexion.bind(this);
     this.fermerConnexion = this.fermerConnexion.bind(this);
+    this.ouvrirConfirmation = this.ouvrirConfirmation.bind(this);
+    this.fermerConfirmation = this.fermerConfirmation.bind(this);
     this.onChange = this.onChange.bind(this);
     this.submitForm = this.submitForm.bind(this);
     this.submitSocialForm = this.submitSocialForm.bind(this);
+    this.submitPaymentForm = this.submitPaymentForm.bind(this);
     this.deconnexion = this.deconnexion.bind(this);
-    this.validerInformation = this.validerInformation.bind(this);
-
-    const { index, title, date, venue  } = this.props;
 
     this.state = {
       nom: "",
@@ -34,8 +34,13 @@ class Formulaire extends Component {
       ccCvv: "",
       socialEmail: "",
       socialPassword: "",
-      connexionModal: false
+      connexionModal: false,
+      confirmationModal: false
     };
+  }
+
+  componentDidMount() {
+    this.deconnexion();
   }
 
   render() {
@@ -149,12 +154,11 @@ class Formulaire extends Component {
               </FormGroup>  
             </Col>
           </Row>
-          <Button type="submit" disabled={'checkifMissingVariable()'} onClick={this.validerInformation}  variant="primary" >Envoyer</Button>
+          <Button type="submit" disabled={this.checkifMissingVariable()} variant="primary" >Envoyer</Button>
         </Form>
 
         <Modal show={this.state.connexionModal} onHide={this.handleClose}>
           <Modal.Header closeButton>
-            
             <Modal.Title>Connexion au réseau social</Modal.Title>
           </Modal.Header>
           <Form className="designForm" onSubmit={this.submitSocialForm}>
@@ -185,24 +189,24 @@ class Formulaire extends Component {
           </Form>
         </Modal>
 
-        <Modal show={this.state.connexionModal} onHide={this.handleClose}>
+        <Modal show={this.state.confirmationModal} onHide={this.handleConfirmationClose}>
           <Modal.Header closeButton>
             <Modal.Title>Validation Informations Carte de Crédit</Modal.Title>
           </Modal.Header>
-          <Form className="designForm" onSubmit={this.submitSocialForm}>
+          <Form className="designForm" onSubmit={this.submitPaymentForm}>
             <Modal.Body>
-              <p>Les informations ci-dessous sont elles correcte ?</p>
+              <p>Les informations ci-dessous sont elles correctes ?</p>
             <Row form1>
               <Col md={5}>
                 <FormGroup>
                   <Label for="nom">Nom:</Label>
-                  <Input type="text" name="nameCard" id="nameCard" value={this.state.ccNom} />
+                  {this.state.ccNom}
                 </FormGroup>
               </Col>
               <Col md={5}>
                 <FormGroup>
                   <Label for="prenom">Prénom</Label>
-                  <Input type="text" name="prenom" id="prenom" value={this.state.ccPrenom}/>
+                  {this.state.ccPrenom}
                 </FormGroup>
               </Col>
             </Row>
@@ -210,7 +214,7 @@ class Formulaire extends Component {
               <Col md={5}>
                 <FormGroup>
                   <Label for="card">Numéro de la carte :</Label>
-                  <Input type="text" name="card" id="card" value={this.state.ccNoCarte} />
+                  {this.state.ccNoCarte}
                 </FormGroup>
               </Col>
             </Row>
@@ -218,25 +222,25 @@ class Formulaire extends Component {
               <Col md={5}>
                 <FormGroup>
                   <Label for="moisExpiration">Mois d'expiration</Label>
-                  <Input type="text" name="moisExpiration" id="moisExpiration" value={this.state.ccMoExp}/>
+                  {this.state.ccMoExp}
                 </FormGroup>
               </Col>
               <Col md={5}>
                 <FormGroup>
                   <Label for="anneeExpiration">Année d'expiration</Label>
-                  <Input type="text" name="anneeExpiration" id="anneeExpiration" value={this.state.ccAnExp}/>
+                  {this.state.ccAnExp}
                 </FormGroup>
               </Col>
               <Col md={5}>
                 <FormGroup>
                   <Label for="cvv">CVV</Label>
-                  <Input type="text" name="cvv" id="cvv" value={this.state.ccCvv}/>
+                  {this.state.ccCvv}
                 </FormGroup>
               </Col>
             </Row>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={this.fermerConnexion} >
+            <Button variant="secondary" onClick={this.fermerConfirmation} >
               Fermer
             </Button>
             <Button color="primary" variant="primary">
@@ -259,9 +263,7 @@ class Formulaire extends Component {
 
   submitForm(e) {
     e.preventDefault();
-    console.log(this.state)
-
-    
+    this.ouvrirConfirmation();
   }
 
   submitSocialForm(e) {
@@ -282,46 +284,53 @@ class Formulaire extends Component {
         codePostal: data.PostalCode,
         connexionModal: false
       })
-      console.log(response)
-    })
-    //.catch(error => {
-    //  console.log(error)
-    //})
-  }
-  validerInformation(){
-    this.setState({
-      connexionModal: true, 
-      ccNom : this.state.ccNom,
-      ccPrenom: this.state.ccPrenom,
-      ccNoCarte: this.state.ccNoCarte,
-      ccMoExp: this.state.ccMoExp,
-      ccAnExp: this.state.ccAnExp,
-      ccCvv: this.state.ccCvv,
     })
   }
+
+  submitPaymentForm(e) {
+    e.preventDefault();
+    //Call buyTickets ici
+
+    this.deconnexion();
+    console.log("sending Payment")
+  }
+
   ouvrirConnexion() {
-    this.setState({ connexionModal: true })
+    this.setState({ connexionModal: true });
   }
 
   fermerConnexion() {
-    this.setState({ connexionModal: false })
+    this.setState({ connexionModal: false });
+  }
+
+  ouvrirConfirmation() {
+    this.setState({ confirmationModal: true });
+  }
+
+  fermerConfirmation() {
+    this.setState({ confirmationModal: false });
   }
 
   checkifMissingVariable(){
-      if(this.state.ccNom=='' || 
-      this.state.ccPrenom=='' ||
-      this.state.ccNoCarte =='' || 
-      this.state.ccMoExp =='' ||
-      this.state.ccAnExp =='' || 
-      this.state.ccCvv == '')
+      if(this.state.ccNom === '' || 
+      this.state.ccPrenom === '' ||
+      this.state.ccNoCarte === '' || 
+      this.state.ccMoExp === '' ||
+      this.state.ccAnExp === '' || 
+      this.state.ccCvv === '' || 
+      this.state.adresse === '' || 
+      this.state.codePostal === '' || 
+      this.state.nom === '' || 
+      this.state.prenom === '' || 
+      this.state.province === '' || 
+      this.state.ville === '')
       {
         return true;
       }
-      else
-         return false;
+      else {
+        return false;
+      }
     }
-
- 
 
   deconnexion() {
     sessionStorage.removeItem(`social`);
