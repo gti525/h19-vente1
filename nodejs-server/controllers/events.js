@@ -21,7 +21,7 @@ router.get('/search', async function(req, res) {
     var events = await Event.getSearchedEvents(req.body.searchType, req.body.searchText);
     events = await markIfSoldOut(events);
     res.status(200).json({
-        message: 'Successfully fetched all events.',
+        message: 'Successfully fetched all searched events.',
         events
     });
 });
