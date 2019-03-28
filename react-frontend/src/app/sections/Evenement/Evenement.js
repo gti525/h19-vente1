@@ -26,7 +26,7 @@ class Evenement extends Component {
     return (
       <tr>
         <td>
-        <Button onClick={() => this.afficherDetails(index)}><img alt="" src={defaultImage||imageUrl} height="45"/></Button>
+        <Button onClick={() => this.afficherDetails(index)}><img alt="" src={ imageUrl || defaultImage } height="45"/></Button>
         </td>
         <td>{title}</td>
         <td>{formatDate(date)}</td>
