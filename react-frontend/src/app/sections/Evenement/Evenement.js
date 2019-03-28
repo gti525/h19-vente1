@@ -22,7 +22,7 @@ class Evenement extends Component {
   };
 
   render() {
-    const { index, title, date, venue  } = this.props;
+    const { index, title, date, venue, price } = this.props;
     return (
       <tr>
         <td>
@@ -31,6 +31,7 @@ class Evenement extends Component {
         <td>{title}</td>
         <td>{formatDate(date)}</td>
         <td>{venue.address}</td>
+        <td>{price}</td>
         <td>
           <Button
           variant="primary"
