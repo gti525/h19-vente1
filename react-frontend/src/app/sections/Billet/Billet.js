@@ -13,8 +13,8 @@ class Billet extends Component {
         <td>{this.props.event.title}</td>
         <td>{this.props.event.artist}</td>
         <td>{formatDate(this.props.event.date)}</td>
-        <td>A ajouter</td>
-        <td>A ajouter $</td>
+        <td>{this.props.event.venue.address}</td>
+        <td>{this.props.event.price}</td>
         <td>
         <Button variant="primary" onClick={() => this.props.supprimerBillet(cle)}>X</Button>
         </td>

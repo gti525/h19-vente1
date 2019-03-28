@@ -22,15 +22,16 @@ class Evenement extends Component {
   };
 
   render() {
-    const { index, title, date, venue, imageUrl } = this.props;
+    const { index, title, date, venue, price, imageUrl } = this.props;
     return (
       <tr>
         <td>
-        <Button onClick={() => this.afficherDetails(index)}><img alt="" src={ imageUrl || defaultImage } height="45"/></Button>
+        <Button onClick={() => this.afficherDetails(index)}><img alt="" src={defaultImage||imageUrl} height="45"/></Button>
         </td>
         <td>{title}</td>
         <td>{formatDate(date)}</td>
         <td>{venue.address}</td>
+        <td>{price}</td>
         <td>
           <Button
           variant="primary"

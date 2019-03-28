@@ -24,6 +24,19 @@ class Panier extends Component {
     this.setState({ monPanier: monPanier });
   }
 
+  calculerTotal = () => {
+
+    var total = 0;
+    var i;
+
+    for (i = 0; i < this.state.monPanier.length; i++)
+    {
+      total += this.state.monPanier[i].event.price;
+    }
+
+    return total * (1 + 0.05 + 0.09975) ;
+  }
+
   delaiFormulaire = () => {
     this.setState({ evenementModal: false })
     this.setState({ confirmationAchat: "Délai de 10 minutes dépassé." })
@@ -84,7 +97,7 @@ class Panier extends Component {
 
             }</tbody>
             <tfoot>{
-                "Coût total (après taxes) :" + this.state.monTotal.toString() + "$"
+                "Coût total (après taxes) : " + this.calculerTotal().toFixed(2).toString() + " $"
             }</tfoot>
           </table>
           <Button variant="primary" onClick={this.handlePasserCommande}>Passer la commande</Button>
