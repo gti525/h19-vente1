@@ -36,7 +36,6 @@ class Spectacles extends Component {
     return (
       <React.Fragment>
         <ListeEvenements evenements={evenements}/>
-
         <div id="horizontal-analytic-banner" align="center"></div>
       </React.Fragment>
     );

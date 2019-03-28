@@ -9,10 +9,6 @@ class Evenement extends Component {
     this.state = {}
   }
 
-  componentDidMount() {
-
-  }
-
   acheterBillets = (index) => {
     this.props.ouvrirAchatBillet(index);
   };
@@ -22,7 +18,8 @@ class Evenement extends Component {
   };
 
   render() {
-    const { index, title, date, venue, price, imageUrl } = this.props;
+    const { index, title, date, venue, price, imageUrl, status } = this.props;
+    console.log(status)
     return (
       <tr>
         <td>
@@ -31,11 +28,12 @@ class Evenement extends Component {
         <td>{title}</td>
         <td>{formatDate(date)}</td>
         <td>{venue.address}</td>
-        <td>{price}</td>
+        <td>{price}$</td>
         <td>
           <Button
           variant="primary"
           title=""
+          disabled={status === "sold out"}
           onClick={() => this.acheterBillets(index)}>
             Ajouter au panier
           </Button>

@@ -20,7 +20,7 @@ class Panier extends Component {
 
   componentDidMount() {
 
-    const monPanier = JSON.parse(localStorage.getItem('panier'));
+    const monPanier = JSON.parse(sessionStorage.getItem('panier'));
     this.setState({ monPanier: monPanier });
   }
 
@@ -69,7 +69,7 @@ class Panier extends Component {
     const panier = this.state.monPanier;
     panier.splice(billetKey, 1);
     this.setState({ monPanier: panier });
-    localStorage.setItem(`panier`, JSON.stringify(this.state.monPanier));
+    sessionStorage.setItem(`panier`, JSON.stringify(this.state.monPanier));
   };
 
   render() {
