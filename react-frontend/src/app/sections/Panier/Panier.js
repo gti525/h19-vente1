@@ -116,7 +116,6 @@ class Panier extends Component {
             <Button onClick={() => this.setState({ evenementModal: false })}>
               Fermer
             </Button>
-            <Button onClick={this.handleCommander}>Commander</Button>
           </Modal.Footer>
         </Modal>
         </div>

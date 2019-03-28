@@ -16,7 +16,7 @@ class DetailsEvenement extends Component {
           </Modal.Header>
           <Modal.Body>
             <div>
-              <img alt="" src={defaultImage} height="90"/>             
+              <img alt="" src={ evenementDetailOuvert.imageUrl || defaultImage } height="90"/>             
               <div className="ligne">
                 <div className="col1">
                   Titre:
