@@ -18,7 +18,8 @@ router.get('/', async function(req, res) {
 
 // Chercher par nom de spectacle ou d'artiste
 router.get('/search', async function(req, res) {
-    var events = await Event.getSearchedEvents(req.body.searchType, req.body.searchText);
+    const { searchType, searchText } = req.query;
+    var events = await Event.getSearchedEvents(searchType, searchText);
     events = await markIfSoldOut(events);
     res.status(200).json({
         message: 'Successfully fetched all searched events.',
@@ -31,8 +32,6 @@ var markIfSoldOut = async function(events) {
     var isNotSoldOut;
     var i = 0;
     for(var event of events) {
-        console.log(i);
-        console.log(event)
         isNotSoldOut = null;
         isNotSoldOut = await Event.checkIfSoldOut(event._id);
         if(!isNotSoldOut) {
