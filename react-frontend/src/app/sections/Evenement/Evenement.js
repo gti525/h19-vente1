@@ -34,7 +34,7 @@ class Evenement extends Component {
           title=""
           disabled={status === "sold out"}
           onClick={() => this.acheterBillets(index)}>
-            Ajouter au panier
+            { status === "sold out" ? "Guichet fermé" : "Ajouter au panier" }
           </Button>
         </td>
       </tr>
