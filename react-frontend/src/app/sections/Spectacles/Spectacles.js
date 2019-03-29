@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ListeEvenements from "../../reutilisables/ListeEvenements.js";
+import SearchBar from '../SearchBar/SearchBar.js';
 import { BounceLoader } from 'react-spinners';
 import axios from "axios";
 import "./Spectacles.css";
@@ -23,6 +24,11 @@ class Spectacles extends Component {
     //})
   }
 
+  updateEvents(newEvents) {
+    console.log("in updateEvents")
+    this.setState({ evenements: newEvents });
+  }
+
   render() {
     const { evenements, loading } = this.state;
     if(loading) {
@@ -35,6 +41,7 @@ class Spectacles extends Component {
     }
     return (
       <React.Fragment>
+        <SearchBar updateEvents={this.updateEvents} />
         <ListeEvenements evenements={evenements}/>
         <div id="horizontal-analytic-banner" align="center"></div>
       </React.Fragment>

@@ -19,7 +19,6 @@ class Evenement extends Component {
 
   render() {
     const { index, title, date, venue, price, imageUrl, status } = this.props;
-    console.log(status)
     return (
       <tr>
         <td>
