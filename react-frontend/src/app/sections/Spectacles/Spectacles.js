@@ -8,6 +8,7 @@ import "./Spectacles.css";
 class Spectacles extends Component {
   constructor(props) {
     super(props);
+    this.updateEvents = this.updateEvents.bind(this);
     this.state = {
       loading: true,
       evenements: null
@@ -19,9 +20,6 @@ class Spectacles extends Component {
     .then(response => {
       this.setState({ evenements: response.data.events, loading: false })
     })
-    //.catch(error => {
-    //  console.log(error)
-    //})
   }
 
   updateEvents(newEvents) {

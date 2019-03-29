@@ -19,7 +19,7 @@ class SearchBar extends Component {
       return (
           <div className="complete-bar">
             <input type="text" name="searchText" value={searchText} onChange={this.onChange} />
-            <select name="searchType" onChange={this.onChange}>
+            <select name="searchType" value={searchType} onChange={this.onChange}>
                 <option value="artist">Artiste</option>
                 <option value="title">Titre</option>
             </select>
@@ -41,19 +41,10 @@ class SearchBar extends Component {
     searchEvents() {
       console.log(this.state)
       const { searchText, searchType } = this.state;
-      // axios({
-      //   method:"GET",
-      //   url:"http://localhost:4000/events/search",
-      //   params:{
-      //     searchType:"artist",
-      //     searchext:"a"
-      //   }
-      // })
-      axios.get(`http://localhost:4000/events/search?type=artist&text=a`)
+      axios.get(`http://localhost:4000/events/search?searchType=${searchType}&searchText=${searchText}`)
       .then(response => {
         console.log(response.data.events)
-        //this.props.updateEvents(response.data.events)
-        //this.setState({ evenements: response.data.events, loading: false })
+        this.props.updateEvents(response.data.events);
       })
     }
 }
