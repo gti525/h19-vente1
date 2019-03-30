@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Evenement from "../sections/Evenement/Evenement.js";
-import AjoutBillet from "./AjoutBillet.js";
+import AjoutBillet from "../sections/AjoutBillet/AjoutBillet.js";
 import DetailsEvenement from "./DetailsEvenement.js";
 
 class ListeEvenements extends Component {
@@ -31,8 +31,7 @@ class ListeEvenements extends Component {
 
   render() {
     const { evenements } = this.props;
-    const { evenementDetailOuvert } = this.state;
-    const { evenementAchatOuvert } = this.state;
+    const { evenementDetailOuvert, evenementAchatOuvert } = this.state;
     return (
       <div className="container">
         <table className="table">
@@ -50,9 +49,7 @@ class ListeEvenements extends Component {
           </tbody>
         </table>
         {evenementDetailOuvert && <DetailsEvenement evenementDetailOuvert={this.state.evenementDetailOuvert} fermerDetailEvenement={() => this.fermerDetailEvenement()}/>} 
-        {/*Si evenementDetailOuvert === true, render le component DetailsEvenement*/}
         {evenementAchatOuvert && <AjoutBillet evenementAchatOuvert={this.state.evenementAchatOuvert} fermerAchatBillet={() => this.fermerAchatBillet()}/>} 
-        {/*Si evenementAchatOuvert === true, render le component AjoutBillet*/}
       </div>
     );
   }
@@ -60,7 +57,13 @@ class ListeEvenements extends Component {
   renderEvenements = (evenements) => {
     return (
       Object.keys(evenements).map((key) => (
-        <Evenement key={key} index={key} {...evenements[key]} ouvrirDetailEvenement={this.ouvrirDetailEvenement} ouvrirAchatBillet={this.ouvrirAchatBillet}/>
+        <Evenement
+        key={key}
+        index={key}
+        {...evenements[key]}
+        ouvrirDetailEvenement={this.ouvrirDetailEvenement}
+        ouvrirAchatBillet={this.ouvrirAchatBillet}
+        />
       ))
     );
   }

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import ReactTimeout from "react-timeout";
 import { Modal, Button } from "react-bootstrap";
 import Billet from "../Billet/Billet.js";
-//import billets from "../../../faussesDonnees/billets.json";
 import Form from "../Form/Form.js";
 import "./Panier.css";
 
@@ -19,17 +18,18 @@ class Panier extends Component {
   }
 
   componentDidMount() {
-
-    const monPanier = JSON.parse(sessionStorage.getItem('panier'));
-    this.setState({ monPanier: monPanier });
+    var monPanier = JSON.parse(sessionStorage.getItem('panier'));
+    if(monPanier === null) {
+      monPanier = [];
+    }
+    this.setState({ monPanier });
   }
 
   calculerTotal = () => {
 
     var total = 0;
-    var i;
 
-    for (i = 0; i < this.state.monPanier.length; i++)
+    for (var i = 0; i < this.state.monPanier.length; i++)
     {
       total += this.state.monPanier[i].event.price;
     }
@@ -43,7 +43,6 @@ class Panier extends Component {
   }
 
   handlePasserCommande = () => {
-    
     this.setState({ evenementModal: true })
     this.props.setTimeout(this.delaiFormulaire, 10*60*1000)
   };
@@ -77,47 +76,59 @@ class Panier extends Component {
     if(!monPanier){
       return null;
     }
+    console.log(monPanier.length)
     return (
       <div>
         <div className="container">
-          <br />
-          <table className="table">
-            <thead>
-              <tr>
-                <th scope="col">Nom</th>
-                <th scope="col">Artiste</th>
-                <th scope="col">Date</th>
-                <th scope="col">Lieu</th>
-                <th scope="col">Prix</th>
-                <th />
-              </tr>
-            </thead>
-            <tbody>{             
-                this.renderBillets(monPanier)
-
-            }</tbody>
-            <tfoot>{
-                "Coût total (après taxes) : " + this.calculerTotal().toFixed(2).toString() + " $"
-            }</tfoot>
-          </table>
-          <Button variant="primary" onClick={this.handlePasserCommande}>Passer la commande</Button>
-          <div> 
-            <br /> {this.state.confirmationAchat}
-          </div>
-          <Modal  dialogClassName="Panier-modal" show={this.state.evenementModal}>
-          <Modal.Header>
-            <Modal.Title>Passer la commande</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-          <Form>
-          </Form>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button onClick={() => this.setState({ evenementModal: false })}>
-              Fermer
+          <div className="ticketTable">
+            <br />
+            <table className="table">
+              <thead>
+                <tr>
+                  <th scope="col">Nom</th>
+                  <th scope="col">Artiste</th>
+                  <th scope="col">Date</th>
+                  <th scope="col">Lieu</th>
+                  <th scope="col">Prix</th>
+                  <th />
+                </tr>
+              </thead>
+              <tbody>{             
+                  this.renderBillets(monPanier)
+              }</tbody>
+              <tfoot>{
+                  "Coût total (après taxes) : " + this.calculerTotal().toFixed(2).toString() + " $"
+              }</tfoot>
+            </table>
+            <Button
+              className="buttonPrimary"
+              disabled={monPanier.length === 0}
+              onClick={this.handlePasserCommande}
+            >
+              Passer la commande
             </Button>
-          </Modal.Footer>
-        </Modal>
+            <div> 
+              <br /> {this.state.confirmationAchat}
+            </div>
+            <Modal  dialogClassName="Panier-modal" show={this.state.evenementModal}>
+            <Modal.Header>
+              <Modal.Title>Passer la commande</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+            <Form>
+            </Form>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button
+                className="buttonDanger"
+                onClick={() => this.setState({ evenementModal: false })}
+              >
+                Fermer
+              </Button>
+            </Modal.Footer>
+          </Modal>
+          </div>
+          <div id="vertical-analytic-banner"/>
         </div>
       </div>
     );

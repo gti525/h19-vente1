@@ -6,3 +6,51 @@
 .titreDeSection {
     padding-left: 50px;
 }
+
+.buttonSocialConnexion {
+    background-color: green;
+    color: white;
+    border-color: white;
+}
+.buttonSocialConnexion:hover {
+    background-color: lightgreen;
+    color: darkgreen;
+    border-color: green;
+}
+
+.buttonSocialDisconnexion {
+    background-color: lightgreen;
+    color: black;
+    border-color: green;
+}
+.buttonSocialDisconnexion:hover {
+    background-color: green;
+    color: white;
+    border-color: white;
+}
+
+.nomSocial {
+    text-align: center;
+}
+
+.buttonPrimary {
+    background-color: blue;
+    color: white;
+    border-color: blue;
+}
+.buttonPrimary:hover {
+    background-color: lightblue;
+    color: darkblue;
+    border-color: blue;
+}
+
+.buttonDanger {
+    background-color: crimson;
+    color: white;
+    border-color: crimson;
+}
+.buttonDanger:hover {
+    background-color: white;
+    color: crimson;
+    border-color: crimson;
+}

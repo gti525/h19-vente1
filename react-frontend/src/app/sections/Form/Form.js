@@ -48,11 +48,17 @@ class Formulaire extends Component {
     return (
       <React.Fragment>
         <Form className="designForm" onSubmit={this.submitForm}>
-          <h2 className="titreDeSection">Informations Personnelles</h2>
           {estConnecte ?
-            <Button onClick={this.deconnexion}>Se déconnecter</Button> :
             <React.Fragment>
-              <Button onClick={this.ouvrirConnexion}>Se connecter avec le réseau social</Button>
+              <Button className="buttonSocialDisconnexion" onClick={this.deconnexion}>Déconnexion du réseau social</Button>
+              <h3 className="nomSocial">
+                Bonjour {this.state.prenom + " " + this.state.nom}
+              </h3>
+            </React.Fragment>
+            :
+            <React.Fragment>
+              <h2 className="titreDeSection">Informations Personnelles</h2>
+              <Button className="buttonSocialConnexion" onClick={this.ouvrirConnexion}>Se connecter avec le réseau social</Button>
               <Row form1>
                 <Col md={5}>
                   <FormGroup>
@@ -154,7 +160,13 @@ class Formulaire extends Component {
               </FormGroup>  
             </Col>
           </Row>
-          <Button type="submit" disabled={this.checkifMissingVariable()} variant="primary" >Envoyer</Button>
+          <Button
+          type="submit"
+          disabled={this.checkifMissingVariable()}
+          className="buttonPrimary"
+          >
+            Envoyer
+          </Button>
         </Form>
 
         <Modal show={this.state.connexionModal} onHide={this.handleClose}>
@@ -179,10 +191,10 @@ class Formulaire extends Component {
             </Row>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={this.fermerConnexion}>
+            <Button className="buttonDanger" onClick={this.fermerConnexion}>
               Fermer
             </Button>
-            <Button color="primary" variant="primary">
+            <Button className="buttonPrimary">
               Se connecter
             </Button>
           </Modal.Footer>

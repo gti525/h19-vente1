@@ -1,0 +1,10 @@
+.buttonOnSale {
+    background-color: blue;
+    color: white;
+    border-color: blue;
+}
+.buttonOnSale:hover {
+    background-color: lightblue;
+    color: darkblue;
+    border-color: blue;
+}
