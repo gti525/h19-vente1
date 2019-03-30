@@ -1,3 +1,46 @@
 .Panier-modal {
     width: 55vw;    /* Occupy the 90% of the screen width */
-} 
+}
+
+.emptyCart {
+    padding-left: 20px
+}
+
+.ticketTable {
+    display: inline-block;
+    padding-left: 10px;
+    width: 82%
+}
+
+#vertical-analytic-banner {
+    display: inline-block;
+}
+
+.buttonPrimary {
+    background-color: blue;
+    color: white;
+    border-color: blue;
+}
+.buttonPrimary:hover {
+    background-color: lightblue;
+    color: darkblue;
+    border-color: blue;
+}
+
+.buttonDanger {
+    background-color: crimson;
+    color: white;
+}
+.buttonDanger:hover {
+    background-color: white;
+    color: crimson;
+}
+
+@media only screen and (max-width: 1200px) {
+    #vertical-analytic-banner {
+        display: none;
+    }
+    .ticketTable {
+        width: 100%
+    }
+}

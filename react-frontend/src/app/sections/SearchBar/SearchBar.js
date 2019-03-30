@@ -23,9 +23,7 @@ class SearchBar extends Component {
                 <option value="artist">Artiste</option>
                 <option value="title">Titre</option>
             </select>
-            <Button onClick={this.searchEvents}>
-              Rechercher
-            </Button>
+            <Button className="fa fa-search" onClick={this.searchEvents}/>
           </div>
       )
     }

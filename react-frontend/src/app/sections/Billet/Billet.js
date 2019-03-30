@@ -5,20 +5,19 @@ import { formatDate } from '../../../assistants/dateFormatter.js';
 class Billet extends Component {
 
   render() {
-    //console.log(this.props);
-    const { cle/*, nom, date, lieu, siege, prixAffiche */} = this.props;
+    const { cle } = this.props;
+    const { title, artist, date, venue, price } = this.props.event;
 
     return (
       <tr>
-        <td>{this.props.event.title}</td>
-        <td>{this.props.event.artist}</td>
-        <td>{formatDate(this.props.event.date)}</td>
-        <td>{this.props.event.venue.address}</td>
-        <td>{this.props.event.price}</td>
+        <td>{title}</td>
+        <td>{artist}</td>
+        <td>{formatDate(date)}</td>
+        <td>{venue.address}</td>
+        <td>{price}</td>
         <td>
         <Button variant="primary" onClick={() => this.props.supprimerBillet(cle)}>X</Button>
         </td>
-        <div id="vertical-analytic-banner"></div>
       </tr>
     );
   }

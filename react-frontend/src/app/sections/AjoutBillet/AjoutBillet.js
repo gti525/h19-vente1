@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Modal, Button } from "react-bootstrap";
 import axios from "axios";
-//import billets from "../../faussesDonnees/billets.json";
 
 class AjoutBillet extends Component {
   constructor(props) {
@@ -51,7 +50,7 @@ class AjoutBillet extends Component {
             <Button onClick={() => fermerAchatBillet()}>
               Fermer
             </Button>
-            <Button onClick={() => this.ajouterAuPanier(evenementAchatOuvert._id, parseFloat(nbBillets))}>
+            <Button className="buttonPrimary" onClick={() => this.ajouterAuPanier(evenementAchatOuvert._id, parseFloat(nbBillets))}>
               Ajouter
             </Button>
           </Modal.Footer>

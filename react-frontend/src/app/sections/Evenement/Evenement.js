@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Button } from "react-bootstrap";
 import { defaultImage } from '../../../assistants/images.js';
 import { formatDate } from '../../../assistants/dateFormatter.js';
+import "./Evenement.css";
 
 class Evenement extends Component {
   constructor(props) {
@@ -17,8 +18,12 @@ class Evenement extends Component {
       this.props.ouvrirDetailEvenement(index);
   };
 
+  checkIfSoldOut() {
+    return this.props.status === "sold out";
+  }
+
   render() {
-    const { index, title, date, venue, price, imageUrl, status } = this.props;
+    const { index, title, date, venue, price, imageUrl } = this.props;
     return (
       <tr>
         <td>
@@ -30,11 +35,11 @@ class Evenement extends Component {
         <td>{price}$</td>
         <td>
           <Button
-          variant="primary"
+          className={ this.checkIfSoldOut() ? "" : "buttonOnSale"}
           title=""
-          disabled={status === "sold out"}
+          disabled={this.checkIfSoldOut()}
           onClick={() => this.acheterBillets(index)}>
-            { status === "sold out" ? "Guichet fermé" : "Ajouter au panier" }
+            { this.checkIfSoldOut() ? "Guichet fermé" : "Ajouter au panier" }
           </Button>
         </td>
       </tr>
