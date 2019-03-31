@@ -132,18 +132,18 @@ class Formulaire extends Component {
                   <Label for="month">Mois d'expiration</Label>
                       <Input type="select" name="ccMoExp" id="ccmonth" onChange={this.onChange} value={this.state.value} required="required">
                       <option value="select">sélectionner</option>
-                          <option value="Janvier">Janvier</option>
-                          <option value="Février">Février</option>
-                          <option value="Mars">Mars</option>
-                          <option value="Avril">Avril</option>
-                          <option value="Mai">Mai</option>
-                          <option value="Juin">Juin</option>
-                          <option value="Juillet">Juillet</option>
-                          <option value="Aout">Aout</option>
-                          <option value="Septembre" >Septembre</option>
-                          <option value="Octobre">Octobre</option>
-                          <option value="Novembre">Novembre</option>
-                          <option value="Decembre">Decembre</option>
+                          <option value="1">Janvier</option>
+                          <option value="2">Février</option>
+                          <option value="3">Mars</option>
+                          <option value="4">Avril</option>
+                          <option value="5">Mai</option>
+                          <option value="6">Juin</option>
+                          <option value="7">Juillet</option>
+                          <option value="8">Aout</option>
+                          <option value="9" >Septembre</option>
+                          <option value="10">Octobre</option>
+                          <option value="11">Novembre</option>
+                          <option value="12">Décembre</option>
                       </Input>
               </FormGroup>
             </Col>
@@ -296,15 +296,37 @@ class Formulaire extends Component {
         codePostal: data.PostalCode,
         connexionModal: false
       })
-    })
+    });
   }
 
   submitPaymentForm(e) {
     e.preventDefault();
-    //Call buyTickets ici
-
-    this.deconnexion();
-    console.log("sending Payment")
+    const { amount } = this.props;
+    const { ccPrenom, ccNom, ccNoCarte, ccCvv, ccMoExp, ccAnExp, prenom, nom } = this.state;
+    var ccNumero = ccNoCarte.replace(/ /g,'');
+    axios.post("https://sitevente1-serveur.herokuapp.com/tickets/buyTickets", {
+      Authorization: sessionStorage.getItem(`social`),
+      tickets: this.props.monPanier,
+      amount,
+      ccPrenom,
+      ccNom,
+      ccNumero,
+      ccCvv,
+      ccMoExp,
+      ccAnExp,
+      prenom,
+      nom
+    })
+    .then(response => {
+      alert(`${response.data.message}\r\nVeuillez prendre en note ce code de confirmation lié à votre achat:\r\n${response.data.confirmationCode}`);
+      sessionStorage.removeItem(`panier`);
+      this.props.closeForm();
+      this.deconnexion();
+      this.setState({ confirmationModal: false });
+    })
+    .catch(error => {
+      alert(`${error.response.data.message}`);
+    });
   }
 
   ouvrirConnexion() {
