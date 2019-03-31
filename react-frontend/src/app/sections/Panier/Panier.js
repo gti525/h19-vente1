@@ -130,10 +130,7 @@ class Panier extends Component {
   }
 
   closeForm() {
-    this.setState({
-      evenementModal: false,
-      monPanier: []
-    });
+    this.props.history.push('/');
   }
 }
 
