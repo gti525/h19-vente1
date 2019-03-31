@@ -20,8 +20,7 @@ router.post('/buyTickets', async function(req, res, next) {
             console.log("event doesnt exist")
             res.status(400).json({
                 action: "removeTickets",
-                actionId: ticket.event_id,
-                message: "Un des événements a été supprimé."
+                message: "La vente d'un des événements est terminée."
             });
             return;
         }
@@ -32,7 +31,6 @@ router.post('/buyTickets', async function(req, res, next) {
             console.log("event isnt opened")
             res.status(400).json({
                 action: "removeTickets",
-                actionId: ticket.event_id,
                 message: "La vente d'un des événements est terminée."
             });
             return;
@@ -44,7 +42,6 @@ router.post('/buyTickets', async function(req, res, next) {
             console.log("ticket isnt reserved")
             res.status(400).json({
                 action: "removeTickets",
-                actionId: ticket._id,
                 message: "Un des billets n'est plus réservé."
             });
             return;
