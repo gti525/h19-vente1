@@ -18,6 +18,7 @@ class Formulaire extends Component {
     this.submitSocialForm = this.submitSocialForm.bind(this);
     this.submitPaymentForm = this.submitPaymentForm.bind(this);
     this.deconnexion = this.deconnexion.bind(this);
+    this.endFormSubmission = this.endFormSubmission.bind(this);
 
     this.state = {
       nom: "",
@@ -319,13 +320,15 @@ class Formulaire extends Component {
     })
     .then(response => {
       alert(`${response.data.message}\r\nVeuillez prendre en note ce code de confirmation lié à votre achat:\r\n${response.data.confirmationCode}`);
-      sessionStorage.removeItem(`panier`);
-      this.props.closeForm();
-      this.deconnexion();
-      this.setState({ confirmationModal: false });
+      this.endFormSubmission();
     })
     .catch(error => {
-      alert(`${error.response.data.message}`);
+      const { data } = error.response;
+      if(data.action === "removeTickets") {
+        this.endFormSubmission();
+      }
+      alert(`${data.message}`);
+      this.fermerConfirmation();
     });
   }
 
@@ -376,6 +379,13 @@ class Formulaire extends Component {
       province: "",
       codePostal: ""
     })
+  }
+
+  endFormSubmission() {
+    sessionStorage.removeItem(`panier`);
+    this.props.closeForm();
+    this.deconnexion();
+    this.setState({ confirmationModal: false });
   }
 }
 
