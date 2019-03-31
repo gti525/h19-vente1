@@ -36,7 +36,6 @@ class Panier extends Component {
 
   handlePasserCommande = () => {
     this.setState({ evenementModal: true })
-    this.props.setTimeout(this.delaiFormulaire, 10*60*1000)
   };
   
   supprimerBillet = (billetKey) => {
