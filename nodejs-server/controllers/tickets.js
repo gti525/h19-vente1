@@ -19,6 +19,8 @@ router.post('/buyTickets', async function(req, res, next) {
         if(!eventExists) {
             console.log("event doesnt exist")
             res.status(400).json({
+                action: "removeTicket",
+                actionId: ticket.event_id,
                 message: "Un des événements a été supprimé."
             });
             return;
@@ -29,6 +31,8 @@ router.post('/buyTickets', async function(req, res, next) {
         if(!eventOpened) {
             console.log("event isnt opened")
             res.status(400).json({
+                action: "removeTicket",
+                actionId: ticket.event_id,
                 message: "La vente d'un des événements est terminée."
             });
             return;
@@ -39,7 +43,9 @@ router.post('/buyTickets', async function(req, res, next) {
         if(!ticketReserved) {
             console.log("ticket isnt reserved")
             res.status(400).json({
-                message: "Un des billets n'existe pas ou n'est plus réservé."
+                action: "removeTicket",
+                actionId: ticket.event_id,
+                message: "Un des billets n'est plus réservé."
             });
             return;
         }
@@ -50,7 +56,7 @@ router.post('/buyTickets', async function(req, res, next) {
     if(transaction.status !== 200) {
         console.log("transaction didnt create")
         res.status(transaction.status).json({
-            message: "In create " + transaction.data.message
+            message: "Vos informations de carte de crédit sont invalides\nVeuillez les vérifier et essayer de nouveau."
         })
     } else {
         //Paiement process
