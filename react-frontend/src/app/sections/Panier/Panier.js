@@ -8,6 +8,8 @@ import "./Panier.css";
 class Panier extends Component {
   constructor(props) {
     super(props);
+    this.closeForm = this.closeForm.bind(this);
+
     this.state = { 
       commanderModal: false,
       monPanier: null,
@@ -26,14 +28,10 @@ class Panier extends Component {
   }
 
   calculerTotal = () => {
-
     var total = 0;
-
-    for (var i = 0; i < this.state.monPanier.length; i++)
-    {
+    for (var i = 0; i < this.state.monPanier.length; i++) {
       total += this.state.monPanier[i].event.price;
     }
-
     return total * (1 + 0.05 + 0.09975) ;
   }
 
@@ -46,24 +44,7 @@ class Panier extends Component {
     this.setState({ evenementModal: true })
     this.props.setTimeout(this.delaiFormulaire, 10*60*1000)
   };
-
-  handleCommander = () => {
-    //Commander les billets présents dans le panier
-
-    const estConnecteAuRS = sessionStorage.getItem(`social`);
-
-    if (estConnecteAuRS) {
-      this.setState({ confirmationAchat: "Les billets seront disponibles sur le site et sur l'application mobile." });  
-    }
-    else {
-      this.setState({ confirmationAchat: "Les billets seront récupérables le soir de l'événement." });  
-    }
-
-    this.setState({ evenementModal: false })
-
-  };
   
-  //TODO! Il faut retirer le siège réservé de son événement
   supprimerBillet = (billetKey) => {
     const panier = this.state.monPanier;
     panier.splice(billetKey, 1);
@@ -76,7 +57,6 @@ class Panier extends Component {
     if(!monPanier){
       return null;
     }
-    console.log(monPanier.length)
     return (
       <div>
         <div className="container">
@@ -97,7 +77,7 @@ class Panier extends Component {
                   this.renderBillets(monPanier)
               }</tbody>
               <tfoot>{
-                  "Coût total (après taxes) : " + this.calculerTotal().toFixed(2).toString() + " $"
+                  "Coût total (après taxes) : " + this.calculerTotal().toFixed(2).toString() + "$"
               }</tfoot>
             </table>
             <Button
@@ -107,21 +87,21 @@ class Panier extends Component {
             >
               Passer la commande
             </Button>
-            <div> 
-              <br /> {this.state.confirmationAchat}
+            <div>
+              <br/>
+              {this.state.confirmationAchat}
             </div>
-            <Modal  dialogClassName="Panier-modal" show={this.state.evenementModal}>
+            <Modal dialogClassName="Panier-modal" show={this.state.evenementModal}>
             <Modal.Header>
               <Modal.Title>Passer la commande</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-            <Form>
-            </Form>
+            <Form monPanier={monPanier} amount={this.calculerTotal().toFixed(2)} closeForm={this.closeForm}/>
             </Modal.Body>
             <Modal.Footer>
               <Button
                 className="buttonDanger"
-                onClick={() => this.setState({ evenementModal: false })}
+                onClick={() => this.closeForm()}
               >
                 Fermer
               </Button>
@@ -147,6 +127,13 @@ class Panier extends Component {
         ))
       );
     }
+  }
+
+  closeForm() {
+    this.setState({
+      evenementModal: false,
+      monPanier: []
+    });
   }
 }
 

@@ -37,8 +37,8 @@ class ListeEvenements extends Component {
         <table className="table">
           <thead>
             <tr>
-              <th scope="col">Image</th>
-              <th scope="col">Nom</th>
+              <th scope="col"/>
+              <th scope="col">Titre</th>
               <th scope="col">Date</th>
               <th scope="col">Lieu</th>
               <th scope="col">Prix</th>

@@ -16,7 +16,12 @@ class Billet extends Component {
         <td>{venue.address}</td>
         <td>{price}</td>
         <td>
-        <Button variant="primary" onClick={() => this.props.supprimerBillet(cle)}>X</Button>
+        <Button
+        variant="primary"
+        onClick={() => this.props.supprimerBillet(cle)}
+        >
+        Supprimer
+        </Button>
         </td>
       </tr>
     );
