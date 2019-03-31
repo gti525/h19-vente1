@@ -44,7 +44,7 @@ router.post('/buyTickets', async function(req, res, next) {
             console.log("ticket isnt reserved")
             res.status(400).json({
                 action: "removeTicket",
-                actionId: ticket.event_id,
+                actionId: ticket._id,
                 message: "Un des billets n'est plus réservé."
             });
             return;
