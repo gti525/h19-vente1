@@ -7,8 +7,7 @@ module.exports = new mongoose.Schema({
             required: true
         },
         tickets: [{
-                type: ObjectId,
-                ref: 'Ticket',
+                type: String,
                 required: true
         }],
         amount: {

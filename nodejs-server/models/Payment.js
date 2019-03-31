@@ -7,11 +7,19 @@ const Payment = new mongoose.model('Payment', PaymentSchema);
 exports.createPaymentTrace = async function(body, next) {
     console.log("In PaymentTrace")
     const { tickets, amount, ccNom, ccPrenom, nom, prenom } = body;
+    var ticketUuids = [];
+    var i = 0;
+    for(var ticket of tickets) {
+        console.log(ticket.uuid)
+        ticketUuids[i] = ticket.uuid;
+        i++;
+    }
+    console.log(ticketUuids)
     var confirmationCode = makeRandomAlphaNumericCode(16);
     const payment = new Payment({
         confirmationCode,
         amount,
-        tickets,
+        tickets: ticketUuids,
         ccName: ccPrenom + " " + ccNom,
         name: prenom + " " + nom
     })
