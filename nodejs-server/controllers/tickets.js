@@ -42,7 +42,7 @@ router.post('/buyTickets', async function(req, res, next) {
             console.log("ticket isnt reserved")
             res.status(400).json({
                 action: "removeTickets",
-                message: "Un des billets n'est plus réservé."
+                message: "Le délai de réservation de vos billets a été dépassé."
             });
             return;
         }
