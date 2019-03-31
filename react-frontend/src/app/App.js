@@ -18,8 +18,6 @@ class App extends Component {
     this.loadBanner();
 
     this.idleTimer = null
-    this.onAction = this._onAction.bind(this)
-    this.onActive = this._onActive.bind(this)
     this.onIdle = this._onIdle.bind(this)
 
     this.state = { 
@@ -32,15 +30,6 @@ class App extends Component {
     document.addEventListener("DOMContentLoaded",function(){const e="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQyLCJpYXQiOjE1NTE2NjQyMDh9.vYKwtAGtaxGMSN0qp3kOTo6k3Ccc2B9NzFBMpZ8CUPU";const t=function(){if("undefined"!=typeof Storage&&localStorage.getItem("gti525analytic")){const e=JSON.parse(localStorage.getItem("gti525analytic"));if(new Date(e.expiration).getTime()>(new Date).getTime())return e.clientId}return}();t?function(t){let n=new XMLHttpRequest;n.open("GET","https://gti525-analitycs.herokuapp.com/api/v1/banners/code",!0),n.onload=function(o){4===n.readyState&&200===n.status&&Function(`return (${n.responseText})`)()(t,e)},n.setRequestHeader("x-access-token",e),n.send()}(t):function(){let t=new XMLHttpRequest;t.open("GET","https://gti525-analitycs.herokuapp.com/api/v1/analytics/code",!0),t.onload=function(n){4===t.readyState&&200===t.status&&Function(`return (${t.responseText})`)()(e)},t.setRequestHeader("x-access-token",e),t.send()}()},!1);
   }
 
-  _onAction(e) {
-    console.log('user did something', e)
-  }
- 
-  _onActive(e) {
-    console.log('user is active', e)
-    console.log('time remaining', this.idleTimer.getRemainingTime())
-  }
-
   _onIdle(e) {
     console.log('user is idle', e)
     console.log('last active', this.idleTimer.getLastActiveTime())
@@ -50,7 +39,7 @@ class App extends Component {
     })
 
     //Vider le panier?
-    sessionStorage.setItem(`panier`, []);
+    sessionStorage.setItem(`panier`, null);
   }
 
   renderRedirect = () => {
@@ -65,11 +54,9 @@ class App extends Component {
         <IdleTimer
           ref={ref => { this.idleTimer = ref }}
           element={document}
-          onActive={this.onActive}
           onIdle={this.onIdle}
-          onAction={this.onAction}
           debounce={250}
-          timeout={1000 * 1 * 10} 
+          timeout={1000 * 60 * 10} 
         />
         <Router>
           <div>
