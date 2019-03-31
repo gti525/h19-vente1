@@ -69,24 +69,24 @@ router.post('/buyTickets', async function(req, res, next) {
             await Ticket.markAsSold(tickets);
         
             //Envoyer au réseau social si connecté
-            var confirmationMessage = "Les billets ont été achetés.";
+            var message = "Les billets ont été achetés.";
             if(Authorization) {
                 console.log("Sending tickets to social");
                 var socialResponse = await sendTickets(req.body.Authorization, tickets);
                 if(socialResponse.status !== 200) {
                     console.log("Sending tickets to social didnt work");
-                    res.status(socialResponse.status).json({
+                    res.status(200).json({
                         message: "Les billets ont été achetés, mais n'ont pas pu être ajoutés à votre profil social dû à une erreur interne.",
                         confirmationCode
                     });
                     return;
                 } else {
                     console.log("Sending tickets to social worked");
-                    confirmationMessage = "Les billets ont été achetés et ont été ajoutés à votre profil de réseau social.";
+                    message = "Les billets ont été achetés et ont été ajoutés à votre profil de réseau social.";
                 }
             }
             res.status(200).json({
-                confirmationMessage,
+                message,
                 confirmationCode
             });
         }
