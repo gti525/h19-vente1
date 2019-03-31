@@ -30,7 +30,6 @@ exports.getAllOpenedEvents = async function() {
 
 // Obtenir tous les événements affichés selon la recherche
 exports.getSearchedEvents = async function(searchType, searchText) {
-    console.log(searchText, searchType)
     var events = await Event.find({ [searchType]: {$regex: new RegExp(".*"+searchText+".*", "i")} })
     .populate('venue');
     return events;
@@ -39,7 +38,6 @@ exports.getSearchedEvents = async function(searchType, searchText) {
 // Vérifier si l'événement a au moins un billet disponible
 exports.checkIfSoldOut = async function(event_id) {
     var hasTicketForSale = await Ticket.isOnSaleForEvent(event_id);
-    console.log(hasTicketForSale);
     return hasTicketForSale;
 }
 

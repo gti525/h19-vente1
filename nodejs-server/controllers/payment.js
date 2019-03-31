@@ -29,36 +29,21 @@ var preValidate = async function(body) {
     return response;
 };
 
-router.post('/process', function(req, res) {
-    var { body } = req;
-    axios.post(`${PAYMENT_API}/transaction/create`, {
+var processTransaction = async function(transaction_number) {
+    var response;
+    await axios.post(`${PAYMENT_API}/transaction/process`, {
         MERCHANT_API_KEY: "6DzO/GgmEp2iyEkxNCDBmkc1syTRYhO01Oq8nckDyLE=",
-        amount: 100,
-        purchase_desc: "PURCHASE/ Tickets ",
-        credit_card: {
-            first_name: body.ccPrenom,
-            last_name: body.ccNom,
-            number: body.ccNumero,
-            cvv: body.ccCvv,
-            exp: {
-                month: body.ccMoExp,
-                year: body.ccAnExp
-            }
-        },
+        transaction_number,
+        action: "COMMIT"
     })
-    .then(function(response) {
-        console.log("in then")
-        var data = response.data;
-        res.status(200).json({
-            data
-        });
+    .then(function(res) {
+        response = res;
     })
-    .catch(function(error) {
-        console.log("in err")
-        res.status(error.response.status).json({
-            message: error.message
-        });
+    .catch(function(err) {
+        response = err.response;
+        return response;
     })
-});
+    return response;
+};
 
-module.exports = { preValidate };
+module.exports = { preValidate, processTransaction };

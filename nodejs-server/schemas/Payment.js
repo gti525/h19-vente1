@@ -2,17 +2,15 @@ var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.Types.ObjectId;
 
 module.exports = new mongoose.Schema({
-        alphaNumCode: {
+        confirmationCode: {
             type: String,
             required: true
         },
-        tickets: [
-            {
+        tickets: [{
                 type: ObjectId,
                 ref: 'Ticket',
                 required: true
-            }
-        ],
+        }],
         amount: {
             type: Number,
             required: true
