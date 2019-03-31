@@ -18,9 +18,8 @@ router.get('/', async function(req, res) {
 
 // Chercher par nom de spectacle ou d'artiste
 router.get('/search', async function(req, res) {
-    console.log(req)
-    console.log("ici")
-    var events = await Event.getSearchedEvents(req.body.searchType, req.body.searchText);
+    const { searchType, searchText } = req.query;
+    var events = await Event.getSearchedEvents(searchType, searchText);
     events = await markIfSoldOut(events);
     res.status(200).json({
         message: 'Successfully fetched all searched events.',
