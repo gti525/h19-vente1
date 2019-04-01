@@ -8,6 +8,7 @@ class Panier extends Component {
   constructor(props) {
     super(props);
     this.closeForm = this.closeForm.bind(this);
+    this.endForm = this.endForm.bind(this);
 
     this.state = { 
       commanderModal: false,
@@ -89,7 +90,7 @@ class Panier extends Component {
               <Modal.Title>Passer la commande</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-            <Form monPanier={monPanier} amount={this.calculerTotal().toFixed(2)} closeForm={this.closeForm}/>
+            <Form monPanier={monPanier} amount={this.calculerTotal().toFixed(2)} endForm={this.endForm}/>
             </Modal.Body>
             <Modal.Footer>
               <Button
@@ -123,6 +124,10 @@ class Panier extends Component {
   }
 
   closeForm() {
+    this.setState({ evenementModal: false });
+  }
+
+  endForm() {
     this.setState({
       evenementModal: false,
       monPanier: []

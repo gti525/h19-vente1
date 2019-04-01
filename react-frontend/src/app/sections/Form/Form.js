@@ -36,7 +36,8 @@ class Formulaire extends Component {
       socialEmail: "",
       socialPassword: "",
       connexionModal: false,
-      confirmationModal: false
+      confirmationModal: false,
+      socialLoading: false
     };
   }
 
@@ -156,7 +157,7 @@ class Formulaire extends Component {
             </Col>
             <Col md={4}>
               <FormGroup>
-              <Label for="cvv">cvv</Label>
+                <Label for="cvv">cvv</Label>
                 <InputMask name="ccCvv" mask="999" maskChar=" " onChange={this.onChange} required="required"/>
               </FormGroup>  
             </Col>
@@ -195,8 +196,8 @@ class Formulaire extends Component {
             <Button className="buttonDanger" onClick={this.fermerConnexion}>
               Fermer
             </Button>
-            <Button className="buttonPrimary">
-              Se connecter
+            <Button disabled={this.state.socialLoading} className="buttonPrimary">
+              {this.state.socialLoading ? "Chargement" : "Se connecter"}
             </Button>
           </Modal.Footer>
           </Form>
@@ -281,6 +282,7 @@ class Formulaire extends Component {
 
   submitSocialForm(e) {
     e.preventDefault();
+    this.setState({ socialLoading: true })
     axios.post("https://sitevente1-serveur.herokuapp.com/social/login", {
       email: this.state.socialEmail,
       password: this.state.socialPassword
@@ -295,8 +297,13 @@ class Formulaire extends Component {
         ville: data.City,
         province: data.Province,
         codePostal: data.PostalCode,
-        connexionModal: false
+        connexionModal: false,
+        socialLoading: false
       })
+    })
+    .catch(error => {
+      this.setState({ socialLoading: false })
+      alert('Échec de connexion au réseau social.\nVeuillez vérifier vos informations et réessayer.');
     });
   }
 
@@ -383,7 +390,7 @@ class Formulaire extends Component {
 
   endFormSubmission() {
     sessionStorage.removeItem(`panier`);
-    this.props.closeForm();
+    this.props.endForm();
     this.deconnexion();
     this.setState({ confirmationModal: false });
   }
