@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import ReactTimeout from "react-timeout";
 import { Modal, Button } from "react-bootstrap";
 import Billet from "../Billet/Billet.js";
 import Form from "../Form/Form.js";
@@ -35,14 +34,8 @@ class Panier extends Component {
     return total * (1 + 0.05 + 0.09975) ;
   }
 
-  delaiFormulaire = () => {
-    this.setState({ evenementModal: false })
-    this.setState({ confirmationAchat: "Délai de 10 minutes dépassé." })
-  }
-
   handlePasserCommande = () => {
     this.setState({ evenementModal: true })
-    this.props.setTimeout(this.delaiFormulaire, 10*60*1000)
   };
   
   supprimerBillet = (billetKey) => {
@@ -137,4 +130,4 @@ class Panier extends Component {
   }
 }
 
-export default ReactTimeout(Panier);
+export default Panier;
