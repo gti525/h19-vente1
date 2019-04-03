@@ -1,3 +1,5 @@
 .complete-bar{
-    margin-left: 50px;;
+    margin: auto;
+  width: 60%;
+  padding: 15px;
 }

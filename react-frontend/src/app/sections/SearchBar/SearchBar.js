@@ -30,18 +30,15 @@ class SearchBar extends Component {
 
     onChange(event) {
       const { target: { name, value } } = event;
-      console.log(value)
       this.setState({
         [name]: value
       })
     }
 
     searchEvents() {
-      console.log(this.state)
       const { searchText, searchType } = this.state;
       axios.get(`https://sitevente1-serveur.herokuapp.com/events/search?searchType=${searchType}&searchText=${searchText}`)
       .then(response => {
-        console.log(response.data.events)
         this.props.updateEvents(response.data.events);
       })
     }
