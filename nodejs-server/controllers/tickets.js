@@ -50,23 +50,44 @@ router.post('/buyTickets', async function(req, res, next) {
 
     //Paiement create
     var transaction = await preValidate(req.body);
-    if(transaction.status !== 200) {
-        console.log("transaction didnt create")
+    if(transaction.status === 500) {
+        console.log("Error 500 : Passerelle messed up.");
+        res.status(transaction.status).json({
+            message: "Une erreur est survenue lors du traitement de vos informations de paiement."
+        })
+    } else if(transaction.status === 401) {
+        console.log("Error 401 : Marchant_Api_Key is missing. How?");
+        res.status(transaction.status).json({
+            message: "Une erreur est survenue lors de l'authentification du paiement."
+        })
+    } else if(transaction.status === 400) {
+        console.log("Error 400 : Problem with the data format sent to payment/create.");
+        res.status(transaction.status).json({
+            message: "Une erreur est survenue lors de l'envoi des informations de paiement."
+        })
+    } else if(transaction.status !== 200) {
+        console.log("Error !200 : No idea what happened but not 500, 401, 400 or 200");
+        res.status(transaction.status).json({
+            message: "Une erreur est survenue."
+        })
+    } else if(transaction.data.result === "DECLINED") {
+        console.log("Payment information is invalid.")
         res.status(transaction.status).json({
             message: "Vos informations de carte de crédit sont invalides\nVeuillez les vérifier et essayer de nouveau."
-        })
+        });
+        return;
     } else {
         //Paiement process
         var processedTransaction = await processTransaction(transaction.data.transaction_number);
         if(processedTransaction.status !== 200) {
-            console.log("transaction didnt process")
+            console.log("Error !200 : Something broke in payment/process.")
             res.status(processedTransaction.status).json({
-                message: "In process " + processedTransaction.data.message
-            })
+                message: "Une erreur est survenue lors du paiement."
+            });
         } else {
             //Sauvegarder la trace de la vente confirmée
             var confirmationCode = await Payment.createPaymentTrace(req.body, next)
-            console.log("AlphaCode: " + confirmationCode)
+            console.log("confirmationCode: " + confirmationCode);
 
             //Marquer les billets comme vendus
             await Ticket.markAsSold(tickets);
@@ -78,11 +99,7 @@ router.post('/buyTickets', async function(req, res, next) {
                 var socialResponse = await sendTickets(req.body.Authorization, tickets);
                 if(socialResponse.status !== 200) {
                     console.log("Sending tickets to social didnt work");
-                    res.status(200).json({
-                        message: "Les billets ont été achetés, mais n'ont pas pu être ajoutés à votre profil social dû à une erreur interne.",
-                        confirmationCode
-                    });
-                    return;
+                    message = "Les billets ont été achetés, mais n'ont pas pu être ajoutés à votre profil social dû à une erreur interne.";
                 } else {
                     console.log("Sending tickets to social worked");
                     message = "Les billets ont été achetés et ont été ajoutés à votre profil de réseau social.";
@@ -92,10 +109,9 @@ router.post('/buyTickets', async function(req, res, next) {
                 message,
                 confirmationCode
             });
+            console.log("end");
         }
-        
     }
-    console.log("end")
 });
 
 
