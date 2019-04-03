@@ -56,14 +56,14 @@ router.post('/buyTickets', async function(req, res, next) {
             message: "Une erreur est survenue lors du traitement de vos informations de paiement."
         })
     } else if(transaction.status === 401) {
-        console.log("Error 401 : Marchant_Api_Key is missing. How?");
+        console.log("Error 401 : Marchant_Api_Key is missing. How???");
         res.status(transaction.status).json({
             message: "Une erreur est survenue lors de l'authentification du paiement."
         })
     } else if(transaction.status === 400) {
         console.log("Error 400 : Problem with the data format sent to payment/create.");
         res.status(transaction.status).json({
-            message: "Une erreur est survenue lors de l'envoi des informations de paiement."
+            message: "Vos informations de carte de crédit sont invalides\nVeuillez les vérifier et essayer de nouveau."
         })
     } else if(transaction.status !== 200) {
         console.log("Error !200 : No idea what happened but not 500, 401, 400 or 200");
