@@ -1,0 +1,10 @@
+.buttonDanger {
+    background-color: crimson;
+    color: white;
+    border-color: crimson;
+}
+.buttonDanger:hover {
+    background-color: white;
+    color: crimson;
+    border-color: crimson;
+}

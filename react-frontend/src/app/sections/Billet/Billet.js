@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Button } from "react-bootstrap";
 import { formatDate } from '../../../assistants/dateFormatter.js';
+import './Billet.css';
 
 class Billet extends Component {
 
@@ -17,10 +18,10 @@ class Billet extends Component {
         <td>{price}</td>
         <td>
         <Button
-        variant="primary"
+        className="buttonDanger"
         onClick={() => this.props.supprimerBillet(cle)}
         >
-        Supprimer
+        Retirer
         </Button>
         </td>
       </tr>

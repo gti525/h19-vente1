@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import ConfirmationWindow from "../../reutilisables/ConfirmationWindow.js";
 import { Form, FormGroup, Label, Input, Row, Col, Button } from 'reactstrap';
 import InputMask from 'react-input-mask';
 import { Modal } from 'react-bootstrap';
@@ -17,6 +18,7 @@ class Formulaire extends Component {
     this.submitForm = this.submitForm.bind(this);
     this.submitSocialForm = this.submitSocialForm.bind(this);
     this.submitPaymentForm = this.submitPaymentForm.bind(this);
+    this.closeConfirmationWindow = this.closeConfirmationWindow.bind(this);
     this.deconnexion = this.deconnexion.bind(this);
     this.endFormSubmission = this.endFormSubmission.bind(this);
 
@@ -37,7 +39,10 @@ class Formulaire extends Component {
       socialPassword: "",
       connexionModal: false,
       confirmationModal: false,
-      socialLoading: false
+      socialLoading: false,
+      confirmationMessage: "",
+      confirmationCode: "",
+      confirmationWindow: false
     };
   }
 
@@ -264,6 +269,13 @@ class Formulaire extends Component {
           </Form>
         </Modal>
 
+        {this.state.confirmationWindow &&
+        <ConfirmationWindow
+        confirmationMessage={this.state.confirmationMessage}
+        confirmationCode={this.state.confirmationCode}
+        closeConfirmationWindow={() => this.closeConfirmationWindow()}
+        />}
+
       </React.Fragment>
     );
   }
@@ -327,17 +339,19 @@ class Formulaire extends Component {
       nom,
     })
     .then(response => {
-      this.setState({ paymentValidationLoading: false })
-      alert(`${response.data.message}\r\nVeuillez prendre en note ce code de confirmation lié à votre achat:\r\n${response.data.confirmationCode}`);
-      this.endFormSubmission();
+      this.setState({
+        paymentValidationLoading: false,
+        confirmationWindow: true,
+        confirmationMessage: response.data.message,
+        confirmationCode: response.data.confirmationCode
+      })
     })
     .catch(error => {
       this.setState({ paymentValidationLoading: false })
-      const { data } = error.response;
-      if(data.action === "removeTickets") {
+      if(error.response.data.action === "removeTickets") {
         this.endFormSubmission();
       }
-      alert(`${data ? data.message : "Service non disponible"}`);
+      alert(`${error.response.data ? error.response.data.message : "Service non disponible"}`);
       this.fermerConfirmation();
     });
   }
@@ -356,6 +370,11 @@ class Formulaire extends Component {
 
   fermerConfirmation() {
     this.setState({ confirmationModal: false });
+  }
+
+  closeConfirmationWindow() {
+    this.setState({ confirmationWindow: false });
+    this.endFormSubmission();
   }
 
   checkifMissingVariable(){
