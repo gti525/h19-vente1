@@ -65,13 +65,13 @@ class Formulaire extends Component {
                 <Col md={5}>
                   <FormGroup>
                     <Label for="nom">Nom</Label>
-                    <Input type="text" pattern="[a-z]{1,20}" name="nom" id="lastname" onChange={this.onChange}/>
+                    <Input type="text" pattern="[A-Za-z-]{1,20}" name="nom" id="lastname" onChange={this.onChange}/>
                   </FormGroup>
                 </Col>
                 <Col md={5}>
                   <FormGroup>
                     <Label for="nom">Prénom</Label>
-                    <Input type="text" pattern="[a-z]{1,20}" name="prenom" id="firstname" onChange={this.onChange}/>
+                    <Input type="text" pattern="[A-Za-z-]{1,20}" name="prenom" id="firstname" onChange={this.onChange}/>
                   </FormGroup>
                 </Col>
               </Row>
@@ -85,7 +85,7 @@ class Formulaire extends Component {
                 <Col md={5}>
                   <FormGroup>
                     <Label for="nom">Ville</Label>
-                    <Input type="text" pattern="[a-z]{1,20}" name="ville" id="city" onChange={this.onChange}/>
+                    <Input type="text" pattern="[A-Za-z-]{1,20}" name="ville" id="city" onChange={this.onChange}/>
                   </FormGroup>
                 </Col>
               </Row>
@@ -93,7 +93,7 @@ class Formulaire extends Component {
                 <Col md={5}>
                   <FormGroup>
                     <Label for="nom">Province</Label>
-                    <Input type="text" pattern="[a-z]{1,20}" name="province" id="province" onChange={this.onChange}/>
+                    <Input type="text" pattern=".{1,20}" name="province" id="province" onChange={this.onChange}/>
                   </FormGroup>
                 </Col>
                 <Col md={5}>
@@ -110,13 +110,13 @@ class Formulaire extends Component {
             <Col md={5}>
               <FormGroup>
                 <Label for="nom">Nom</Label>
-                <Input type="text" pattern="[a-z]{1,20}" name="ccNom" id="cclastname" onChange={this.onChange} required="required"/>
+                <Input type="text" pattern="[A-Za-z-]{1,20}" name="ccNom" id="cclastname" onChange={this.onChange} required="required"/>
               </FormGroup>
             </Col>
             <Col md={5}>
               <FormGroup>
                 <Label for="nom">Prénom</Label>
-                <Input type="text" pattern="[a-z]{1,20}" name="ccPrenom" id="ccfirstname" onChange={this.onChange} required="required"/>
+                <Input type="text" pattern="[A-Za-z-]{1,20}" name="ccPrenom" id="ccfirstname" onChange={this.onChange} required="required"/>
               </FormGroup>
             </Col>
           </Row>
