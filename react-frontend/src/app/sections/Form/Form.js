@@ -257,8 +257,8 @@ class Formulaire extends Component {
             <Button variant="secondary" onClick={this.fermerConfirmation} >
               Fermer
             </Button>
-            <Button color="primary" variant="primary">
-              Valider
+            <Button disabled={this.state.paymentValidationLoading} color="primary" variant="primary">
+            {this.state.paymentValidationLoading ? "Chargement" : "Valider"}
             </Button>
           </Modal.Footer>
           </Form>
@@ -309,6 +309,7 @@ class Formulaire extends Component {
 
   submitPaymentForm(e) {
     e.preventDefault();
+    this.setState({ paymentValidationLoading: true })
     const { amount } = this.props;
     const { ccPrenom, ccNom, ccNoCarte, ccCvv, ccMoExp, ccAnExp, prenom, nom } = this.state;
     var ccNumero = ccNoCarte.replace(/ /g,'');
@@ -323,13 +324,15 @@ class Formulaire extends Component {
       ccMoExp,
       ccAnExp,
       prenom,
-      nom
+      nom,
     })
     .then(response => {
+      this.setState({ paymentValidationLoading: false })
       alert(`${response.data.message}\r\nVeuillez prendre en note ce code de confirmation lié à votre achat:\r\n${response.data.confirmationCode}`);
       this.endFormSubmission();
     })
     .catch(error => {
+      this.setState({ paymentValidationLoading: false })
       const { data } = error.response;
       if(data.action === "removeTickets") {
         this.endFormSubmission();
