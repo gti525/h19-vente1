@@ -72,7 +72,7 @@ router.post('/buyTickets', async function(req, res, next) {
         })
     } else if(transaction.data.result === "DECLINED") {
         console.log("Payment information is invalid.")
-        res.status(transaction.status).json({
+        res.status(400).json({
             message: "Vos informations de carte de crédit sont invalides\nVeuillez les vérifier et essayer de nouveau."
         });
         return;
