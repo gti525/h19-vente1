@@ -65,13 +65,13 @@ class Formulaire extends Component {
                 <Col md={5}>
                   <FormGroup>
                     <Label for="nom">Nom</Label>
-                    <Input type="text" name="nom" id="lastname" onChange={this.onChange}/>
+                    <Input type="text" pattern="[a-z]{1,20}" name="nom" id="lastname" onChange={this.onChange}/>
                   </FormGroup>
                 </Col>
                 <Col md={5}>
                   <FormGroup>
                     <Label for="nom">Prénom</Label>
-                    <Input type="text" name="prenom" id="firstname" onChange={this.onChange}/>
+                    <Input type="text" pattern="[a-z]{1,20}" name="prenom" id="firstname" onChange={this.onChange}/>
                   </FormGroup>
                 </Col>
               </Row>
@@ -85,7 +85,7 @@ class Formulaire extends Component {
                 <Col md={5}>
                   <FormGroup>
                     <Label for="nom">Ville</Label>
-                    <Input type="text" name="ville" id="city" onChange={this.onChange}/>
+                    <Input type="text" pattern="[a-z]{1,20}" name="ville" id="city" onChange={this.onChange}/>
                   </FormGroup>
                 </Col>
               </Row>
@@ -93,13 +93,13 @@ class Formulaire extends Component {
                 <Col md={5}>
                   <FormGroup>
                     <Label for="nom">Province</Label>
-                    <Input type="text" name="province" id="province" onChange={this.onChange}/>
+                    <Input type="text" pattern="[a-z]{1,20}" name="province" id="province" onChange={this.onChange}/>
                   </FormGroup>
                 </Col>
                 <Col md={5}>
                   <FormGroup>
                     <Label for="nom">Code Postal</Label>
-                    <Input type="text" name="codePostal" id="postalCode" onChange={this.onChange}/>
+                    <Input type="text" pattern=".{6,6}" name="codePostal" id="postalCode" onChange={this.onChange}/>
                   </FormGroup>
                 </Col>
               </Row>
@@ -110,13 +110,13 @@ class Formulaire extends Component {
             <Col md={5}>
               <FormGroup>
                 <Label for="nom">Nom</Label>
-                <Input type="text" name="ccNom" id="cclastname" onChange={this.onChange} required="required"/>
+                <Input type="text" pattern="[a-z]{1,20}" name="ccNom" id="cclastname" onChange={this.onChange} required="required"/>
               </FormGroup>
             </Col>
             <Col md={5}>
               <FormGroup>
                 <Label for="nom">Prénom</Label>
-                <Input type="text" name="ccPrenom" id="ccfirstname" onChange={this.onChange} required="required"/>
+                <Input type="text" pattern="[a-z]{1,20}" name="ccPrenom" id="ccfirstname" onChange={this.onChange} required="required"/>
               </FormGroup>
             </Col>
           </Row>
@@ -124,7 +124,7 @@ class Formulaire extends Component {
             <Col md={6}>
               <FormGroup>
                 <Label for="cardNumber">Numéro de la carte &nbsp;&nbsp;</Label>
-                <InputMask name="ccNoCarte" mask="9999 9999 9999 9999" maskChar=" " onChange={this.onChange} required="required"/>
+                <InputMask pattern=".{16,17}" name="ccNoCarte" mask="9999999999999999" maskChar="" onChange={this.onChange} required="required"/>
               </FormGroup>
             </Col>
           </Row>
@@ -152,13 +152,13 @@ class Formulaire extends Component {
             <Col md={4}>
               <FormGroup>
                 <Label for="years">Année d'expiration</Label>
-                <InputMask  name="ccAnExp" mask="9999" maskChar=" " onChange={this.onChange} required="required"/>
+                <InputMask  pattern=".{4,}" name="ccAnExp" mask="9999" maskChar="" onChange={this.onChange} required="required"/>
               </FormGroup>
             </Col>
             <Col md={4}>
               <FormGroup>
                 <Label for="cvv">cvv</Label>
-                <InputMask name="ccCvv" mask="999" maskChar=" " onChange={this.onChange} required="required"/>
+                <InputMask pattern=".{3,}" name="ccCvv" mask="999" maskChar="" onChange={this.onChange} required="required"/>
               </FormGroup>  
             </Col>
           </Row>
@@ -213,13 +213,13 @@ class Formulaire extends Component {
             <Row form1>
               <Col md={5}>
                 <FormGroup>
-                  <Label for="nom">Nom:</Label>
+                  <Label for="nom">Nom : </Label>
                   {this.state.ccNom}
                 </FormGroup>
               </Col>
               <Col md={5}>
                 <FormGroup>
-                  <Label for="prenom">Prénom</Label>
+                  <Label for="prenom">Prénom : </Label>
                   {this.state.ccPrenom}
                 </FormGroup>
               </Col>
@@ -227,7 +227,7 @@ class Formulaire extends Component {
             <Row form2>
               <Col md={5}>
                 <FormGroup>
-                  <Label for="card">Numéro de la carte :</Label>
+                  <Label for="card">Numéro de la carte : </Label>
                   {this.state.ccNoCarte}
                 </FormGroup>
               </Col>
@@ -235,19 +235,19 @@ class Formulaire extends Component {
             <Row form3>
               <Col md={5}>
                 <FormGroup>
-                  <Label for="moisExpiration">Mois d'expiration</Label>
+                  <Label for="moisExpiration">Mois d'expiration : </Label>
                   {this.state.ccMoExp}
                 </FormGroup>
               </Col>
               <Col md={5}>
                 <FormGroup>
-                  <Label for="anneeExpiration">Année d'expiration</Label>
+                  <Label for="anneeExpiration">Année d'expiration : </Label>
                   {this.state.ccAnExp}
                 </FormGroup>
               </Col>
               <Col md={5}>
                 <FormGroup>
-                  <Label for="cvv">CVV</Label>
+                  <Label for="cvv">CVV : </Label>
                   {this.state.ccCvv}
                 </FormGroup>
               </Col>
@@ -292,13 +292,13 @@ class Formulaire extends Component {
       sessionStorage.setItem(`social`, data.Token)
       this.setState({
         nom: data.LastName,
-        prenom: data.FirstName,
-        adresse: data.Address,
-        ville: data.City,
-        province: data.Province,
-        codePostal: data.PostalCode,
-        connexionModal: false,
-        socialLoading: false
+        prenom : data.FirstName,
+        adresse : data.Address,
+        ville : data.City,
+        province : data.Province,
+        codePostal : data.PostalCode,
+        connexionModal : false,
+        socialLoading : false
       })
     })
     .catch(error => {
