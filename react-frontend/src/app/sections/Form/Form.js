@@ -334,7 +334,7 @@ class Formulaire extends Component {
       if(data.action === "removeTickets") {
         this.endFormSubmission();
       }
-      alert(`${data.message}`);
+      alert(`${data ? data.message : "Service non disponible"}`);
       this.fermerConfirmation();
     });
   }
