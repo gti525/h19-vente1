@@ -42,7 +42,7 @@ router.post('/buyTickets', async function(req, res, next) {
             console.log("ticket isnt reserved")
             res.status(400).json({
                 action: "removeTickets",
-                message: "Le délai de réservation de vos billets a été dépassé.\nVeuillez recommencer vos achats de billets."
+                message: "Le délai de réservation de vos billets a été dépassé.\nVeuillez recommencer votre achat de billets."
             });
             return;
         }
@@ -93,7 +93,7 @@ router.post('/buyTickets', async function(req, res, next) {
             await Ticket.markAsSold(tickets);
         
             //Envoyer au réseau social si connecté
-            var message = "Les billets ont été achetés.";
+            var message = "Les billets ont été achetés.\nIls seront récupérables le soir de l'événement.";
             if(Authorization) {
                 console.log("Sending tickets to social");
                 var socialResponse = await sendTickets(req.body.Authorization, tickets);
@@ -102,7 +102,7 @@ router.post('/buyTickets', async function(req, res, next) {
                     message = "Les billets ont été achetés, mais n'ont pas pu être ajoutés à votre profil social dû à une erreur interne.";
                 } else {
                     console.log("Sending tickets to social worked");
-                    message = "Les billets ont été achetés et ont été ajoutés à votre profil de réseau social.";
+                    message = "Les billets ont été achetés !\nIls seront disponibles sur le site du réseau social ainsi que sur l'application mobile.";
                 }
             }
             res.status(200).json({
@@ -112,7 +112,7 @@ router.post('/buyTickets', async function(req, res, next) {
             console.log("end");
         }
     }
+    console.log("end");
 });
-
 
 module.exports = router;
