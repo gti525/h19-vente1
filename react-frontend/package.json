@@ -4,10 +4,13 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "google-map-react": "^1.1.4",
+    "google-maps-react": "^2.0.2",
     "moment": "^2.24.0",
     "react": "^16.7.0",
     "react-bootstrap": "^0.32.4",
     "react-dom": "^16.7.0",
+    "react-geocode": "^0.1.2",
     "react-idle-timer": "^4.2.5",
     "react-input-mask": "^2.0.4",
     "react-modal": "^3.8.1",
