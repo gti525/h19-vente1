@@ -6,38 +6,40 @@ import { formatDate } from '../../assistants/dateFormatter.js';
 import GoogleMapReact from 'google-map-react';
 import Geocode from "react-geocode";
 
-Geocode.setApiKey("AIzaSyAwK5vgraM6clfN2sin8xyiW7En52KZb0w");
-Geocode.enableDebug();
-const testaddress = ({ text }) => <div> {text} </div>;
-
-float longitude ;
-float latidude ;
-
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
-// Get latidude & longitude from address.
-Geocode.fromAddress("1111, Notre-Dame Ouest, Montréal, H3C 1L2").then(
-  response => {
-    const { lat, lng } = response.results[0].geometry.location;
-    console.log(lat, lng);
-    longitude = lng;
-    latidude = lat;
-  },
-  error => {
-    console.error(error);
-  }
-);
-
 class DetailsEvenement extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      nom: "",
+      center: {
+        lat: null,
+        lng: null
+      },
+      zoom: 18
+    };
+  }
 
-  static defaultProps = {
-    center: {
-      lat: latidude,
-      lng: longitude
-    },
-    zoom: 17
-  };
+  componentDidMount() {
+    Geocode.setApiKey("AIzaSyAwK5vgraM6clfN2sin8xyiW7En52KZb0w");
+    Geocode.fromAddress(this.props.evenementDetailOuvert.venue.address).then(
+      response => {
+        const { lat, lng } = response.results[0].geometry.location;
+        console.log(lat, lng);
+        this.setState({
+          center: {
+            lat,
+            lng
+          }
+        })
+      },
+      error => {
+        console.error(error);
+      }
+    );
+  }
 
   render() {
+    console.log(this.props)
     const { evenementDetailOuvert, fermerDetailEvenement } = this.props;
 
     return (
@@ -96,31 +98,25 @@ class DetailsEvenement extends Component {
             </Button>
           </Modal.Footer>
 
-        <div style={{ height: '100vh', width: '100%' }}>
-        
-        <GoogleMapReact
-          bootstrapURLKeys={{ key: 'AIzaSyAwK5vgraM6clfN2sin8xyiW7En52KZb0w' }}
-          defaultCenter={this.props.center}
-          defaultZoom={this.props.zoom}
-        >
-          <AnyReactComponent
-            lat={45.496075}
-            lng={-73.569324}
-            text={'Centre Bell'}
-
-          />
-        <testaddress>
-            text={evenementDetailOuvert.venue.address}
-        </testaddress>
-      
-        </GoogleMapReact>
-      </div>
-      
-
+          <div style={{ height: '100vh', width: '100%' }}>
+          
+            <GoogleMapReact
+              bootstrapURLKeys={{ key: 'AIzaSyAwK5vgraM6clfN2sin8xyiW7En52KZb0w' }}
+              defaultCenter={this.state.center}
+              defaultZoom={this.state.zoom}
+            >
+              <AnyReactComponent
+                lat={this.state.center.lat}
+                lng={this.state.center.lng}
+                text={evenementDetailOuvert.venue.name}
+              />
+            </GoogleMapReact>
+          </div>
         </Modal>
     );
   }
 }
-  
-;
+
+const AnyReactComponent = ({ text }) => <div>{text}</div>;
+
 export default DetailsEvenement;
